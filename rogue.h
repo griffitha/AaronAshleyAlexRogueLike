@@ -27,32 +27,18 @@ character::character(int x,int y)
 {
     xCoordinate=x;
     yCoordinate=y;
-    cout<<xCoordinate<<endl;
-    cout<<yCoordinate<<endl;
 }
 bool character::moveChar()
 //wgetch
 {
     //North
-    cout<<"North"<<endl;
     yCoordinate--;
-    cout<<xCoordinate<<endl;
-    cout<<yCoordinate<<endl;
     //South
-    cout<<"South"<<endl;
     yCoordinate++;
-    cout<<xCoordinate<<endl;
-    cout<<yCoordinate<<endl;
     //East
-    cout<<"East"<<endl;
     xCoordinate++;
-    cout<<xCoordinate<<endl;
-    cout<<yCoordinate<<endl;
     //West
-    cout<<"West"<<endl;
     xCoordinate--;
-    cout<<xCoordinate<<endl;
-    cout<<yCoordinate<<endl;
     return true;
 }
 bool character::attack()

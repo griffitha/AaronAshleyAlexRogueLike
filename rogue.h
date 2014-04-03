@@ -1,8 +1,6 @@
 #ifndef ROGUE_H_INCLUDED
 #define ROGUE_H_INCLUDED
 
-using namespace std;
-
 class character
 {
 public:
@@ -23,6 +21,7 @@ private:
     int Experience;
 
 };
+
 character::character(int x,int y)
 {
     xCoordinate=x;

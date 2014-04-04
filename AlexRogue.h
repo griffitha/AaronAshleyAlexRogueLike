@@ -5,14 +5,12 @@
 #include <iostream>
 #include <curses.h>
 
-using namespace std;
-
 class character
 {
 public:
     character(int x,int y);
     //spawns character at given location
-    bool moveChar(WINDOW * workingWindow);
+    void moveChar(char input);
     bool attack();
     void setXCoordinate(int input);
     int getXCoordinate();

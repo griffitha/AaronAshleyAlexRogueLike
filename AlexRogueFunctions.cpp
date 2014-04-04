@@ -28,7 +28,7 @@ void character::moveChar(char input)
             xCoordinate++;
             wclear(workingWindow);
         }
-    return void
+    return;
 }
 
 bool character::attack()

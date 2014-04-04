@@ -1,5 +1,5 @@
 #include "utility.h"
-#include "rogue.h"
+#include "AlexRogue.h"
 
 //Main CPP File for Project
 //Features the Window at this moment
@@ -36,11 +36,13 @@ int main()
     wbkgd(statusWindow, COLOR_PAIR(3));
     wbkgd(messageWindow, COLOR_PAIR(4));
 
+    //Player Creation
+    character player(0,0);
 
     //Read Level from File
-    readLevel(symbolArray,1);
+    readLevel(symbolArray,gameObjectArray,player,1);
     //Prints windows
-    printWindow(symbolArray,gameWindow,statusWindow,messageWindow);
+    printWindow(symbolArray,gameObjectArray,gameWindow,statusWindow,messageWindow);
 
     endwin();
     return 0;

@@ -1,6 +1,9 @@
 #include "utility.h"
 
-void readLevel(char symbolArray[1000][1000], int levelNumber)
+
+//Utility Functions CPP
+
+void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500], character &player, int levelNumber)
 {
     //File Data Type where the file will be loaded
     std::ifstream levelFile;
@@ -38,7 +41,7 @@ void readLevel(char symbolArray[1000][1000], int levelNumber)
         }
         else if (currentCharacter == 'p')
         {
-            symbolArray[x][y] = 'p';
+            gameObjectArray[x][y] = &player;
             x++;
             //Will fill with pointer information when character is implemented
         }
@@ -61,11 +64,8 @@ void readLevel(char symbolArray[1000][1000], int levelNumber)
     return;
 }
 
-void printWindow(char symbolArray[][1000], WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
+void printWindow(char symbolArray[][500],character * gameObjectArray[500][500], WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
 {
-    int x = 20;
-    int y = 20;
-    int ch; // Key input variable
 
     while(1)
     {
@@ -98,36 +98,6 @@ void printWindow(char symbolArray[][1000], WINDOW * workingWindow, WINDOW * stat
         wrefresh(statusWindow);
         wrefresh(message);
 
-        //mvprintw(y,x "X");
-        wmove(workingWindow,y,x);
-        waddch(workingWindow,'X');
-
-        ch = wgetch(workingWindow);
-        if (ch == KEY_DOWN)
-        {
-            y++;
-            wclear(workingWindow);
-        }
-        if (ch == KEY_UP)
-        {
-            y--;
-            wclear(workingWindow);
-        }
-        if (ch == KEY_LEFT)
-        {
-            x--;
-            wclear(workingWindow);
-        }
-        if (ch == KEY_RIGHT)
-        {
-            x++;
-            wclear(workingWindow);
-        }
-          //refreshes window
-
-        wrefresh(workingWindow);
-        wrefresh(statusWindow);
-        wrefresh(message);
     }
     return;
 }

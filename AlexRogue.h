@@ -2,7 +2,20 @@
 #define ALEXROGUE_H
 
 #include <string>
-
+enum race
+{
+    Human,
+    Orc,
+    Elf,
+    Dwarf,
+    Goblin,
+};
+enum characterClass
+{
+    warrior,
+    mage,
+    ranger,
+};
 class character
 {
 public:
@@ -37,7 +50,7 @@ private:
     std::string characterName;
     int level;
     int experience;
-
 };
+character createWarrior(int x,int y,char gender);
 
 #endif // ROGUE_H_INCLUDED

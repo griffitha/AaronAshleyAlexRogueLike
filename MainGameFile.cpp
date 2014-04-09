@@ -24,6 +24,10 @@ int main()
     WINDOW * gameWindow = newwin(GAME_WINDOW_HEIGHT,GAME_WINDOW_WIDTH,1,1);
     WINDOW * statusWindow = newwin(STATUS_WINDOW_HEIGHT,STATUS_WINDOW_WIDTH,1,35);
     WINDOW * messageWindow = newwin(LOG_WINDOW_HEIGHT,LOG_WINDOW_WIDTH,12,35);
+<<<<<<< HEAD
+=======
+    keypad(stdscr,true);
+>>>>>>> origin/Ashley
     keypad(gameWindow,true); //Key input used in gameWindow
     noecho(); //Don't echo() while we go do getch
     start_color();
@@ -35,14 +39,30 @@ int main()
     wbkgd(gameWindow, COLOR_PAIR(2));
     wbkgd(statusWindow, COLOR_PAIR(3));
     wbkgd(messageWindow, COLOR_PAIR(4));
+    refresh();
+    //Player Creation
+    character player(0,0);
+    player.setMapRep('X');
 
     //Player Creation
     character player(0,0);
 
     //Read Level from File
+<<<<<<< HEAD
     readLevel(symbolArray,gameObjectArray,player,1);
     //Prints windows
     printWindow(symbolArray,gameObjectArray,gameWindow,statusWindow,messageWindow);
+=======
+    readLevel(symbolArray,gameObjectArray,player,2);
+    //Prints windows
+    printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
+
+    while(1)
+    {
+        printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
+        playerTurn(symbolArray,gameObjectArray,player);
+    }
+>>>>>>> origin/Ashley
 
     endwin();
     return 0;

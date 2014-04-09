@@ -120,4 +120,51 @@ int character::getExperience()
 {
     return experience;
 }
+void character::setGender(char input)
+{
+    gender=input;
+    return;
+}
+
+char character::getGender()
+{
+    return gender;
+}
+
+void character::setRace(int input)
+{
+    race=input;
+    return;
+}
+
+int character::getRace()
+{
+    return race;
+}
+void character::setClass(characterClass input)
+{
+    playerClass=input;
+    return;
+}
+characterClass character::getClass()
+{
+    return playerClass;
+}
+character createWarrior(int x,int y,char gender,race race)
+{
+
+    character player(x,y);
+    player.setMapRep('X');
+    player.setCharacterName("Player");
+    player.setRace(race);
+    player.setGender(gender);
+    player.setClass(warrior);
+    player.setLevel(1);
+    player.setExperience(0);
+    player.setHealth(20);
+    player.setMaxHealth(20);
+
+    return player;
+}
+
 

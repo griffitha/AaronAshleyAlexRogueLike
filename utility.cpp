@@ -39,30 +39,8 @@ void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],
     //Reads in each character of the document
     while (!levelFile.eof())
     {
-<<<<<<< HEAD
-        if (currentCharacter == ']')
-        {
-            //Sets character in position to that item
-            symbolArray[x][y] = '#';
-            x++;
-        }
-        else if (currentCharacter == '-')
-        {
-            //Designates empty space
-            symbolArray[x][y] = ' ';
-            x++;
-        }
-        else if (currentCharacter == 'p')
-        {
-            gameObjectArray[x][y] = &player;
-            x++;
-            //Will fill with pointer information when character is implemented
-        }
-        else if (currentCharacter == '/')
-=======
         getline(levelFile,inputLine);
         for (int i = 0; i < inputLine.size(); i++)
->>>>>>> origin/Ashley
         {
             if ((inputLine.at(i) == ']') || (inputLine.at(i) == ' ') || (inputLine.at(i) == '/'))
             {
@@ -98,15 +76,6 @@ void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],
     return;
 }
 
-<<<<<<< HEAD
-void printWindow(char symbolArray[][500],character * gameObjectArray[500][500], WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
-{
-
-    while(1)
-    {
-        int arrayX = 0;
-        int arrayY = 0;
-=======
 void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500], character player, WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
 {
         int X;
@@ -119,7 +88,6 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
         int xCounter = 0;
         int yCounter = 0;
         bool mapCreated = false;
->>>>>>> origin/Ashley
         //Sets up the map
 
         while (mapCreated != true)
@@ -130,11 +98,11 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
                 if (symbolArray[X][Y] != ' ')
                 {
                     //Makes everything a block
-                    mvwaddch(workingWindow,yCounter,xCounter,ACS_DIAMOND);
+                    mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
                 }
                 else if (symbolArray[X][Y] == '^')
                 {
-                    mvwaddch(workingWindow,yCounter,xCounter,ACS_DIAMOND);
+                    mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
                 }
                 else
                 {
@@ -145,7 +113,7 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
             else
             {
                 //If out of bounds, make it a block
-                mvwaddch(workingWindow,yCounter,xCounter,ACS_DIAMOND);
+                mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
             }
             //Move up to the next column
             X++;
@@ -164,19 +132,21 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
                 //reset column work
                 X = playerX - 15;
                 xCounter = 0;
+                wrefresh(workingWindow);
             }
         }
 
+    //Prints Status Window based on player stats
+    printStatusWindow(player,statusWindow);
+
     mvwaddch(workingWindow,11,15,player.getMapRep());
     wrefresh(workingWindow);
-    wclear(workingWindow);
     wrefresh(statusWindow);
     wrefresh(message);
+    wclear(workingWindow);
     return;
 }
 
-<<<<<<< HEAD
-=======
 void playerTurn(char symbolArray[][500], character * gameObjectArray[500][500], character &player)
 {
     //Save Player's current position
@@ -184,42 +154,85 @@ void playerTurn(char symbolArray[][500], character * gameObjectArray[500][500], 
     int playerY = player.getYCoordinate();
 
     int ch = getch();
+    //Move Up
     if (ch == KEY_UP)
     {
         if (symbolArray[playerX][playerY-1] == ' ')
         {
+            //Resets map position to new position
             gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
             gameObjectArray[playerX][playerY] = &player;
         }
     }
+    //Move Down
     else if (ch == KEY_DOWN)
     {
         if (symbolArray[playerX][playerY+1] == ' ')
         {
+            //Resets map position to new position
             gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
             gameObjectArray[playerX][playerY] = &player;
         }
     }
+    //Move Left
     else if (ch == KEY_LEFT)
     {
         if (symbolArray[playerX-1][playerY] == ' ')
         {
+            //Resets map position to new position
             gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
             gameObjectArray[playerX][playerY] = &player;
         }
     }
+    //Move Right
     else if (ch == KEY_RIGHT)
     {
         if (symbolArray[playerX+1][playerY] == ' ')
         {
+            //Resets map position to new position
             gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
             gameObjectArray[playerX][playerY] = &player;
         }
->>>>>>> origin/Ashley
     }
     return;
 }
+
+void printStatusWindow(character &player, WINDOW * statusWindow)
+{
+    //Prints player name on first line
+    std::string currentString = player.getCharacterName();
+    int currentInteger = player.getLevel();
+    char currentCharacter = currentInteger;
+    char * characterPointer = &currentString.at(0);
+    mvwprintw(statusWindow,0,3,characterPointer);
+
+    //Second line features level number
+    currentString = "Level: ";
+    //Pointer is set to read the entire string
+    characterPointer = &currentString.at(0);
+    mvwprintw(statusWindow,1,3,characterPointer);
+    mvwprintw(statusWindow,1,10,"%d",currentInteger);
+
+    //Third line features health number
+    currentString = "Health: ";
+    currentInteger = player.getHealth();
+    mvwprintw(statusWindow,2,3,characterPointer);
+    //Prints total health value
+    mvwprintw(statusWindow,2,11,"%d",currentInteger);
+    currentString = "/";
+    currentInteger = player.getMaxHealth();
+    mvwprintw(statusWindow,2,14,characterPointer);
+    mvwprintw(statusWindow,2,16,"%d",currentInteger);
+
+
+
+
+
+
+    return;
+}
+

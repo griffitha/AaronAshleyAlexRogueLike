@@ -1,14 +1,14 @@
 #ifndef ALEXROGUE_H
 #define ALEXROGUE_H
 
-#include <string>
+#include "utility.h"
 
 class character
 {
 public:
     character(int x,int y);
     //spawns character at given location
-    void moveChar(char input);
+    void moveChar(int input);
     bool attack();
     void setXCoordinate(int input);
     int getXCoordinate();
@@ -26,8 +26,6 @@ public:
     int getLevel();
     void setExperience(int input);
     int getExperience();
-
-
 
 private:
     int xCoordinate;

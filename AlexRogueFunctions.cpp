@@ -1,13 +1,13 @@
-#include "AlexRogue.h"
 #include "utility.h"
 
 character::character(int x,int y)
 {
+    //Constructor
     xCoordinate=x;
     yCoordinate=y;
 }
 
-void character::moveChar(char input)
+void character::moveChar(int input)
 {
         if (input == KEY_UP)
         {
@@ -120,3 +120,4 @@ int character::getExperience()
 {
     return experience;
 }
+

@@ -24,32 +24,31 @@ int main()
     WINDOW * gameWindow = newwin(GAME_WINDOW_HEIGHT,GAME_WINDOW_WIDTH,1,1);
     WINDOW * statusWindow = newwin(STATUS_WINDOW_HEIGHT,STATUS_WINDOW_WIDTH,1,35);
     WINDOW * messageWindow = newwin(LOG_WINDOW_HEIGHT,LOG_WINDOW_WIDTH,12,35);
-<<<<<<< HEAD
-=======
     keypad(stdscr,true);
->>>>>>> origin/Ashley
     keypad(gameWindow,true); //Key input used in gameWindow
-    noecho(); //Don't echo() while we go do getch
+    noecho();
+    //Color Settings
     start_color();
     init_pair(1,COLOR_WHITE,COLOR_BLACK);
     init_pair(2,COLOR_BLACK,COLOR_GREEN);
-    init_pair(3,COLOR_WHITE,COLOR_CYAN);
+    //Converts to grey
+    init_pair(3,COLOR_WHITE,COLOR_BLACK);
     init_pair(4,COLOR_WHITE,COLOR_MAGENTA);
     wbkgd(stdscr, COLOR_PAIR(1));
     wbkgd(gameWindow, COLOR_PAIR(2));
     wbkgd(statusWindow, COLOR_PAIR(3));
     wbkgd(messageWindow, COLOR_PAIR(4));
+    cbreak();
     refresh();
-    //Player Creation
+    //Player Creation TEST STUFF
     character player(0,0);
+    player.setCharacterName("Tim the Viking");
+    player.setLevel(1);
+    player.setHealth(10);
+    player.setMaxHealth(10);
     player.setMapRep('X');
 
     //Read Level from File
-<<<<<<< HEAD
-    readLevel(symbolArray,gameObjectArray,player,1);
-    //Prints windows
-    printWindow(symbolArray,gameObjectArray,gameWindow,statusWindow,messageWindow);
-=======
     readLevel(symbolArray,gameObjectArray,player,2);
     //Prints windows
     printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
@@ -59,7 +58,6 @@ int main()
         printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
         playerTurn(symbolArray,gameObjectArray,player);
     }
->>>>>>> origin/Ashley
 
     endwin();
     return 0;

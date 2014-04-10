@@ -44,9 +44,6 @@ int main()
     character player(0,0);
     player.setMapRep('X');
 
-    //Player Creation
-    character player(0,0);
-
     //Read Level from File
 <<<<<<< HEAD
     readLevel(symbolArray,gameObjectArray,player,1);

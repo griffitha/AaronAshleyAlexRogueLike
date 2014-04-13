@@ -6,7 +6,6 @@
 
 int main()
 {
-
     int const GAME_WINDOW_HEIGHT = 21;
     int const GAME_WINDOW_WIDTH = 31;
     int const STATUS_WINDOW_HEIGHT = 10;
@@ -26,23 +25,30 @@ int main()
     WINDOW * messageWindow = newwin(LOG_WINDOW_HEIGHT,LOG_WINDOW_WIDTH,12,35);
     keypad(stdscr,true);
     keypad(gameWindow,true); //Key input used in gameWindow
-    noecho(); //Don't echo() while we go do getch
+    noecho();
+    //Color Settings
     start_color();
     init_pair(1,COLOR_WHITE,COLOR_BLACK);
     init_pair(2,COLOR_BLACK,COLOR_GREEN);
-    init_pair(3,COLOR_WHITE,COLOR_CYAN);
+    //Converts to grey
+    init_pair(3,COLOR_WHITE,COLOR_BLACK);
     init_pair(4,COLOR_WHITE,COLOR_MAGENTA);
     wbkgd(stdscr, COLOR_PAIR(1));
     wbkgd(gameWindow, COLOR_PAIR(2));
     wbkgd(statusWindow, COLOR_PAIR(3));
     wbkgd(messageWindow, COLOR_PAIR(4));
-
-    //Player Creation
+    cbreak();
+    refresh();
+    //Player Creation TEST STUFF
     character player(0,0);
+    player.setCharacterName("Tim the Viking");
+    player.setLevel(1);
+    player.setHealth(10);
+    player.setMaxHealth(10);
     player.setMapRep('X');
 
     //Read Level from File
-    readLevel(symbolArray,gameObjectArray,player,1);
+    readLevel(symbolArray,gameObjectArray,player,2);
     //Prints windows
     printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
 

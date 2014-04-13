@@ -4,6 +4,9 @@
 #include <curses.h>
 #include <fstream>
 #include <iostream>
+#include <string>
+#include <ctime>
+#include <cstdlib>
 #include "AlexRogue.h"
 
 
@@ -15,5 +18,8 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
 
 //Options for players turn and carries them out
 void playerTurn(char symbolArray[500][500], character * gameObjectArray[500][500], character &player);
+
+//Prints the status window
+void printStatusWindow(character &player, WINDOW * statusWindow);
 
 #endif // UTILITY_H

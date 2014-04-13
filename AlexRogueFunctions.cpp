@@ -57,7 +57,17 @@ int character::getYCoordinate()
 
 void character::setHealth(int input)
 {
-    health=input;
+    //Upon creation of character
+    if (health == 0)
+    {
+        health = input;
+        maxHealth = input;
+    }
+    //In other cases, just set health
+    else
+    {
+        health = input;
+    }
     return;
 }
 
@@ -120,51 +130,42 @@ int character::getExperience()
 {
     return experience;
 }
-void character::setGender(char input)
+
+void character::setBaseDamage(int input)
 {
-    gender=input;
+    //Sets Character base damage without any kind of weaponry
+    baseDamage = input;
     return;
 }
 
-char character::getGender()
+int character::getBaseDamage()
 {
-    return gender;
+    //Returns the base damage of the character
+    return baseDamage;
 }
 
-void character::setRace(int input)
+int character::getArmor()
 {
-    race=input;
+    //Returns the characters armor value
+    //Will update to make sure it updates dynamically once items are issued
+    return currentArmor;
+}
+
+void character::setArmor(int input)
+{
+    //Sets the current armor to the given input
+    currentArmor == input;
     return;
 }
 
-int character::getRace()
+int character::getAccuracy()
 {
-    return race;
-}
-void character::setClass(characterClass input)
-{
-    playerClass=input;
-    return;
-}
-characterClass character::getClass()
-{
-    return playerClass;
-}
-character createWarrior(int x,int y,char gender,race race)
-{
-
-    character player(x,y);
-    player.setMapRep('X');
-    player.setCharacterName("Player");
-    player.setRace(race);
-    player.setGender(gender);
-    player.setClass(warrior);
-    player.setLevel(1);
-    player.setExperience(0);
-    player.setHealth(20);
-    player.setMaxHealth(20);
-
-    return player;
+    //Returns the current accuracy value
+    return accuracy;
 }
 
-
+void character::setAccuracy(int input)
+{
+    //Sets the current accuracy value
+    accuracy = input;
+}

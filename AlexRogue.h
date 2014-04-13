@@ -1,21 +1,8 @@
 #ifndef ALEXROGUE_H
 #define ALEXROGUE_H
 
-#include <string>
-enum race
-{
-    Human,
-    Orc,
-    Elf,
-    Dwarf,
-    Goblin,
-};
-enum characterClass
-{
-    warrior,
-    mage,
-    ranger,
-};
+#include "utility.h"
+
 class character
 {
 public:
@@ -39,18 +26,26 @@ public:
     int getLevel();
     void setExperience(int input);
     int getExperience();
+    int getBaseDamage();
+    void setBaseDamage(int input);
+    int getArmor();
+    void setArmor(int input);
+    int getAccuracy();
+    void setAccuracy(int input);
 
 private:
     int xCoordinate;
     int yCoordinate;
-    int health;
+    int health = 0;
     int maxHealth;
     char mapRep;
     //character used to represent on map
     std::string characterName;
-    int level;
+    int level = 1;
     int experience;
+    int baseDamage = 1;
+    int currentArmor = 0;
+    int accuracy = 80;  //Base Accuracy Value
 };
-character createWarrior(int x,int y,char gender);
 
 #endif // ROGUE_H_INCLUDED

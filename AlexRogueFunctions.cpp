@@ -5,6 +5,12 @@ character::character(int x,int y)
     //Constructor
     xCoordinate=x;
     yCoordinate=y;
+
+    //Set Values
+    currentArmor = 1;
+    health = 0;
+    accuracy = 80;
+    baseDamage = 4;
 }
 
 void character::moveChar(int input)
@@ -154,7 +160,7 @@ int character::getArmor()
 void character::setArmor(int input)
 {
     //Sets the current armor to the given input
-    currentArmor == input;
+    currentArmor = input;
     return;
 }
 

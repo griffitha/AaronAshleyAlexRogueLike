@@ -26,7 +26,7 @@ public:
     int getLevel();
     void setExperience(int input);
     int getExperience();
-    int getBaseDamage();
+    virtual int getBaseDamage();
     void setBaseDamage(int input);
     int getArmor();
     void setArmor(int input);
@@ -41,11 +41,11 @@ private:
     char mapRep;
     //character used to represent on map
     std::string characterName;
-    int level = 1;
+    int level;
     int experience;
-    int baseDamage = 1;
-    int currentArmor = 0;
-    int accuracy = 80;  //Base Accuracy Value
+    int baseDamage;
+    int currentArmor;
+    int accuracy;  //Base Accuracy Value
 };
 
 #endif // ROGUE_H_INCLUDED

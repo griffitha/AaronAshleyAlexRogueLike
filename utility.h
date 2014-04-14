@@ -7,7 +7,9 @@
 #include <string>
 #include <ctime>
 #include <cstdlib>
+#include <vector>
 #include "AlexRogue.h"
+#include "combat.h"
 
 
 //Reads Levels from file
@@ -17,7 +19,8 @@ void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],
 void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500],character player, WINDOW * workingWindow,WINDOW * status, WINDOW * message);
 
 //Options for players turn and carries them out
-void playerTurn(char symbolArray[500][500], character * gameObjectArray[500][500], character &player);
+//void playerTurn(char symbolArray[500][500], character * gameObjectArray[500][500], character &player);
+void playerTurn(char symbolArray[][500], std::vector<character> gameObjects, character &player);
 
 //Prints the status window
 void printStatusWindow(character &player, WINDOW * statusWindow);

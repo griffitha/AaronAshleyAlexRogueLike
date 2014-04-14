@@ -4,6 +4,8 @@
 //Main CPP File for Project
 //Features the Window at this moment
 
+using namespace std;
+
 int main()
 {
     int const GAME_WINDOW_HEIGHT = 21;
@@ -39,23 +41,26 @@ int main()
     wbkgd(messageWindow, COLOR_PAIR(4));
     cbreak();
     refresh();
+
     //Player Creation TEST STUFF
     character player(0,0);
+    character * playerPointer = &player;
     player.setCharacterName("Tim the Viking");
     player.setLevel(1);
     player.setHealth(10);
     player.setMaxHealth(10);
     player.setMapRep('X');
+    vector<character> gameObjects;
 
     //Read Level from File
     readLevel(symbolArray,gameObjectArray,player,2);
     //Prints windows
     printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
 
-    while(1)
+    while(!checkDead(playerPointer))
     {
         printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
-        playerTurn(symbolArray,gameObjectArray,player);
+        playerTurn(symbolArray,gameObjects,player);
     }
 
     endwin();

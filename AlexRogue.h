@@ -36,7 +36,7 @@ public:
 private:
     int xCoordinate;
     int yCoordinate;
-    int health = 0;
+    int health;
     int maxHealth;
     char mapRep;
     //character used to represent on map

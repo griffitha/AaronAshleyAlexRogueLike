@@ -115,27 +115,7 @@ std::string character::getCharacterName()
     return characterName;
 }
 
-void character::setLevel(int input)
-{
-    level=input;
-    return;
-}
 
-int character::getLevel()
-{
-    return level;
-}
-
-void character::setExperience(int input)
-{
-    experience=input;
-    return;
-}
-
-int character::getExperience()
-{
-    return experience;
-}
 
 void character::setBaseDamage(int input)
 {
@@ -174,4 +154,77 @@ void character::setAccuracy(int input)
 {
     //Sets the current accuracy value
     accuracy = input;
+}
+//player functions
+
+void player::setLevel(int input)
+{
+    level=input;
+    return;
+}
+
+int player::getLevel()
+{
+    return level;
+}
+void player::setExperience(int input)
+{
+    experience=input;
+    return;
+}
+
+int player::getExperience()
+{
+    return experience;
+}
+
+void player::setGender(char input)
+{
+    gender=input;
+    return;
+}
+
+char player::getGender()
+{
+    return gender;
+}
+
+void player::setRace(race input)
+{
+    characterRace=input;
+    return;
+}
+
+race player::getRace()
+{
+    return characterRace;
+}
+void player::setClass(characterClass input)
+{
+    playerClass=input;
+    return;
+}
+characterClass player::getClass()
+{
+    return playerClass;
+}
+void player::setXpToLevel(int input)
+{
+    xpToLevel=input;
+    return;
+}
+void player::levelUp()
+{
+    experience=xpToLevel%experience;
+    if((xpToLevel%2)>0)
+    {
+        xpToLevel=xpToLevel*1.5;
+        xpToLevel++;
+    }
+    else
+    {
+        xpToLevel=xpToLevel*1.5;
+    }
+    level++;
+    return;
 }

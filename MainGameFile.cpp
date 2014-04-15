@@ -15,7 +15,6 @@ int main()
     int const LOG_WINDOW_HEIGHT = 10;
     int const LOG_WINDOW_WIDTH = 44;
     char symbolArray[500][500];
-    character * gameObjectArray[500][500];
 
     //Creates Screen
     initscr();
@@ -46,7 +45,6 @@ int main()
     character player(0,0);
     character * playerPointer = &player;
     player.setCharacterName("Tim the Viking");
-    player.setLevel(1);
     player.setHealth(10);
     player.setMaxHealth(10);
     player.setMapRep('X');
@@ -54,12 +52,11 @@ int main()
 
     //Read Level from File
     readLevel(symbolArray,player,3);
-    //Prints windows
-    printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
 
     while(!checkDead(playerPointer))
     {
-        printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
+        //Prints Windows
+        printWindow(symbolArray,gameObjects,player,gameWindow,statusWindow,messageWindow);
         playerTurn(symbolArray,gameObjects,player);
     }
 

@@ -13,7 +13,8 @@
 
 
 //Reads Levels from file
-void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],character &player, int levelNumber);
+//void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],character &player, int levelNumber);
+void readLevel(char symbolArray[500][500],character &player, int levelNumber);
 
 //Renews the window each time
 void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500],character player, WINDOW * workingWindow,WINDOW * status, WINDOW * message);

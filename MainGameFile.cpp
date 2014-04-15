@@ -53,7 +53,7 @@ int main()
     vector<character> gameObjects;
 
     //Read Level from File
-    readLevel(symbolArray,gameObjectArray,player,2);
+    readLevel(symbolArray,player,3);
     //Prints windows
     printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
 

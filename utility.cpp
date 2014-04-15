@@ -3,7 +3,8 @@
 
 //Utility Functions CPP
 
-void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500], character &player, int levelNumber)
+//void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500], character &player, int levelNumber)
+void readLevel(char symbolArray[500][500], character &player, int levelNumber)
 {
     //File Data Type where the file will be loaded
     std::ifstream levelFile;
@@ -26,6 +27,9 @@ void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],
             break;
         case 2:
             levelFile.open("level2.txt");
+            break;
+        case 3:
+            levelFile.open("level3.txt");
             break;
         case 51:
             levelFile.open("testmap.txt");
@@ -55,7 +59,8 @@ void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],
                 //Designates empty space
                 symbolArray[x][y] = ' ';
             }
-            else if (inputLine.at(i) == 'p')
+            //Found player starting position
+            else if (inputLine.at(i) == 'p' || inputLine.at(i) == 'P')
             {
                 //This clears the spot
                 symbolArray[x][y] = ' ';
@@ -99,7 +104,11 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,' ');
                 }
-                if (symbolArray[X][Y] == '^')
+                else if (symbolArray[X][Y] == 'E')
+                {
+                    mvwaddch(workingWindow,yCounter,xCounter,'E');
+                }
+                else if (symbolArray[X][Y] == '^')
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
                 }
@@ -294,6 +303,12 @@ void playerTurn(char symbolArray[][500], std::vector<character> gameObjects, cha
         {
             player.moveChar(ch);
         }
+        else if (symbolArray[playerX][playerY-1] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 2) + 1;
+            readLevel(symbolArray,player,randomLevel);
+        }
     }
     //Move Down
     else if (ch == KEY_DOWN)
@@ -301,6 +316,12 @@ void playerTurn(char symbolArray[][500], std::vector<character> gameObjects, cha
         if (symbolArray[playerX][playerY+1] == ' ')
         {
             player.moveChar(ch);
+        }
+        else if(symbolArray[playerX][playerY+1] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 2) + 1;
+            readLevel(symbolArray,player,randomLevel);
         }
     }
     //Move Left
@@ -310,6 +331,12 @@ void playerTurn(char symbolArray[][500], std::vector<character> gameObjects, cha
         {
             player.moveChar(ch);
         }
+        else if (symbolArray[playerX-1][playerY] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 2) + 1;
+            readLevel(symbolArray,player,randomLevel);
+        }
     }
     //Move Right
     else if (ch == KEY_RIGHT)
@@ -318,6 +345,12 @@ void playerTurn(char symbolArray[][500], std::vector<character> gameObjects, cha
         if (symbolArray[playerX+1][playerY] == ' ')
         {
             player.moveChar(ch);
+        }
+        else if (symbolArray[playerX+1][playerY] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 2) + 1;
+            readLevel(symbolArray,player,randomLevel);
         }
     }
     return;

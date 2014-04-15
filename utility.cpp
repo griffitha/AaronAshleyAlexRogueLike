@@ -3,18 +3,17 @@
 
 //Utility Functions CPP
 
-void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500], character &player, int levelNumber)
+void readLevel(char symbolArray[500][500],std::vector<character> gameObjects, character &player, int levelNumber)
 {
     //File Data Type where the file will be loaded
     std::ifstream levelFile;
-    //Character save for readin
-    char currentCharacter = ' ';
 
+    //Sets everything to a pound sign
     for (int i = 0; i < 500; i++)
     {
         for (int q = 0; q < 500; q++)
         {
-            symbolArray[i][q] == '#';
+            symbolArray[i][q] = '#';
         }
     }
 
@@ -28,6 +27,12 @@ void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],
         case 2:
             levelFile.open("level2.txt");
             break;
+        case 3:
+            levelFile.open("level3.txt");
+            break;
+        case 51:
+            levelFile.open("testmap.txt");
+            break;
         default:
             std::cout << "This is not a valid file." << std::endl;
 
@@ -40,49 +45,48 @@ void readLevel(char symbolArray[500][500],character * gameObjectArray[500][500],
     while (!levelFile.eof())
     {
         getline(levelFile,inputLine);
-        for (int i = 0; i < inputLine.size(); i++)
+        for (unsigned int i = 0; i < inputLine.size(); i++)
         {
-            if ((inputLine.at(i) == ']') || (inputLine.at(i) == ' ') || (inputLine.at(i) == '/'))
-            {
-                //Sets character in position to that item
-                symbolArray[x][y] = '#';
-                x++;
-            }
-            else if (inputLine.at(i) == 'E')
+            //Enter/Exit
+            if (inputLine.at(i) == 'E')
             {
                 symbolArray[x][y] = 'E';
-                x++;
             }
+            //Open Space
             else if (inputLine.at(i) == '-')
             {
                 //Designates empty space
                 symbolArray[x][y] = ' ';
-                x++;
             }
-            else if (inputLine.at(i) == 'p')
+            //Found player starting position
+            else if (inputLine.at(i) == 'p' || inputLine.at(i) == 'P')
             {
                 //This clears the spot
                 symbolArray[x][y] = ' ';
-                gameObjectArray[x][y] = &player;
                 player.setXCoordinate(x);
                 player.setYCoordinate(y);
-                x++;
             }
+            else
+            {
+                symbolArray[x][y] = '#';
+            }
+            x++;
         }
         x = 0;
         y++;
     }
+    //Close File
     levelFile.close();
     return;
 }
 
-void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500], character player, WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
+void printWindow(char symbolArray[500][500],std::vector<character> gameObjects, character player, WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
 {
         int X;
         int Y;
         int playerX = player.getXCoordinate();
         int playerY = player.getYCoordinate();
-        X = playerX - 15;
+        X = playerX - 16;
         Y = playerY - 11;
         //These are finding positions in the window
         int xCounter = 0;
@@ -95,18 +99,25 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
             //Checks to make sure it isnt out of bounds
             if (((X >= 0) && (X < 500)) && ((Y >= 0) && (Y <500)))
             {
-                if (symbolArray[X][Y] != ' ')
+                if (symbolArray[X][Y] == ' ' || symbolArray[X][Y] == '-')
                 {
-                    //Makes everything a block
-                    mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
+                    mvwaddch(workingWindow,yCounter,xCounter,' ');
+                }
+                else if (symbolArray[X][Y] == 'E')
+                {
+                    mvwaddch(workingWindow,yCounter,xCounter,'E');
                 }
                 else if (symbolArray[X][Y] == '^')
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
                 }
-                else
+                else if (symbolArray[X][Y] == '*')
                 {
-                    mvwaddch(workingWindow,yCounter,xCounter,symbolArray[X][Y]);
+                    mvwaddch(workingWindow,yCounter,xCounter,ACS_DIAMOND);
+                }
+                else if (symbolArray[X][Y] == '#')
+                {
+                    mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
                 }
             }
 
@@ -119,7 +130,7 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
             X++;
             xCounter++;
 
-            if (X == (playerX + 17))
+            if (X == (playerX + 16))
             {
                 if (Y == (playerY + 11))
                 {
@@ -147,7 +158,7 @@ void printWindow(char symbolArray[500][500],character * gameObjectArray[500][500
     return;
 }
 
-void playerTurn(char symbolArray[][500], character * gameObjectArray[500][500], character &player)
+void playerTurn(char symbolArray[][500], std::vector<character> gameObjects, character &player)
 {
     //Save Player's current position
     int playerX = player.getXCoordinate();
@@ -157,45 +168,58 @@ void playerTurn(char symbolArray[][500], character * gameObjectArray[500][500], 
     //Move Up
     if (ch == KEY_UP)
     {
-        if (symbolArray[playerX][playerY-1] == ' ')
+        if (symbolArray[playerX][playerY-1] == ' ' || symbolArray[playerX][playerY-1] == '*')
         {
-            //Resets map position to new position
-            gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
-            gameObjectArray[playerX][playerY] = &player;
+        }
+        else if (symbolArray[playerX][playerY-1] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 3) + 1;
+            readLevel(symbolArray,gameObjects,player,randomLevel);
         }
     }
     //Move Down
     else if (ch == KEY_DOWN)
     {
-        if (symbolArray[playerX][playerY+1] == ' ')
+        if (symbolArray[playerX][playerY+1] == ' '|| symbolArray[playerX][playerY+1] == '*')
         {
-            //Resets map position to new position
-            gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
-            gameObjectArray[playerX][playerY] = &player;
+        }
+        else if(symbolArray[playerX][playerY+1] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 3) + 1;
+            readLevel(symbolArray,gameObjects,player,randomLevel);
         }
     }
     //Move Left
     else if (ch == KEY_LEFT)
     {
-        if (symbolArray[playerX-1][playerY] == ' ')
+        if (symbolArray[playerX-1][playerY] == ' ' || symbolArray[playerX-1][playerY] == '*')
         {
-            //Resets map position to new position
-            gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
-            gameObjectArray[playerX][playerY] = &player;
+        }
+        else if (symbolArray[playerX-1][playerY] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 3) + 1;
+            readLevel(symbolArray,gameObjects,player,randomLevel);
         }
     }
     //Move Right
     else if (ch == KEY_RIGHT)
     {
-        if (symbolArray[playerX+1][playerY] == ' ')
+        //Check if empty
+        if (symbolArray[playerX+1][playerY] == ' ' || symbolArray[playerX+1][playerY] == '*')
         {
-            //Resets map position to new position
-            gameObjectArray[playerX][playerY] = NULL;
             player.moveChar(ch);
-            gameObjectArray[playerX][playerY] = &player;
+        }
+        else if (symbolArray[playerX+1][playerY] == 'E')
+        {
+            //Level Transistion
+            int randomLevel = (rand() % 3) + 1;
+            readLevel(symbolArray,gameObjects,player,randomLevel);
         }
     }
     return;
@@ -206,7 +230,6 @@ void printStatusWindow(character &player, WINDOW * statusWindow)
     //Prints player name on first line
     std::string currentString = player.getCharacterName();
     int currentInteger = player.getLevel();
-    char currentCharacter = currentInteger;
     char * characterPointer = &currentString.at(0);
     mvwprintw(statusWindow,0,3,characterPointer);
 
@@ -221,16 +244,13 @@ void printStatusWindow(character &player, WINDOW * statusWindow)
     currentString = "Health: ";
     currentInteger = player.getHealth();
     mvwprintw(statusWindow,2,3,characterPointer);
+
     //Prints total health value
     mvwprintw(statusWindow,2,11,"%d",currentInteger);
     currentString = "/";
     currentInteger = player.getMaxHealth();
     mvwprintw(statusWindow,2,14,characterPointer);
     mvwprintw(statusWindow,2,16,"%d",currentInteger);
-
-
-
-
 
 
     return;

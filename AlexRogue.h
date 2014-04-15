@@ -3,6 +3,21 @@
 
 #include "utility.h"
 
+enum race
+{
+    Human,
+    Orc,
+    Elf,
+    Dwarf,
+    Goblin,
+};
+enum characterClass
+{
+    warrior,
+    mage,
+    ranger,
+};
+
 class character
 {
 public:
@@ -22,10 +37,14 @@ public:
     char getMapRep();
     void setCharacterName(std::string input);
     std::string getCharacterName();
+    virtual int getBaseDamage();
+    void setBaseDamage(int input);
+    int getArmor();
+    void setArmor(int input);
+    int getAccuracy();
+    void setAccuracy(int input);
     void setLevel(int input);
     int getLevel();
-    void setExperience(int input);
-    int getExperience();
 
 private:
     int xCoordinate;
@@ -37,7 +56,40 @@ private:
     std::string characterName;
     int level;
     int experience;
+    int baseDamage;
+    int currentArmor;
+    int accuracy;  //Base Accuracy Value
+};
+
+class player: public character
+{
+public:
+    player(int x,int y):
+                character(x,y)
+    {
+    }
+    void setLevel(int input);
+    int getLevel();
+    void setExperience(int input);
+    int getExperience();
+    void setGender(char input);
+    char getGender();
+    void setRace(race input);
+    race getRace();
+    void setClass(characterClass input);
+    characterClass getClass();
+    void setXpToLevel(int input);
+    void levelUp();
+
+private:
+    int level;
+    int xpToLevel;
+    int experience;
+    char gender;
+    race characterRace;
+    characterClass playerClass;
 
 };
+
 
 #endif // ROGUE_H_INCLUDED

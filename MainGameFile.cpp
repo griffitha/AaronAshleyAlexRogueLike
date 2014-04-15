@@ -26,23 +26,56 @@ int main()
     WINDOW * messageWindow = newwin(LOG_WINDOW_HEIGHT,LOG_WINDOW_WIDTH,12,35);
     keypad(stdscr,true);
     keypad(gameWindow,true); //Key input used in gameWindow
-    noecho(); //Don't echo() while we go do getch
+    noecho();
+    //Color Settings
     start_color();
     init_pair(1,COLOR_WHITE,COLOR_BLACK);
     init_pair(2,COLOR_BLACK,COLOR_GREEN);
-    init_pair(3,COLOR_WHITE,COLOR_CYAN);
+    //Converts to grey
+    init_pair(3,COLOR_WHITE,COLOR_BLACK);
     init_pair(4,COLOR_WHITE,COLOR_MAGENTA);
     wbkgd(stdscr, COLOR_PAIR(1));
     wbkgd(gameWindow, COLOR_PAIR(2));
     wbkgd(statusWindow, COLOR_PAIR(3));
     wbkgd(messageWindow, COLOR_PAIR(4));
+    cbreak();
     refresh();
-    //Player Creation
+    //Player Creation TEST STUFF
     character player(0,0);
+    player.setCharacterName("Tim the Viking");
+    player.setLevel(1);
+    player.setHealth(10);
+    player.setMaxHealth(10);
     player.setMapRep('X');
 
     //Read Level from File
     readLevel(symbolArray,gameObjectArray,player,2);
+
+    //create and initialize health potion vector
+    vector <Consumable> healthPotionVector;
+    initializeHealthPotionVector(healthPotionVector);
+
+    //create and initialize magic potion vector
+    vector <Consumable> magicPotionVector;
+    initializeMagicPotionVector(magicPotionVector);
+
+    //vector to hold corridinates for places in symbol array that contain spaces
+    vector <Location> possiblePositions;
+
+    //vector to hold items
+    vector <Item> itemsVector;
+
+    //find number of items to place
+    int itemsNeeded = 0;
+    itemsNeeded = numOfItems(symbolArray,possiblePositions);
+
+    for(int i = 0; i < itemsNeeded; i++)
+    {
+        itemChoice(player,itemsVector,healthPotionVector,magicPotionVector);
+    }
+
+    positions(symbolArray,itemsVector,possiblePositions);
+
     //Prints windows
     printWindow(symbolArray,gameObjectArray,player,gameWindow,statusWindow,messageWindow);
 

@@ -252,6 +252,23 @@ void printStatusWindow(character &player, WINDOW * statusWindow)
     mvwprintw(statusWindow,2,14,characterPointer);
     mvwprintw(statusWindow,2,16,"%d",currentInteger);
 
+    //Prints Armor value
+    currentString = "Armor: ";
+    currentInteger = player.getArmor();
+    mvwprintw(statusWindow,3,3,characterPointer);
+    mvwprintw(statusWindow,3,11,"%d",currentInteger);
+
+    //Prints X coordinate
+    currentString = "X:";
+    currentInteger = player.getXCoordinate();
+    mvwprintw(statusWindow,0,28,characterPointer);
+    mvwprintw(statusWindow,0,31,"%d",currentInteger);
+
+    //Prints Y coordinate
+    currentString = "Y:";
+    currentInteger = player.getYCoordinate();
+    mvwprintw(statusWindow,1,28,characterPointer);
+    mvwprintw(statusWindow,1,31,"%d",currentInteger);
 
     return;
 }

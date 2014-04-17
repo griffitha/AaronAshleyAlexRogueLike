@@ -24,18 +24,21 @@ void readLevel(char symbolArray[500][500],std::vector<character> gameObjects, ch
             //Opens first level
             levelFile.open("level1.txt");
             break;
+
         case 2:
             levelFile.open("level2.txt");
             break;
+
         case 3:
             levelFile.open("level3.txt");
             break;
+
         case 51:
             levelFile.open("testmap.txt");
             break;
+
         default:
             std::cout << "This is not a valid file." << std::endl;
-
     }
 
     int x = 0;
@@ -273,3 +276,107 @@ void printStatusWindow(character &player, WINDOW * statusWindow)
     return;
 }
 
+player playerCreation()
+{
+    player returnedPlayer(0,0);
+    std::string userInput;
+    std::string playerClass;
+    std::string playerRace;
+    int userNumber;
+    bool playerIsReady = false;
+
+    //While player is not ready
+    while (!playerIsReady)
+    {
+        //Set Name
+        std::cout << "What is your name?" << std::endl;
+        std::cin >> userInput;
+        returnedPlayer.setCharacterName(userInput);
+
+        //Set Gender
+        std::cout << std::endl << "What is your gender? Press 1 for Male, Press 2 for Female." << endl;
+        std::cin >> userNumber;
+        if (userNumber == 1)
+        {
+            //Set to Male
+            returnedPlayer.setGender('M');
+        }
+        else
+        {
+            //Set to Female
+            returnedPlayer.setGender('F');
+        }
+
+        //Set Class
+        std::cout << std::endl << "What do you want your class to be?" << std::endl;
+        std::cout << "1. Warrior" << std::endl;
+        std::cout << "2. Mage" << std::endl;
+        std::cout << "3. Ranger" << std::endl;
+        std::cin >> userNumber;
+        if (userNumber == 1)
+        {
+            //We can set more default values now
+            returnedPlayer.setClass(warrior);
+            playerClass = "Warrior";
+        }
+        else if (userNumber == 2)
+        {
+            returnedPlayer.setClass(mage);
+            playerClass = "Mage";
+        }
+        else
+        {
+            returnedPlayer.setClass(ranger);
+            playerClass = "Ranger";
+        }
+
+        //Set Race
+        std::cout << std::endl << "What do you want your race to be?" << std::endl;
+        std::cout << "1. Human" << std::endl;
+        std::cout << "2. Orc" << std::endl;
+        std::cout << "3. Goblin" << std::endl;
+        std::cout << "4. Elf" << std::endl;
+        std::cout << "5. Dwarf" << std::endl;
+        std::cin >> userNumber;
+        if (userNumber == 1)
+        {
+            returnedPlayer.setRace(Human);
+            playerRace = "Human";
+        }
+        else if (userNumber == 2)
+        {
+            returnedPlayer.setRace(Orc);
+            playerRace = "Orc";
+        }
+        else if (userNumber == 3)
+        {
+            returnedPlayer.setRace(Goblin);
+            playerRace = "Goblin";
+        }
+        else if (userNumber == 4)
+        {
+            returnedPlayer.setRace(Elf);
+            playerRace = "Elf";
+        }
+        else
+        {
+            returnedPlayer.setRace(Dwarf);
+            playerRace = "Dwarf";
+        }
+
+        //Confirmation from the user.
+        std::cout << "You are " << returnedPlayer.getCharacterName() << " the " << playerRace << " " <<
+            playerClass << "." << std::endl;
+        std::cout << "Is this what you want? Yes or No." << std::endl;
+        cin >> userInput;
+        if (userInput == "Yes" || userInput == "yes" || userInput == "Y" || userInput == "y")
+        {
+            playerIsReady = true;
+        }
+        else
+        {
+            playerIsReady = false;
+        }
+    }
+    return returnedPlayer;
+}

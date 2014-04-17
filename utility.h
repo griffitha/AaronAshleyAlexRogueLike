@@ -26,4 +26,6 @@ void playerTurn(char symbolArray[][500], std::vector<character> gameObjects, cha
 //Prints the status window
 void printStatusWindow(character &player, WINDOW * statusWindow);
 
+player playerCreation();
+
 #endif // UTILITY_H

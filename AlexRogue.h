@@ -43,6 +43,8 @@ public:
     void setArmor(int input);
     int getAccuracy();
     void setAccuracy(int input);
+    void setLevel(int input);
+    int getLevel();
 
 private:
     int xCoordinate;

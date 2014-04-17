@@ -157,13 +157,13 @@ void character::setAccuracy(int input)
 }
 //player functions
 
-void player::setLevel(int input)
+void character::setLevel(int input)
 {
     level=input;
     return;
 }
 
-int player::getLevel()
+int character::getLevel()
 {
     return level;
 }
@@ -213,6 +213,7 @@ void player::setXpToLevel(int input)
     xpToLevel=input;
     return;
 }
+
 void player::levelUp()
 {
     experience=xpToLevel%experience;

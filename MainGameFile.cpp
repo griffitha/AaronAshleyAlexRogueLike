@@ -1,5 +1,6 @@
 #include "utility.h"
 #include "AlexRogue.h"
+#include "itemh.h"
 
 //Main CPP File for Project
 //Features the Window at this moment
@@ -16,6 +17,8 @@ int main()
     int const LOG_WINDOW_WIDTH = 44;
     char symbolArray[500][500];
 
+
+    player thePlayer = playerCreation();
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor
@@ -40,24 +43,51 @@ int main()
     wbkgd(messageWindow, COLOR_PAIR(4));
     cbreak();
     refresh();
+    wborder(gameWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 
     //Player Creation TEST STUFF
-    character player(0,0);
-    character * playerPointer = &player;
-    player.setCharacterName("Tim the Viking");
-    player.setHealth(10);
-    player.setMaxHealth(10);
-    player.setMapRep('X');
+    //player thePlayer(0,0);
+    player * playerPointer = &thePlayer;
+    //thePlayer.setCharacterName("Tim the Viking");
+    //thePlayer.setHealth(10);
+    //thePlayer.setMaxHealth(10);
+    //thePlayer.setMapRep('X');
     vector<character> gameObjects;
 
     //Read Level from File
-    readLevel(symbolArray,player,3);
+    readLevel(symbolArray,gameObjects,thePlayer,2);
+
+    //create and initialize health potion vector
+    vector <Consumable> healthPotionVector;
+    initializeHealthPotionVector(healthPotionVector);
+
+    //create and initialize magic potion vector
+    vector <Consumable> magicPotionVector;
+    initializeMagicPotionVector(magicPotionVector);
+
+    //vector to hold corridinates for places in symbol array that contain spaces
+    vector <Location> possiblePositions;
+
+    //vector to hold items
+    vector <Item> itemsVector;
+
+    //find number of items to place
+    int itemsNeeded = 0;
+    itemsNeeded = numOfItems(symbolArray,possiblePositions);
+
+    for(int i = 0; i < itemsNeeded; i++)
+    {
+        itemChoice(thePlayer,itemsVector,healthPotionVector,magicPotionVector);
+    }
+
+    positions(symbolArray,itemsVector,possiblePositions);
 
     while(!checkDead(playerPointer))
     {
         //Prints Windows
-        printWindow(symbolArray,gameObjects,player,gameWindow,statusWindow,messageWindow);
-        playerTurn(symbolArray,gameObjects,player);
+        printWindow(symbolArray,gameObjects,thePlayer,gameWindow,statusWindow,messageWindow);
+        //Intiates player's turn
+        playerTurn(symbolArray,gameObjects,thePlayer);
     }
 
     endwin();

@@ -3,7 +3,7 @@
 
 //Utility Functions CPP
 
-void readLevel(char symbolArray[500][500],std::vector<character> gameObjects, character &player, int levelNumber)
+void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, character &player, int levelNumber)
 {
     //File Data Type where the file will be loaded
     std::ifstream levelFile;
@@ -14,6 +14,15 @@ void readLevel(char symbolArray[500][500],std::vector<character> gameObjects, ch
         for (int q = 0; q < 500; q++)
         {
             symbolArray[i][q] = '#';
+        }
+    }
+
+    //If there are objects in the array, clear them
+    if (gameObjects.size() > 0)
+    {
+        for (int i = 0; i < gameObjects.size(); i++)
+        {
+            gameObjects.pop_back();
         }
     }
 
@@ -31,6 +40,10 @@ void readLevel(char symbolArray[500][500],std::vector<character> gameObjects, ch
 
         case 3:
             levelFile.open("level3.txt");
+            break;
+
+        case 50:
+            levelFile.open("SokabanLevel.txt");
             break;
 
         case 51:
@@ -68,6 +81,29 @@ void readLevel(char symbolArray[500][500],std::vector<character> gameObjects, ch
                 symbolArray[x][y] = ' ';
                 player.setXCoordinate(x);
                 player.setYCoordinate(y);
+            }
+            else if (inputLine.at(i) == 'B' || inputLine.at(i) == 'b' || inputLine.at(i) == 'O' || inputLine.at(i) == 'o')
+            {
+                if (inputLine.at(i) == 'B' || inputLine.at(i) == 'b')
+                {
+                    //Creates a Boulder and a Button
+                    interactiveObject newRock(x,y);
+                    newRock.setRockAttributes();
+                    gameObjects.push_back(newRock);
+                    symbolArray[x][y] = 'O';
+                }
+                else
+                {
+                    //Simply creates a button
+                    symbolArray[x][y] = 'O';
+                }
+            }
+            else if (inputLine.at(i) == 'R' || inputLine.at(i) == 'r')
+            {
+                //Creates a Boulder
+                interactiveObject newRock(x,y);
+                newRock.setRockAttributes();
+                gameObjects.push_back(newRock);
             }
             else
             {
@@ -118,6 +154,10 @@ void printWindow(char symbolArray[500][500],std::vector<character> gameObjects, 
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,ACS_DIAMOND);
                 }
+                else if (symbolArray[X][Y] == 'O')
+                {
+                    mvwaddch(workingWindow,yCounter,xCounter,'O');
+                }
                 else if (symbolArray[X][Y] == '#')
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
@@ -129,6 +169,19 @@ void printWindow(char symbolArray[500][500],std::vector<character> gameObjects, 
                 //If out of bounds, make it a block
                 mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
             }
+
+                //This will print any objects that are available
+            if (gameObjects.size() > 0)
+            {
+                for (int i = 0; i < gameObjects.size(); i++)
+                {
+                    character currentObject = gameObjects.at(i);
+                    if (currentObject.getXCoordinate() == X && currentObject.getYCoordinate() == Y)
+                    {
+                        mvwaddch(workingWindow,yCounter,xCounter,currentObject.getMapRep());
+                    }
+                }
+    }
             //Move up to the next column
             X++;
             xCounter++;

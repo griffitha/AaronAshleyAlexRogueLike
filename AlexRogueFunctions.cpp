@@ -167,6 +167,7 @@ int character::getLevel()
 {
     return level;
 }
+
 void player::setExperience(int input)
 {
     experience=input;

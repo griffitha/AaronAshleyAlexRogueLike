@@ -69,7 +69,6 @@ public:
     {
     }
     void setLevel(int input);
-    int getLevel();
     void setExperience(int input);
     int getExperience();
     void setGender(char input);

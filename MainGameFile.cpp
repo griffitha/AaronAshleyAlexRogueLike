@@ -1,6 +1,5 @@
 #include "utility.h"
 #include "AlexRogue.h"
-#include "itemh.h"
 
 //Main CPP File for Project
 //Features the Window at this moment
@@ -9,6 +8,8 @@ using namespace std;
 
 int main()
 {
+    bool victoryAchieved = false;
+    bool playerIsAlive = true;
     int const GAME_WINDOW_HEIGHT = 21;
     int const GAME_WINDOW_WIDTH = 31;
     int const STATUS_WINDOW_HEIGHT = 10;
@@ -18,7 +19,7 @@ int main()
     char symbolArray[500][500];
 
 
-    player thePlayer = playerCreation();
+    //player thePlayer = playerCreation();
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor
@@ -43,19 +44,18 @@ int main()
     wbkgd(messageWindow, COLOR_PAIR(4));
     cbreak();
     refresh();
-    wborder(gameWindow, 0, 0, 0, 0, 0, 0, 0, 0);
 
     //Player Creation TEST STUFF
-    //player thePlayer(0,0);
+    player thePlayer(0,0);
     player * playerPointer = &thePlayer;
-    //thePlayer.setCharacterName("Tim the Viking");
-    //thePlayer.setHealth(10);
-    //thePlayer.setMaxHealth(10);
-    //thePlayer.setMapRep('X');
+    thePlayer.setCharacterName("Tim the Viking");
+    thePlayer.setHealth(10);
+    thePlayer.setMaxHealth(10);
+    thePlayer.setMapRep('X');
     vector<character> gameObjects;
 
     //Read Level from File
-    readLevel(symbolArray,gameObjects,thePlayer,2);
+    readLevel(symbolArray,gameObjects,thePlayer,52);
 
     //create and initialize health potion vector
     vector <Consumable> healthPotionVector;
@@ -82,14 +82,18 @@ int main()
 
     positions(symbolArray,itemsVector,possiblePositions);
 
-    while(!checkDead(playerPointer))
+    while((victoryAchieved == false) || (playerIsAlive != false))
     {
         //Prints Windows
         printWindow(symbolArray,gameObjects,thePlayer,gameWindow,statusWindow,messageWindow);
         //Intiates player's turn
         playerTurn(symbolArray,gameObjects,thePlayer);
+
+        victoryAchieved = checkSokabanVictory(gameObjects,symbolArray);
+        playerIsAlive = checkDead(playerPointer);
     }
 
     endwin();
+    cout << "Well Played! Do come and play again!" << endl;
     return 0;
 }

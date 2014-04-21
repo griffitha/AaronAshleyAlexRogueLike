@@ -27,14 +27,14 @@ void enemy::createBat(int factor)
     setAccuracy(95);
     setLevel(factor);
 }
-void enemy::createRobot(int factor)
+void enemy::createCyborg(int factor)
 {
     int healthValue=(((factor + 3)^2) - 10)*2;
     int damageValue=(((factor)^2 / 2) + ((5 * factor) / 2))*.5;
     setMaxHealth(healthValue);
     setHealth(getMaxHealth());
-    setMapRep('R');
-    setCharacterName("Robot");
+    setMapRep('C');
+    setCharacterName("Cyborg");
     setBaseDamage(damageValue);
     setArmor(2);
     setAccuracy(80);

@@ -300,7 +300,7 @@ packOfArrows::packOfArrows()
 //setNumOfArrows
 void packOfArrows::setNumOfArrows(int maxValue)
 {
-    srand(time(NULL));
+ //   srand(time(NULL));
 
     numOfArrows = rand() % maxValue + 1;
 }
@@ -1785,6 +1785,24 @@ void initializeLongBowVector(vector <Weapon> &longBowVector)
     longBow2h.setMinDamage(8);
     longBow2h.setMaxDamage(8);
     longBow2h.setTwoHanded(true);
+
+    pushBackWeaponOntoVector(longBow1a,longBowVector);
+    pushBackWeaponOntoVector(longBow1b,longBowVector);
+    pushBackWeaponOntoVector(longBow1c,longBowVector);
+    pushBackWeaponOntoVector(longBow1d,longBowVector);
+    pushBackWeaponOntoVector(longBow1e,longBowVector);
+    pushBackWeaponOntoVector(longBow1f,longBowVector);
+
+    pushBackWeaponOntoVector(longBow2a,longBowVector);
+    pushBackWeaponOntoVector(longBow2b,longBowVector);
+    pushBackWeaponOntoVector(longBow2c,longBowVector);
+    pushBackWeaponOntoVector(longBow2d,longBowVector);
+    pushBackWeaponOntoVector(longBow2e,longBowVector);
+    pushBackWeaponOntoVector(longBow2f,longBowVector);
+    pushBackWeaponOntoVector(longBow2g,longBowVector);
+    pushBackWeaponOntoVector(longBow2h,longBowVector);
+
+    return;
 }
 
 //chooses potion
@@ -1868,7 +1886,6 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
                 vector <Weapon> spearVector, vector <Weapon> heavyCrossBowVector,
                 vector <Weapon> lightCrossBowVector,vector <Weapon> battleaxeVector, vector <Weapon> longBowVector)
 {
-    srand(time(NULL));
 
     int min5pack = 1;
     int max5pack = 3;
@@ -2025,7 +2042,7 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
     {
         decidingMax = 2;
         decidingRoll = rand() % decidingMax + decidingMin;
-       if(decidingRoll == 1)//health
+        if(decidingRoll == 1)//health
         {
             Consumable Consumable1;
             Consumable1 = chooseConsumable(healthPotionVector);
@@ -2090,7 +2107,7 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
     {
         decidingMax = 2;
         decidingRoll = rand() % decidingMax + decidingMin;
-       if(decidingRoll == 1)//health
+        if(decidingRoll == 1)//health
         {
             Consumable newConsumable;
             newConsumable = chooseConsumable(healthPotionVector);
@@ -2380,7 +2397,7 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
 void positions(char symbolArray[500][500], vector <Consumable> consumableVector,vector <Armor> &armorVector,
                vector <Weapon> weaponVector,vector <Location> &possiblePositions)
 {
-    srand(time(NULL));
+    //srand(time(NULL));
 
     int numOfLocationsNeeded = consumableVector.size() + armorVector.size() + weaponVector.size();
     int maxPercent = possiblePositions.size() - 1;
@@ -2398,26 +2415,65 @@ void positions(char symbolArray[500][500], vector <Consumable> consumableVector,
 }
 
 void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
-                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * message)
+                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow)
 {
-    /*ofstream oFile("test.txt");
+    wclear(workingWindow);
+    int numOfVectors = 3;
+    int chooseVector = rand() % numOfVectors + 1;
 
-    int vectorPosOfItem = rand() % itemVector.size();
-    Item itemChoosen = itemVector[vectorPosOfItem];
+    int positionInVector = 0;
+    Item itemToUse;
+
+    if(chooseVector == 1)
+    {
+        positionInVector = rand() % consumableVector.size();
+        itemToUse = consumableVector[positionInVector];
+    }
+    else if(chooseVector == 2)
+    {
+        positionInVector = rand() % armorVector.size();
+        itemToUse = armorVector[positionInVector];
+    }
+    else if(chooseVector == 3)
+    {
+        positionInVector = rand() % weaponVector.size();
+        itemToUse = weaponVector[positionInVector];
+    }
+
 
     int currentX = player.getXCoordinate();
     int currentY = player.getYCoordinate();
 
     if(symbolArray[currentX][currentY] == '*')
     {
-        oFile << "You have found: " << itemChoosen.getName() << endl;
-        oFile << "Description: " << itemChoosen.getDescription() << endl;
-        oFile << "Type: " << itemChoosen.getType() << endl;
+        wclear(workingWindow);
+
+        string currentString = "";
+
+        if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+           itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+           itemToUse.getName()[0] == 'o')//a or an
+        {
+               currentString = "You have found an: ";
+        }
+        else
+        {
+            currentString = "You have found a: ";
+        }
+
+        currentString = currentString + itemToUse.getName();
+        char * characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,0,3,characterPointer);
+
+
+
+        wrefresh(workingWindow);
     }
     else
     {
         return;
-    }*/
+    }
+
     return;
 }
 

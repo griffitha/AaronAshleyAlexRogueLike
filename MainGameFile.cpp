@@ -9,6 +9,8 @@ using namespace std;
 
 int main()
 {
+    srand(time(NULL));
+
     int const GAME_WINDOW_HEIGHT = 21;
     int const GAME_WINDOW_WIDTH = 31;
     int const STATUS_WINDOW_HEIGHT = 10;

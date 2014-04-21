@@ -254,7 +254,7 @@ void itemChoice(character player,vector <Consumable> &consumableVector,vector <A
 
 //checks if item is in current position
 void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
-                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * message);
+                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow);
 
 //writes test to file
 void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,

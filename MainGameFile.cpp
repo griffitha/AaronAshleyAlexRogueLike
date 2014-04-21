@@ -104,6 +104,7 @@ int main()
     //find number of items to place
     int itemsNeeded = 0;
     itemsNeeded = numOfItems(symbolArray,possiblePositions);
+    int enemiesNeeded = numOfEnemies(symbolArray,possiblePositions);
 
     for(int i = 0; i < itemsNeeded; i++)
     {
@@ -116,6 +117,7 @@ int main()
     }
 
     positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
+    vector<enemy> enemyList=spawnEnemies(symbolArray,possiblePositions,enemiesNeeded,thePlayer);
 
     while((victoryAchieved == false) || (playerIsDead != true))
     {

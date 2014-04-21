@@ -13,6 +13,7 @@ void enemy::createGoblin(int factor)
 {
     int healthValue=((factor + 3)^2) - 10;
     int damageValue=((factor)^2 / 2) + ((5 * factor) / 2);
+    int experienceValue=(factor*(factor+1));
     setMaxHealth(healthValue);
     setHealth(getMaxHealth());
     setMapRep('G');
@@ -21,11 +22,13 @@ void enemy::createGoblin(int factor)
     setArmor(2);
     setAccuracy(70);
     setLevel(factor);
+    setXpValue(experienceValue);
 }
 void enemy::createBat(int factor)
 {
     int healthValue=(((factor + 3)^2) - 10)*.7;
     int damageValue=(((factor)^2 / 2) + ((5 * factor) / 2))*.7;
+    int experienceValue=(factor*(factor+1));
     setMaxHealth(healthValue);
     setHealth(getMaxHealth());
     setMapRep('B');
@@ -34,11 +37,13 @@ void enemy::createBat(int factor)
     setArmor(1);
     setAccuracy(95);
     setLevel(factor);
+    setXpValue(experienceValue);
 }
 void enemy::createRobot(int factor)
 {
     int healthValue=(((factor + 3)^2) - 10)*2;
     int damageValue=(((factor)^2 / 2) + ((5 * factor) / 2))*.5;
+    int experienceValue=(factor*(factor+1));
     setMaxHealth(healthValue);
     setHealth(getMaxHealth());
     setMapRep('R');
@@ -47,6 +52,7 @@ void enemy::createRobot(int factor)
     setArmor(2);
     setAccuracy(80);
     setLevel(factor);
+    setXpValue(experienceValue);
 }
 //modified version of numOfItems created by Ashley
 int numOfEnemies(char symbolArray[500][500],vector <Location> possiblePositions)

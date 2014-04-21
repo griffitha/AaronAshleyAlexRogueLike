@@ -1,6 +1,4 @@
 #include "utility.h"
-#include "AlexRogue.h"
-#include "itemh.h"
 
 //Main CPP File for Project
 //Features the Window at this moment
@@ -9,8 +7,8 @@ using namespace std;
 
 int main()
 {
-    srand(time(NULL));
-
+    bool victoryAchieved = false;
+    bool playerIsDead = false;
     int const GAME_WINDOW_HEIGHT = 21;
     int const GAME_WINDOW_WIDTH = 31;
     int const STATUS_WINDOW_HEIGHT = 10;
@@ -18,7 +16,9 @@ int main()
     int const LOG_WINDOW_HEIGHT = 10;
     int const LOG_WINDOW_WIDTH = 44;
     char symbolArray[500][500];
+    srand(time(NULL));
 
+    //player thePlayer = playerCreation();
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor
@@ -36,11 +36,10 @@ int main()
     init_pair(2,COLOR_BLACK,COLOR_GREEN);
     //Converts to grey
     init_pair(3,COLOR_WHITE,COLOR_BLACK);
-    init_pair(4,COLOR_WHITE,COLOR_MAGENTA);
     wbkgd(stdscr, COLOR_PAIR(1));
     wbkgd(gameWindow, COLOR_PAIR(2));
     wbkgd(statusWindow, COLOR_PAIR(3));
-    wbkgd(messageWindow, COLOR_PAIR(4));
+    wbkgd(messageWindow, COLOR_PAIR(3));
     cbreak();
     refresh();
 
@@ -54,7 +53,7 @@ int main()
     vector<character> gameObjects;
 
     //Read Level from File
-    readLevel(symbolArray,gameObjects,thePlayer,2);
+    readLevel(symbolArray,gameObjects,thePlayer,4);
 
     //create and initialize health potion vector
     vector <Consumable> healthPotionVector;
@@ -63,7 +62,6 @@ int main()
     //create and initialize magic potion vector
     vector <Consumable> magicPotionVector;
     initializeMagicPotionVector(magicPotionVector);
-
     //create and initialize armor vectors
     vector <Armor> leatherArmorVector;
     vector <Armor> metalArmorVector;
@@ -79,7 +77,6 @@ int main()
 
     vector <Weapon> heavyMaceVector;
     initializeHeavyMaceVector(heavyMaceVector);
-
     vector <Weapon> spearVector;
     initializeSpearVector(spearVector);
 
@@ -91,9 +88,9 @@ int main()
 
     vector <Weapon> battleaxeVector;
     initializeBattleaxeVector(battleaxeVector);
-
     vector <Weapon> heavyCrossBowVector;
     initializeHCrossBowVector(heavyCrossBowVector);
+
 
     //vector to hold corridinates for places in symbol array that contain spaces
     vector <Location> possiblePositions;
@@ -103,6 +100,7 @@ int main()
     vector <Armor> armorVector;
     vector <Weapon> weaponsVector;
 
+
     //find number of items to place
     int itemsNeeded = 0;
     itemsNeeded = numOfItems(symbolArray,possiblePositions);
@@ -110,29 +108,27 @@ int main()
     for(int i = 0; i < itemsNeeded; i++)
     {
         itemChoice(thePlayer,consumableVector,armorVector,weaponsVector,
-                   healthPotionVector,magicPotionVector,
-                   leatherArmorVector,metalArmorVector,crystalArmorVector,
-                   daggerVector, clubVector,heavyMaceVector,spearVector,
-                   heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
+            healthPotionVector,magicPotionVector,
+            leatherArmorVector,metalArmorVector,crystalArmorVector,
+            daggerVector, clubVector,heavyMaceVector,spearVector,
+            heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
+
     }
 
     positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
 
-    writeTests(consumableVector,armorVector,weaponsVector,possiblePositions,healthPotionVector,
-               magicPotionVector,leatherArmorVector, metalArmorVector,crystalArmorVector,
-               daggerVector,clubVector,heavyMaceVector,spearVector, heavyCrossBowVector,
-               lightCrossBowVector,battleaxeVector,longBowVector);
-
-    while(!checkDead(playerPointer))
+    while((victoryAchieved == false) || (playerIsDead != true))
     {
         //Prints Windows
         printWindow(symbolArray,gameObjects,thePlayer,gameWindow,statusWindow,messageWindow);
         //Intiates player's turn
         playerTurn(symbolArray,gameObjects,thePlayer);
-        //call function to check if new x and y have an item
         checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
+        victoryAchieved = checkSokabanVictory(gameObjects,symbolArray);
+        playerIsDead = checkDead(playerPointer);
     }
 
     endwin();
+    cout << "Well Played! Do come and play again!" << endl;
     return 0;
 }

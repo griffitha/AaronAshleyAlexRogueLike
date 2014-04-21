@@ -1844,7 +1844,7 @@ int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions)
 {
     int spaceCounter = 0;
     int itemsToCreate = 0;
-    int numOfSpacesPerItem = 15;
+    int numOfSpacesPerItem = 300;
 
     for(int x = 0; x < 500; x++)
     {

@@ -41,8 +41,53 @@ bool checkDead(character * target)
     }
     else
     {
-        false;
+        return false;
     }
 }
 
+bool checkEmpty(int x, int y, std::vector<character> gameObjects)
+{
+    //Function will go through and see if spot is occupied
+    if (gameObjects.size() != 0)
+    {
+        for (int i = 0; i < gameObjects.size(); i++)
+        {
+            character currentObject = gameObjects.at(i);
+            int designatedX = currentObject.getXCoordinate();
+            int designatedY = currentObject.getYCoordinate();
+            if (designatedX == x && designatedY == y)
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
+int findTarget(int x, int y, std::vector<character> gameObjects)
+{
+    if (gameObjects.size() != 0)
+    {
+        for (int i = 0; i < gameObjects.size(); i++)
+        {
+            character currentObject = gameObjects.at(i);
+            int designatedX = currentObject.getXCoordinate();
+            int designatedY = currentObject.getYCoordinate();
+            if (designatedX == x && designatedY == y)
+            {
+                return i;
+            }
+        }
+    }
+}
+
+//Goes through the vector and finds all the dead enemies and adds their experience accordingly
+void removeDead(player thePlayer, std::vector<character*> gameObjects)
+{
+    for (unsigned int i = 0; i < gameObjects.size(); i++)
+    {
+
+    }
+
+    //if (thePlayer.getExperience())
+}

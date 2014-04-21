@@ -30,7 +30,8 @@ class enemy: public character
 };
 
 int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePositions);
-void spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions,int enemiesToCreate,player mainChar);
+vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions,int enemiesToCreate,player mainChar);
+
 
 
 #endif // ENEMIES_H_INCLUDED

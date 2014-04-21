@@ -1,5 +1,4 @@
 #include "utility.h"
-#include "AlexRogue.h"
 
 //Main CPP File for Project
 //Features the Window at this moment
@@ -17,7 +16,7 @@ int main()
     int const LOG_WINDOW_HEIGHT = 10;
     int const LOG_WINDOW_WIDTH = 44;
     char symbolArray[500][500];
-
+    srand(time(NULL));
 
     //player thePlayer = playerCreation();
     //Creates Screen
@@ -54,7 +53,8 @@ int main()
     vector<character> gameObjects;
 
     //Read Level from File
-    readLevel(symbolArray,gameObjects,thePlayer,50);
+    int firstLevelToLoad = 50;
+    readLevel(symbolArray,gameObjects,thePlayer,firstLevelToLoad);
 
     //create and initialize health potion vector
     vector <Consumable> healthPotionVector;
@@ -64,22 +64,63 @@ int main()
     vector <Consumable> magicPotionVector;
     initializeMagicPotionVector(magicPotionVector);
 
+    //create and initialize armor vectors
+    vector <Armor> leatherArmorVector;
+    vector <Armor> metalArmorVector;
+    vector <Armor> crystalArmorVector;
+    initializeArmorVector(leatherArmorVector,metalArmorVector,crystalArmorVector);
+
+    //create and initialize weapon vectors
+    vector <Weapon> daggerVector;
+    initializeDaggerVector(daggerVector);
+
+    vector <Weapon> clubVector;
+    initializeClubVector(clubVector);
+
+    vector <Weapon> heavyMaceVector;
+    initializeHeavyMaceVector(heavyMaceVector);
+
+    vector <Weapon> spearVector;
+    initializeSpearVector(spearVector);
+
+    vector <Weapon> lightCrossBowVector;
+    initializeLightCrossBowVector(lightCrossBowVector);
+
+    vector <Weapon> longBowVector;
+    initializeLongBowVector(longBowVector);
+
+    vector <Weapon> battleaxeVector;
+    initializeBattleaxeVector(battleaxeVector);
+
+    vector <Weapon> heavyCrossBowVector;
+    initializeHCrossBowVector(heavyCrossBowVector);
+
     //vector to hold corridinates for places in symbol array that contain spaces
     vector <Location> possiblePositions;
 
     //vector to hold items
-    vector <Item> itemsVector;
+    vector <Consumable> consumableVector;
+    vector <Armor> armorVector;
+    vector <Weapon> weaponsVector;
 
-    //find number of items to place
-    int itemsNeeded = 0;
-    itemsNeeded = numOfItems(symbolArray,possiblePositions);
-
-    for(int i = 0; i < itemsNeeded; i++)
+    if (firstLevelToLoad < 50)  //If not a Sokaban Map
     {
-        itemChoice(thePlayer,itemsVector,healthPotionVector,magicPotionVector);
-    }
 
-    positions(symbolArray,itemsVector,possiblePositions);
+        //find number of items to place
+        int itemsNeeded = numOfItems(symbolArray,possiblePositions);
+
+        for(int i = 0; i < itemsNeeded; i++)
+        {
+            itemChoice(thePlayer,consumableVector,armorVector,weaponsVector,
+                       healthPotionVector,magicPotionVector,
+                       leatherArmorVector,metalArmorVector,crystalArmorVector,
+                       daggerVector, clubVector,heavyMaceVector,spearVector,
+                       heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
+
+        }
+
+        positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
+    }
 
     while((victoryAchieved == false) || (playerIsAlive != false))
     {
@@ -87,7 +128,11 @@ int main()
         printWindow(symbolArray,gameObjects,thePlayer,gameWindow,statusWindow,messageWindow);
         //Intiates player's turn
         playerTurn(symbolArray,gameObjects,thePlayer);
-
+        //Checks items at location
+        if (firstLevelToLoad < 50)
+        {
+            checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
+        }
         victoryAchieved = checkSokabanVictory(gameObjects,symbolArray);
         playerIsAlive = checkDead(playerPointer);
     }

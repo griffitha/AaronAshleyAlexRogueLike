@@ -1,0 +1,2608 @@
+Test Consumable Vector:
+0. 
+    
+1. 
+    
+2. 
+    
+3. 
+    
+4. 
+    
+5. 
+    
+6. 
+    
+7. 
+    
+8. 
+    
+9. 
+    
+10. 
+    
+11. 
+    
+12. 
+    
+13. 
+    
+14. 
+    
+15. 
+    
+16. 
+    
+17. 
+    
+18. 
+    
+19. 
+    
+20. 
+    
+21. 
+    
+22. 
+    
+23. 
+    
+24. 
+    
+25. 
+    
+26. 
+    
+27. 
+    
+28. 
+    
+29. 
+    
+30. 
+    
+31. 
+    
+32. 
+    
+33. 
+    
+34. 
+    
+35. 
+    
+36. 
+    
+37. 
+    
+38. 
+    
+39. 
+    
+40. 
+    
+41. 
+    
+42. 
+    
+43. 
+    
+44. 
+    
+45. 
+    
+46. 
+    
+47. 
+    
+48. 
+    
+49. 
+    
+50. 
+    
+51. 
+    
+52. 
+    
+53. 
+    
+54. 
+    
+55. 
+    
+56. 
+    
+57. 
+    
+58. 
+    
+59. 
+    
+60. 
+    
+61. 
+    
+62. 
+    
+63. 
+    
+
+
+Test Armor Vector:
+0. Metal Shield
+    metal
+1. Crystal Helmet
+    crystal
+2. Crystal Helmet
+    crystal
+3. Crystal Breastplate
+    crystal
+4. Metal Helmet
+    metal
+5. Metal Shoes
+    metal
+6. Crystal Helmet
+    crystal
+7. Leather Shoes
+    leather
+8. Metal Gloves
+    metal
+9. Crystal Breastplate
+    crystal
+10. Crystal Gloves
+    crystal
+11. Leather Gloves
+    leather
+12. Metal Breastplate
+    metal
+13. Crystal Shoes
+    crystal
+14. Leather Gloves
+    leather
+15. Leather Shield
+    leather
+16. Crystal Shoes
+    crystal
+17. Leather Shield
+    leather
+18. Crystal Helmet
+    crystal
+
+
+Test Weapon Vector:
+0. Common Light CrossBow
+    Weapon
+1. Lucky Club
+    Weapon
+2. Common Heavy CrossBow
+    Weapon
+3. Lucky Heavy CrossBow
+    Weapon
+4. Lucky Heavy CrossBow
+    Weapon
+5. Lucky Battleaxe
+    Weapon
+6. Common Heavy CrossBow
+    Weapon
+7. Common Longbow
+    Weapon
+8. Common Light CrossBow
+    Weapon
+9. Common Heavy CrossBow
+    Weapon
+10. Common Battleaxe
+    Weapon
+
+
+Test Position Vector:
+0. X: 3
+    Y: 2
+1. X: 3
+    Y: 3
+2. X: 3
+    Y: 4
+3. X: 3
+    Y: 5
+4. X: 3
+    Y: 6
+5. X: 3
+    Y: 7
+6. X: 3
+    Y: 8
+7. X: 3
+    Y: 9
+8. X: 3
+    Y: 10
+9. X: 3
+    Y: 11
+10. X: 3
+    Y: 12
+11. X: 3
+    Y: 19
+12. X: 3
+    Y: 20
+13. X: 3
+    Y: 21
+14. X: 3
+    Y: 22
+15. X: 3
+    Y: 23
+16. X: 3
+    Y: 24
+17. X: 3
+    Y: 25
+18. X: 4
+    Y: 1
+19. X: 4
+    Y: 2
+20. X: 4
+    Y: 2
+21. X: 4
+    Y: 3
+22. X: 4
+    Y: 3
+23. X: 4
+    Y: 4
+24. X: 4
+    Y: 4
+25. X: 4
+    Y: 5
+26. X: 4
+    Y: 5
+27. X: 4
+    Y: 6
+28. X: 4
+    Y: 6
+29. X: 4
+    Y: 7
+30. X: 4
+    Y: 7
+31. X: 4
+    Y: 8
+32. X: 4
+    Y: 8
+33. X: 4
+    Y: 9
+34. X: 4
+    Y: 9
+35. X: 4
+    Y: 10
+36. X: 4
+    Y: 10
+37. X: 4
+    Y: 11
+38. X: 4
+    Y: 11
+39. X: 4
+    Y: 12
+40. X: 4
+    Y: 12
+41. X: 4
+    Y: 13
+42. X: 4
+    Y: 18
+43. X: 4
+    Y: 22
+44. X: 4
+    Y: 23
+45. X: 4
+    Y: 23
+46. X: 4
+    Y: 24
+47. X: 4
+    Y: 24
+48. X: 4
+    Y: 25
+49. X: 4
+    Y: 25
+50. X: 4
+    Y: 26
+51. X: 5
+    Y: 1
+52. X: 5
+    Y: 2
+53. X: 5
+    Y: 2
+54. X: 5
+    Y: 3
+55. X: 5
+    Y: 3
+56. X: 5
+    Y: 4
+57. X: 5
+    Y: 4
+58. X: 5
+    Y: 5
+59. X: 5
+    Y: 5
+60. X: 5
+    Y: 6
+61. X: 5
+    Y: 6
+62. X: 5
+    Y: 7
+63. X: 5
+    Y: 7
+64. X: 5
+    Y: 8
+65. X: 5
+    Y: 8
+66. X: 5
+    Y: 9
+67. X: 5
+    Y: 9
+68. X: 5
+    Y: 10
+69. X: 5
+    Y: 10
+70. X: 5
+    Y: 11
+71. X: 5
+    Y: 11
+72. X: 5
+    Y: 12
+73. X: 5
+    Y: 12
+74. X: 5
+    Y: 13
+75. X: 5
+    Y: 18
+76. X: 5
+    Y: 22
+77. X: 5
+    Y: 23
+78. X: 5
+    Y: 23
+79. X: 5
+    Y: 24
+80. X: 5
+    Y: 24
+81. X: 5
+    Y: 25
+82. X: 5
+    Y: 25
+83. X: 5
+    Y: 26
+84. X: 6
+    Y: 1
+85. X: 6
+    Y: 2
+86. X: 6
+    Y: 2
+87. X: 6
+    Y: 3
+88. X: 6
+    Y: 3
+89. X: 6
+    Y: 4
+90. X: 6
+    Y: 4
+91. X: 6
+    Y: 5
+92. X: 6
+    Y: 5
+93. X: 6
+    Y: 6
+94. X: 6
+    Y: 6
+95. X: 6
+    Y: 7
+96. X: 6
+    Y: 7
+97. X: 6
+    Y: 8
+98. X: 6
+    Y: 8
+99. X: 6
+    Y: 9
+100. X: 6
+    Y: 9
+101. X: 6
+    Y: 10
+102. X: 6
+    Y: 10
+103. X: 6
+    Y: 11
+104. X: 6
+    Y: 11
+105. X: 6
+    Y: 12
+106. X: 6
+    Y: 12
+107. X: 6
+    Y: 13
+108. X: 6
+    Y: 18
+109. X: 6
+    Y: 22
+110. X: 6
+    Y: 23
+111. X: 6
+    Y: 23
+112. X: 6
+    Y: 24
+113. X: 6
+    Y: 24
+114. X: 6
+    Y: 25
+115. X: 6
+    Y: 25
+116. X: 6
+    Y: 26
+117. X: 7
+    Y: 2
+118. X: 7
+    Y: 3
+119. X: 7
+    Y: 4
+120. X: 7
+    Y: 5
+121. X: 7
+    Y: 5
+122. X: 7
+    Y: 6
+123. X: 7
+    Y: 7
+124. X: 7
+    Y: 8
+125. X: 7
+    Y: 8
+126. X: 7
+    Y: 9
+127. X: 7
+    Y: 9
+128. X: 7
+    Y: 10
+129. X: 7
+    Y: 10
+130. X: 7
+    Y: 11
+131. X: 7
+    Y: 11
+132. X: 7
+    Y: 12
+133. X: 7
+    Y: 12
+134. X: 7
+    Y: 13
+135. X: 7
+    Y: 18
+136. X: 7
+    Y: 22
+137. X: 7
+    Y: 23
+138. X: 7
+    Y: 23
+139. X: 7
+    Y: 24
+140. X: 7
+    Y: 24
+141. X: 7
+    Y: 25
+142. X: 7
+    Y: 25
+143. X: 7
+    Y: 26
+144. X: 8
+    Y: 5
+145. X: 8
+    Y: 9
+146. X: 8
+    Y: 10
+147. X: 8
+    Y: 11
+148. X: 8
+    Y: 12
+149. X: 8
+    Y: 13
+150. X: 8
+    Y: 14
+151. X: 8
+    Y: 15
+152. X: 8
+    Y: 16
+153. X: 8
+    Y: 17
+154. X: 8
+    Y: 22
+155. X: 8
+    Y: 23
+156. X: 8
+    Y: 23
+157. X: 8
+    Y: 24
+158. X: 8
+    Y: 24
+159. X: 8
+    Y: 25
+160. X: 8
+    Y: 25
+161. X: 8
+    Y: 26
+162. X: 8
+    Y: 26
+163. X: 9
+    Y: 5
+164. X: 9
+    Y: 17
+165. X: 9
+    Y: 22
+166. X: 9
+    Y: 23
+167. X: 9
+    Y: 23
+168. X: 9
+    Y: 24
+169. X: 9
+    Y: 24
+170. X: 9
+    Y: 25
+171. X: 9
+    Y: 25
+172. X: 9
+    Y: 26
+173. X: 9
+    Y: 26
+174. X: 9
+    Y: 27
+175. X: 9
+    Y: 31
+176. X: 9
+    Y: 32
+177. X: 9
+    Y: 33
+178. X: 9
+    Y: 34
+179. X: 9
+    Y: 35
+180. X: 9
+    Y: 36
+181. X: 9
+    Y: 37
+182. X: 10
+    Y: 5
+183. X: 10
+    Y: 17
+184. X: 10
+    Y: 22
+185. X: 10
+    Y: 23
+186. X: 10
+    Y: 23
+187. X: 10
+    Y: 24
+188. X: 10
+    Y: 24
+189. X: 10
+    Y: 25
+190. X: 10
+    Y: 25
+191. X: 10
+    Y: 26
+192. X: 10
+    Y: 26
+193. X: 10
+    Y: 27
+194. X: 10
+    Y: 27
+195. X: 10
+    Y: 30
+196. X: 10
+    Y: 35
+197. X: 10
+    Y: 36
+198. X: 10
+    Y: 36
+199. X: 10
+    Y: 37
+200. X: 10
+    Y: 37
+201. X: 10
+    Y: 38
+202. X: 11
+    Y: 6
+203. X: 11
+    Y: 7
+204. X: 11
+    Y: 8
+205. X: 11
+    Y: 9
+206. X: 11
+    Y: 17
+207. X: 11
+    Y: 22
+208. X: 11
+    Y: 23
+209. X: 11
+    Y: 23
+210. X: 11
+    Y: 24
+211. X: 11
+    Y: 24
+212. X: 11
+    Y: 25
+213. X: 11
+    Y: 25
+214. X: 11
+    Y: 26
+215. X: 11
+    Y: 26
+216. X: 11
+    Y: 27
+217. X: 11
+    Y: 27
+218. X: 11
+    Y: 28
+219. X: 11
+    Y: 28
+220. X: 11
+    Y: 29
+221. X: 11
+    Y: 30
+222. X: 11
+    Y: 35
+223. X: 11
+    Y: 36
+224. X: 11
+    Y: 36
+225. X: 11
+    Y: 37
+226. X: 11
+    Y: 37
+227. X: 11
+    Y: 38
+228. X: 12
+    Y: 10
+229. X: 12
+    Y: 18
+230. X: 12
+    Y: 19
+231. X: 12
+    Y: 20
+232. X: 12
+    Y: 21
+233. X: 12
+    Y: 22
+234. X: 12
+    Y: 22
+235. X: 12
+    Y: 23
+236. X: 12
+    Y: 23
+237. X: 12
+    Y: 24
+238. X: 12
+    Y: 24
+239. X: 12
+    Y: 25
+240. X: 12
+    Y: 25
+241. X: 12
+    Y: 26
+242. X: 12
+    Y: 26
+243. X: 12
+    Y: 27
+244. X: 12
+    Y: 27
+245. X: 12
+    Y: 30
+246. X: 12
+    Y: 35
+247. X: 12
+    Y: 36
+248. X: 12
+    Y: 36
+249. X: 12
+    Y: 37
+250. X: 12
+    Y: 37
+251. X: 12
+    Y: 38
+252. X: 13
+    Y: 10
+253. X: 13
+    Y: 22
+254. X: 13
+    Y: 23
+255. X: 13
+    Y: 23
+256. X: 13
+    Y: 24
+257. X: 13
+    Y: 24
+258. X: 13
+    Y: 25
+259. X: 13
+    Y: 25
+260. X: 13
+    Y: 26
+261. X: 13
+    Y: 26
+262. X: 13
+    Y: 30
+263. X: 13
+    Y: 35
+264. X: 13
+    Y: 36
+265. X: 13
+    Y: 36
+266. X: 13
+    Y: 37
+267. X: 13
+    Y: 37
+268. X: 13
+    Y: 38
+269. X: 14
+    Y: 10
+270. X: 14
+    Y: 22
+271. X: 14
+    Y: 23
+272. X: 14
+    Y: 23
+273. X: 14
+    Y: 24
+274. X: 14
+    Y: 24
+275. X: 14
+    Y: 25
+276. X: 14
+    Y: 35
+277. X: 14
+    Y: 36
+278. X: 14
+    Y: 36
+279. X: 14
+    Y: 37
+280. X: 14
+    Y: 37
+281. X: 14
+    Y: 38
+282. X: 14
+    Y: 40
+283. X: 15
+    Y: 10
+284. X: 15
+    Y: 22
+285. X: 15
+    Y: 23
+286. X: 15
+    Y: 23
+287. X: 15
+    Y: 24
+288. X: 15
+    Y: 35
+289. X: 15
+    Y: 35
+290. X: 15
+    Y: 36
+291. X: 15
+    Y: 36
+292. X: 15
+    Y: 37
+293. X: 15
+    Y: 37
+294. X: 15
+    Y: 38
+295. X: 15
+    Y: 38
+296. X: 15
+    Y: 39
+297. X: 15
+    Y: 40
+298. X: 16
+    Y: 10
+299. X: 16
+    Y: 22
+300. X: 16
+    Y: 23
+301. X: 16
+    Y: 23
+302. X: 16
+    Y: 24
+303. X: 16
+    Y: 34
+304. X: 16
+    Y: 35
+305. X: 16
+    Y: 35
+306. X: 16
+    Y: 36
+307. X: 16
+    Y: 36
+308. X: 16
+    Y: 37
+309. X: 16
+    Y: 37
+310. X: 16
+    Y: 38
+311. X: 16
+    Y: 38
+312. X: 16
+    Y: 39
+313. X: 16
+    Y: 39
+314. X: 16
+    Y: 40
+315. X: 16
+    Y: 40
+316. X: 17
+    Y: 10
+317. X: 17
+    Y: 22
+318. X: 17
+    Y: 23
+319. X: 17
+    Y: 23
+320. X: 17
+    Y: 34
+321. X: 17
+    Y: 35
+322. X: 17
+    Y: 35
+323. X: 17
+    Y: 36
+324. X: 17
+    Y: 36
+325. X: 17
+    Y: 37
+326. X: 17
+    Y: 37
+327. X: 17
+    Y: 38
+328. X: 17
+    Y: 38
+329. X: 17
+    Y: 39
+330. X: 17
+    Y: 39
+331. X: 17
+    Y: 40
+332. X: 17
+    Y: 40
+333. X: 17
+    Y: 41
+334. X: 18
+    Y: 10
+335. X: 18
+    Y: 22
+336. X: 18
+    Y: 23
+337. X: 18
+    Y: 33
+338. X: 18
+    Y: 34
+339. X: 18
+    Y: 34
+340. X: 18
+    Y: 35
+341. X: 18
+    Y: 35
+342. X: 18
+    Y: 36
+343. X: 18
+    Y: 36
+344. X: 18
+    Y: 37
+345. X: 18
+    Y: 37
+346. X: 18
+    Y: 38
+347. X: 18
+    Y: 38
+348. X: 18
+    Y: 39
+349. X: 18
+    Y: 39
+350. X: 18
+    Y: 40
+351. X: 18
+    Y: 40
+352. X: 18
+    Y: 41
+353. X: 19
+    Y: 10
+354. X: 19
+    Y: 22
+355. X: 19
+    Y: 23
+356. X: 19
+    Y: 32
+357. X: 19
+    Y: 33
+358. X: 19
+    Y: 33
+359. X: 19
+    Y: 34
+360. X: 19
+    Y: 34
+361. X: 19
+    Y: 35
+362. X: 19
+    Y: 35
+363. X: 19
+    Y: 36
+364. X: 19
+    Y: 36
+365. X: 19
+    Y: 37
+366. X: 19
+    Y: 37
+367. X: 19
+    Y: 38
+368. X: 19
+    Y: 38
+369. X: 19
+    Y: 39
+370. X: 19
+    Y: 39
+371. X: 19
+    Y: 40
+372. X: 19
+    Y: 40
+373. X: 19
+    Y: 41
+374. X: 20
+    Y: 10
+375. X: 20
+    Y: 22
+376. X: 20
+    Y: 23
+377. X: 20
+    Y: 32
+378. X: 20
+    Y: 33
+379. X: 20
+    Y: 33
+380. X: 20
+    Y: 34
+381. X: 20
+    Y: 34
+382. X: 20
+    Y: 35
+383. X: 20
+    Y: 35
+384. X: 20
+    Y: 36
+385. X: 20
+    Y: 36
+386. X: 20
+    Y: 37
+387. X: 20
+    Y: 37
+388. X: 20
+    Y: 38
+389. X: 20
+    Y: 38
+390. X: 20
+    Y: 39
+391. X: 20
+    Y: 39
+392. X: 20
+    Y: 40
+393. X: 20
+    Y: 40
+394. X: 21
+    Y: 10
+395. X: 21
+    Y: 10
+396. X: 21
+    Y: 22
+397. X: 21
+    Y: 32
+398. X: 21
+    Y: 33
+399. X: 21
+    Y: 33
+400. X: 21
+    Y: 34
+401. X: 21
+    Y: 34
+402. X: 21
+    Y: 35
+403. X: 21
+    Y: 35
+404. X: 21
+    Y: 36
+405. X: 21
+    Y: 36
+406. X: 21
+    Y: 37
+407. X: 21
+    Y: 37
+408. X: 21
+    Y: 38
+409. X: 21
+    Y: 38
+410. X: 21
+    Y: 39
+411. X: 21
+    Y: 39
+412. X: 22
+    Y: 9
+413. X: 22
+    Y: 10
+414. X: 22
+    Y: 10
+415. X: 22
+    Y: 11
+416. X: 22
+    Y: 22
+417. X: 22
+    Y: 32
+418. X: 22
+    Y: 33
+419. X: 22
+    Y: 33
+420. X: 22
+    Y: 34
+421. X: 22
+    Y: 34
+422. X: 22
+    Y: 35
+423. X: 22
+    Y: 35
+424. X: 22
+    Y: 36
+425. X: 22
+    Y: 36
+426. X: 22
+    Y: 37
+427. X: 22
+    Y: 37
+428. X: 22
+    Y: 38
+429. X: 22
+    Y: 39
+430. X: 23
+    Y: 9
+431. X: 23
+    Y: 10
+432. X: 23
+    Y: 10
+433. X: 23
+    Y: 11
+434. X: 23
+    Y: 22
+435. X: 23
+    Y: 32
+436. X: 23
+    Y: 33
+437. X: 23
+    Y: 33
+438. X: 23
+    Y: 34
+439. X: 23
+    Y: 34
+440. X: 23
+    Y: 35
+441. X: 23
+    Y: 35
+442. X: 23
+    Y: 36
+443. X: 23
+    Y: 36
+444. X: 23
+    Y: 37
+445. X: 23
+    Y: 39
+446. X: 24
+    Y: 9
+447. X: 24
+    Y: 10
+448. X: 24
+    Y: 10
+449. X: 24
+    Y: 11
+450. X: 24
+    Y: 22
+451. X: 24
+    Y: 32
+452. X: 24
+    Y: 33
+453. X: 24
+    Y: 33
+454. X: 24
+    Y: 34
+455. X: 24
+    Y: 34
+456. X: 24
+    Y: 35
+457. X: 24
+    Y: 35
+458. X: 24
+    Y: 36
+459. X: 24
+    Y: 36
+460. X: 24
+    Y: 37
+461. X: 24
+    Y: 39
+462. X: 25
+    Y: 9
+463. X: 25
+    Y: 10
+464. X: 25
+    Y: 10
+465. X: 25
+    Y: 11
+466. X: 25
+    Y: 22
+467. X: 25
+    Y: 33
+468. X: 25
+    Y: 33
+469. X: 25
+    Y: 34
+470. X: 25
+    Y: 34
+471. X: 25
+    Y: 35
+472. X: 25
+    Y: 35
+473. X: 25
+    Y: 36
+474. X: 25
+    Y: 36
+475. X: 25
+    Y: 39
+476. X: 26
+    Y: 6
+477. X: 26
+    Y: 7
+478. X: 26
+    Y: 8
+479. X: 26
+    Y: 9
+480. X: 26
+    Y: 9
+481. X: 26
+    Y: 10
+482. X: 26
+    Y: 10
+483. X: 26
+    Y: 11
+484. X: 26
+    Y: 16
+485. X: 26
+    Y: 17
+486. X: 26
+    Y: 18
+487. X: 26
+    Y: 19
+488. X: 26
+    Y: 20
+489. X: 26
+    Y: 21
+490. X: 26
+    Y: 33
+491. X: 26
+    Y: 34
+492. X: 26
+    Y: 34
+493. X: 26
+    Y: 35
+494. X: 26
+    Y: 35
+495. X: 26
+    Y: 36
+496. X: 27
+    Y: 5
+497. X: 27
+    Y: 6
+498. X: 27
+    Y: 6
+499. X: 27
+    Y: 7
+500. X: 27
+    Y: 7
+501. X: 27
+    Y: 8
+502. X: 27
+    Y: 8
+503. X: 27
+    Y: 9
+504. X: 27
+    Y: 9
+505. X: 27
+    Y: 10
+506. X: 27
+    Y: 10
+507. X: 27
+    Y: 11
+508. X: 27
+    Y: 15
+509. X: 27
+    Y: 33
+510. X: 27
+    Y: 34
+511. X: 27
+    Y: 35
+512. X: 28
+    Y: 5
+513. X: 28
+    Y: 6
+514. X: 28
+    Y: 6
+515. X: 28
+    Y: 7
+516. X: 28
+    Y: 7
+517. X: 28
+    Y: 8
+518. X: 28
+    Y: 8
+519. X: 28
+    Y: 9
+520. X: 28
+    Y: 9
+521. X: 28
+    Y: 10
+522. X: 28
+    Y: 10
+523. X: 28
+    Y: 11
+524. X: 28
+    Y: 15
+525. X: 28
+    Y: 33
+526. X: 29
+    Y: 5
+527. X: 29
+    Y: 6
+528. X: 29
+    Y: 6
+529. X: 29
+    Y: 7
+530. X: 29
+    Y: 7
+531. X: 29
+    Y: 8
+532. X: 29
+    Y: 8
+533. X: 29
+    Y: 9
+534. X: 29
+    Y: 9
+535. X: 29
+    Y: 10
+536. X: 29
+    Y: 10
+537. X: 29
+    Y: 11
+538. X: 29
+    Y: 15
+539. X: 29
+    Y: 33
+540. X: 30
+    Y: 5
+541. X: 30
+    Y: 6
+542. X: 30
+    Y: 6
+543. X: 30
+    Y: 7
+544. X: 30
+    Y: 7
+545. X: 30
+    Y: 8
+546. X: 30
+    Y: 8
+547. X: 30
+    Y: 9
+548. X: 30
+    Y: 9
+549. X: 30
+    Y: 10
+550. X: 30
+    Y: 10
+551. X: 30
+    Y: 11
+552. X: 30
+    Y: 14
+553. X: 30
+    Y: 15
+554. X: 31
+    Y: 5
+555. X: 31
+    Y: 6
+556. X: 31
+    Y: 6
+557. X: 31
+    Y: 7
+558. X: 31
+    Y: 7
+559. X: 31
+    Y: 8
+560. X: 31
+    Y: 8
+561. X: 31
+    Y: 9
+562. X: 31
+    Y: 9
+563. X: 31
+    Y: 10
+564. X: 31
+    Y: 10
+565. X: 31
+    Y: 11
+566. X: 31
+    Y: 13
+567. X: 31
+    Y: 14
+568. X: 31
+    Y: 14
+569. X: 31
+    Y: 15
+570. X: 32
+    Y: 5
+571. X: 32
+    Y: 6
+572. X: 32
+    Y: 6
+573. X: 32
+    Y: 7
+574. X: 32
+    Y: 7
+575. X: 32
+    Y: 8
+576. X: 32
+    Y: 8
+577. X: 32
+    Y: 9
+578. X: 32
+    Y: 9
+579. X: 32
+    Y: 10
+580. X: 32
+    Y: 10
+581. X: 32
+    Y: 11
+582. X: 32
+    Y: 11
+583. X: 32
+    Y: 12
+584. X: 32
+    Y: 13
+585. X: 32
+    Y: 13
+586. X: 32
+    Y: 14
+587. X: 32
+    Y: 14
+588. X: 32
+    Y: 15
+589. X: 33
+    Y: 5
+590. X: 33
+    Y: 6
+591. X: 33
+    Y: 6
+592. X: 33
+    Y: 7
+593. X: 33
+    Y: 7
+594. X: 33
+    Y: 8
+595. X: 33
+    Y: 8
+596. X: 33
+    Y: 9
+597. X: 33
+    Y: 9
+598. X: 33
+    Y: 10
+599. X: 33
+    Y: 10
+600. X: 33
+    Y: 11
+601. X: 33
+    Y: 13
+602. X: 33
+    Y: 14
+603. X: 33
+    Y: 14
+604. X: 33
+    Y: 15
+605. X: 34
+    Y: 5
+606. X: 34
+    Y: 6
+607. X: 34
+    Y: 6
+608. X: 34
+    Y: 7
+609. X: 34
+    Y: 7
+610. X: 34
+    Y: 8
+611. X: 34
+    Y: 8
+612. X: 34
+    Y: 9
+613. X: 34
+    Y: 10
+614. X: 34
+    Y: 13
+615. X: 34
+    Y: 14
+616. X: 34
+    Y: 14
+617. X: 34
+    Y: 15
+618. X: 35
+    Y: 5
+619. X: 35
+    Y: 6
+620. X: 35
+    Y: 6
+621. X: 35
+    Y: 7
+622. X: 35
+    Y: 7
+623. X: 35
+    Y: 8
+624. X: 35
+    Y: 13
+625. X: 35
+    Y: 14
+626. X: 35
+    Y: 14
+627. X: 35
+    Y: 15
+628. X: 36
+    Y: 5
+629. X: 36
+    Y: 6
+630. X: 36
+    Y: 6
+631. X: 36
+    Y: 7
+632. X: 36
+    Y: 7
+633. X: 36
+    Y: 8
+634. X: 36
+    Y: 13
+635. X: 36
+    Y: 14
+636. X: 36
+    Y: 14
+637. X: 36
+    Y: 15
+638. X: 37
+    Y: 5
+639. X: 37
+    Y: 6
+640. X: 37
+    Y: 6
+641. X: 37
+    Y: 7
+642. X: 37
+    Y: 7
+643. X: 37
+    Y: 8
+644. X: 37
+    Y: 13
+645. X: 37
+    Y: 13
+646. X: 37
+    Y: 14
+647. X: 37
+    Y: 14
+648. X: 37
+    Y: 15
+649. X: 38
+    Y: 5
+650. X: 38
+    Y: 6
+651. X: 38
+    Y: 6
+652. X: 38
+    Y: 7
+653. X: 38
+    Y: 7
+654. X: 38
+    Y: 8
+655. X: 38
+    Y: 12
+656. X: 38
+    Y: 13
+657. X: 38
+    Y: 13
+658. X: 38
+    Y: 14
+659. X: 38
+    Y: 14
+660. X: 38
+    Y: 15
+661. X: 39
+    Y: 6
+662. X: 39
+    Y: 7
+663. X: 39
+    Y: 12
+664. X: 39
+    Y: 13
+665. X: 39
+    Y: 13
+666. X: 39
+    Y: 14
+667. X: 39
+    Y: 14
+668. X: 40
+    Y: 12
+669. X: 40
+    Y: 13
+670. X: 40
+    Y: 13
+671. X: 40
+    Y: 14
+672. X: 41
+    Y: 12
+673. X: 41
+    Y: 13
+674. X: 41
+    Y: 13
+675. X: 41
+    Y: 14
+676. X: 42
+    Y: 12
+677. X: 42
+    Y: 13
+678. X: 42
+    Y: 13
+679. X: 42
+    Y: 14
+680. X: 43
+    Y: 12
+681. X: 43
+    Y: 13
+682. X: 43
+    Y: 14
+683. X: 44
+    Y: 12
+684. X: 44
+    Y: 14
+685. X: 45
+    Y: 12
+686. X: 45
+    Y: 14
+687. X: 46
+    Y: 12
+688. X: 46
+    Y: 14
+689. X: 47
+    Y: 12
+690. X: 47
+    Y: 14
+691. X: 48
+    Y: 12
+692. X: 48
+    Y: 14
+693. X: 49
+    Y: 12
+694. X: 49
+    Y: 14
+695. X: 50
+    Y: 14
+696. X: 51
+    Y: 14
+697. X: 52
+    Y: 14
+698. X: 53
+    Y: 14
+699. X: 54
+    Y: 14
+700. X: 55
+    Y: 14
+701. X: 56
+    Y: 14
+702. X: 57
+    Y: 14
+703. X: 58
+    Y: 13
+704. X: 58
+    Y: 14
+705. X: 59
+    Y: 7
+706. X: 59
+    Y: 13
+707. X: 59
+    Y: 14
+708. X: 59
+    Y: 14
+709. X: 59
+    Y: 15
+710. X: 59
+    Y: 16
+711. X: 59
+    Y: 17
+712. X: 59
+    Y: 18
+713. X: 60
+    Y: 7
+714. X: 60
+    Y: 13
+715. X: 60
+    Y: 14
+716. X: 61
+    Y: 7
+717. X: 61
+    Y: 13
+718. X: 61
+    Y: 14
+719. X: 61
+    Y: 14
+720. X: 62
+    Y: 2
+721. X: 62
+    Y: 3
+722. X: 62
+    Y: 5
+723. X: 62
+    Y: 6
+724. X: 62
+    Y: 7
+725. X: 62
+    Y: 13
+726. X: 62
+    Y: 14
+727. X: 62
+    Y: 14
+728. X: 62
+    Y: 15
+729. X: 63
+    Y: 3
+730. X: 63
+    Y: 3
+731. X: 63
+    Y: 4
+732. X: 63
+    Y: 7
+733. X: 63
+    Y: 13
+734. X: 63
+    Y: 14
+735. X: 63
+    Y: 14
+736. X: 63
+    Y: 15
+737. X: 64
+    Y: 3
+738. X: 64
+    Y: 4
+739. X: 64
+    Y: 7
+740. X: 64
+    Y: 13
+741. X: 64
+    Y: 14
+742. X: 64
+    Y: 14
+743. X: 64
+    Y: 15
+744. X: 65
+    Y: 3
+745. X: 65
+    Y: 7
+746. X: 65
+    Y: 13
+747. X: 65
+    Y: 14
+748. X: 65
+    Y: 14
+749. X: 65
+    Y: 15
+750. X: 65
+    Y: 34
+751. X: 66
+    Y: 3
+752. X: 66
+    Y: 7
+753. X: 66
+    Y: 13
+754. X: 66
+    Y: 14
+755. X: 66
+    Y: 14
+756. X: 66
+    Y: 15
+757. X: 66
+    Y: 32
+758. X: 66
+    Y: 33
+759. X: 66
+    Y: 33
+760. X: 66
+    Y: 34
+761. X: 66
+    Y: 34
+762. X: 66
+    Y: 35
+763. X: 67
+    Y: 3
+764. X: 67
+    Y: 7
+765. X: 67
+    Y: 13
+766. X: 67
+    Y: 14
+767. X: 67
+    Y: 14
+768. X: 67
+    Y: 15
+769. X: 67
+    Y: 31
+770. X: 67
+    Y: 32
+771. X: 67
+    Y: 32
+772. X: 67
+    Y: 33
+773. X: 67
+    Y: 34
+774. X: 68
+    Y: 3
+775. X: 68
+    Y: 7
+776. X: 68
+    Y: 13
+777. X: 68
+    Y: 14
+778. X: 68
+    Y: 15
+779. X: 68
+    Y: 31
+780. X: 69
+    Y: 7
+781. X: 69
+    Y: 8
+782. X: 69
+    Y: 9
+783. X: 69
+    Y: 10
+784. X: 69
+    Y: 11
+785. X: 69
+    Y: 12
+786. X: 69
+    Y: 15
+787. X: 69
+    Y: 16
+788. X: 69
+    Y: 26
+789. X: 69
+    Y: 27
+790. X: 69
+    Y: 28
+791. X: 69
+    Y: 29
+792. X: 69
+    Y: 30
+793. X: 70
+    Y: 7
+794. X: 70
+    Y: 16
+795. X: 70
+    Y: 16
+796. X: 70
+    Y: 17
+797. X: 70
+    Y: 25
+798. X: 70
+    Y: 26
+799. X: 70
+    Y: 26
+800. X: 70
+    Y: 27
+801. X: 70
+    Y: 27
+802. X: 70
+    Y: 28
+803. X: 70
+    Y: 28
+804. X: 70
+    Y: 29
+805. X: 70
+    Y: 29
+806. X: 70
+    Y: 30
+807. X: 71
+    Y: 7
+808. X: 71
+    Y: 16
+809. X: 71
+    Y: 17
+810. X: 71
+    Y: 25
+811. X: 71
+    Y: 26
+812. X: 71
+    Y: 26
+813. X: 71
+    Y: 27
+814. X: 71
+    Y: 27
+815. X: 71
+    Y: 28
+816. X: 71
+    Y: 28
+817. X: 71
+    Y: 29
+818. X: 71
+    Y: 29
+819. X: 72
+    Y: 7
+820. X: 72
+    Y: 16
+821. X: 72
+    Y: 17
+822. X: 72
+    Y: 17
+823. X: 72
+    Y: 18
+824. X: 72
+    Y: 25
+825. X: 72
+    Y: 25
+826. X: 72
+    Y: 26
+827. X: 72
+    Y: 26
+828. X: 72
+    Y: 27
+829. X: 72
+    Y: 27
+830. X: 72
+    Y: 28
+831. X: 72
+    Y: 28
+832. X: 72
+    Y: 29
+833. X: 73
+    Y: 7
+834. X: 73
+    Y: 16
+835. X: 73
+    Y: 17
+836. X: 73
+    Y: 17
+837. X: 73
+    Y: 18
+838. X: 73
+    Y: 18
+839. X: 73
+    Y: 19
+840. X: 73
+    Y: 24
+841. X: 73
+    Y: 25
+842. X: 73
+    Y: 25
+843. X: 73
+    Y: 26
+844. X: 73
+    Y: 26
+845. X: 73
+    Y: 27
+846. X: 73
+    Y: 27
+847. X: 73
+    Y: 28
+848. X: 73
+    Y: 28
+849. X: 74
+    Y: 1
+850. X: 74
+    Y: 6
+851. X: 74
+    Y: 7
+852. X: 74
+    Y: 16
+853. X: 74
+    Y: 17
+854. X: 74
+    Y: 17
+855. X: 74
+    Y: 18
+856. X: 74
+    Y: 18
+857. X: 74
+    Y: 19
+858. X: 74
+    Y: 24
+859. X: 74
+    Y: 25
+860. X: 74
+    Y: 25
+861. X: 74
+    Y: 26
+862. X: 74
+    Y: 26
+863. X: 74
+    Y: 27
+864. X: 74
+    Y: 27
+865. X: 75
+    Y: 1
+866. X: 75
+    Y: 2
+867. X: 75
+    Y: 3
+868. X: 75
+    Y: 4
+869. X: 75
+    Y: 7
+870. X: 75
+    Y: 16
+871. X: 75
+    Y: 17
+872. X: 75
+    Y: 17
+873. X: 75
+    Y: 18
+874. X: 75
+    Y: 18
+875. X: 75
+    Y: 19
+876. X: 75
+    Y: 24
+877. X: 75
+    Y: 25
+878. X: 75
+    Y: 25
+879. X: 75
+    Y: 26
+880. X: 76
+    Y: 1
+881. X: 76
+    Y: 7
+882. X: 76
+    Y: 16
+883. X: 76
+    Y: 17
+884. X: 76
+    Y: 17
+885. X: 76
+    Y: 18
+886. X: 76
+    Y: 18
+887. X: 76
+    Y: 19
+888. X: 76
+    Y: 22
+889. X: 76
+    Y: 23
+890. X: 76
+    Y: 24
+891. X: 77
+    Y: 1
+892. X: 77
+    Y: 7
+893. X: 77
+    Y: 16
+894. X: 77
+    Y: 17
+895. X: 77
+    Y: 17
+896. X: 77
+    Y: 18
+897. X: 77
+    Y: 18
+898. X: 77
+    Y: 19
+899. X: 77
+    Y: 19
+900. X: 77
+    Y: 20
+901. X: 78
+    Y: 1
+902. X: 78
+    Y: 7
+903. X: 78
+    Y: 17
+904. X: 78
+    Y: 18
+905. X: 78
+    Y: 18
+906. X: 78
+    Y: 19
+907. X: 79
+    Y: 1
+908. X: 79
+    Y: 7
+909. X: 80
+    Y: 7
+910. X: 81
+    Y: 7
+911. X: 82
+    Y: 7
+912. X: 83
+    Y: 7
+913. X: 84
+    Y: 7
+914. X: 85
+    Y: 7
+915. X: 86
+    Y: 7
+916. X: 87
+    Y: 7
+917. X: 88
+    Y: 5
+918. X: 88
+    Y: 6
+919. X: 88
+    Y: 7
+920. X: 89
+    Y: 5
+921. X: 90
+    Y: 5
+922. X: 91
+    Y: 5
+923. X: 92
+    Y: 5
+924. X: 93
+    Y: 5
+
+
+Test Health Potion Vector: 
+0. 
+    
+    5
+1. 
+    
+    10
+2. 
+    
+    15
+3. 
+    
+    20
+4. 
+    
+    25
+5. 
+    
+    30
+6. 
+    
+    35
+7. 
+    
+    40
+8. 
+    
+    45
+9. 
+    
+    50
+
+
+Test Magic Potion Vector: 
+0. 
+    
+    5
+1. 
+    
+    10
+2. 
+    
+    15
+3. 
+    
+    20
+4. 
+    
+    25
+5. 
+    
+    30
+6. 
+    
+    35
+7. 
+    
+    40
+8. 
+    
+    45
+9. 
+    
+    50
+
+
+Test leatherArmorVector: 
+0. Leather Helmet
+    leather
+1. Leather Breastplate
+    leather
+2. Leather Gloves
+    leather
+3. Leather Shoes
+    leather
+4. Leather Shield
+    leather
+
+
+Test metalArmorVector: 
+0. Metal Helmet
+    metal
+1. Metal Breastplate
+    metal
+2. Metal Gloves
+    metal
+3. Metal Shoes
+    metal
+4. Metal Shield
+    metal
+
+
+Test crystalArmorVector: 
+0. Metal Helmet
+    metal
+1. Metal Breastplate
+    metal
+2. Metal Gloves
+    metal
+3. Metal Shoes
+    metal
+4. Metal Shield
+    metal
+
+
+Test daggerVector: 
+0. Common Dagger   MinDamage: 1   MaxDamage: 1
+1. Common Dagger   MinDamage: 1   MaxDamage: 1
+2. Common Dagger   MinDamage: 1   MaxDamage: 1
+3. Lucky Dagger   MinDamage: 2   MaxDamage: 2
+4. Lucky Dagger   MinDamage: 2   MaxDamage: 2
+5. Magic Dagger   MinDamage: 3   MaxDamage: 3
+6. Common Dagger   MinDamage: 1   MaxDamage: 1
+7. Common Dagger   MinDamage: 1   MaxDamage: 1
+8. Common Dagger   MinDamage: 1   MaxDamage: 1
+9. Common Dagger   MinDamage: 1   MaxDamage: 1
+10. Reliable Dagger   MinDamage: 2   MaxDamage: 2
+11. Reliable Dagger   MinDamage: 2   MaxDamage: 2
+12. Reliable Dagger   MinDamage: 2   MaxDamage: 2
+13. Lucky Dagger   MinDamage: 3   MaxDamage: 3
+14. Lucky Dagger   MinDamage: 3   MaxDamage: 3
+15. Magic Dagger   MinDamage: 4   MaxDamage: 4
+
+
+Test clubVector: 
+0. Common Club   MinDamage: 1   MaxDamage: 1
+1. Common Club   MinDamage: 1   MaxDamage: 1
+2. Common Club   MinDamage: 1   MaxDamage: 1
+3. Common Club   MinDamage: 2   MaxDamage: 2
+4. Common Club   MinDamage: 2   MaxDamage: 2
+5. Common Club   MinDamage: 3   MaxDamage: 3
+6. Club   MinDamage: 1   MaxDamage: 1
+7. Club   MinDamage: 1   MaxDamage: 1
+8. Club   MinDamage: 1   MaxDamage: 1
+9. Club   MinDamage: 1   MaxDamage: 1
+10. Club   MinDamage: 2   MaxDamage: 2
+11. Reliable Club   MinDamage: 2   MaxDamage: 2
+12. Reliable Club   MinDamage: 2   MaxDamage: 2
+13. Reliable Club   MinDamage: 3   MaxDamage: 3
+14. Reliable Club   MinDamage: 3   MaxDamage: 3
+15. Lucky Club   MinDamage: 4   MaxDamage: 4
+16. Lucky Club   MinDamage: 0   MaxDamage: 0
+17. Lucky Club   MinDamage: 0   MaxDamage: 0
+18. Lucky Club   MinDamage: 0   MaxDamage: 0
+19. Lucky Club   MinDamage: 0   MaxDamage: 0
+20. Magic Club   MinDamage: 1   MaxDamage: 1
+21. Common Club   MinDamage: 1   MaxDamage: 1
+22. Common Club   MinDamage: 1   MaxDamage: 1
+23. Common Club   MinDamage: 1   MaxDamage: 1
+24. Common Club   MinDamage: 1   MaxDamage: 1
+25. Reliable Club   MinDamage: 1   MaxDamage: 1
+26. Reliable Club   MinDamage: 2   MaxDamage: 2
+27. Reliable Club   MinDamage: 2   MaxDamage: 2
+28. Lucky Club   MinDamage: 2   MaxDamage: 2
+29. Lucky Club   MinDamage: 2   MaxDamage: 2
+30. Magic Club   MinDamage: 2   MaxDamage: 2
+
+
+Test heavyMaceVector: 
+0. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+1. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+2. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+3. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+4. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+5. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+6. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+7. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+8. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+9. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+10. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+11. Reliable Heavy Mace   MinDamage: 3   MaxDamage: 3
+12. Reliable Heavy Mace   MinDamage: 3   MaxDamage: 3
+13. Reliable Heavy Mace   MinDamage: 3   MaxDamage: 3
+14. Reliable Heavy Mace   MinDamage: 3   MaxDamage: 3
+15. Lucky Heavy Mace   MinDamage: 4   MaxDamage: 4
+16. Lucky Heavy Mace   MinDamage: 4   MaxDamage: 4
+17. Lucky Heavy Mace   MinDamage: 4   MaxDamage: 4
+18. Lucky Heavy Mace   MinDamage: 5   MaxDamage: 5
+19. Lucky Heavy Mace   MinDamage: 5   MaxDamage: 5
+20. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+21. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+22. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+23. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+24. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+25. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+26. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+27. Magic Heavy Mace   MinDamage: 1   MaxDamage: 1
+28. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+29. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+30. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+31. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+32. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+33. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+34. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+35. Common Heavy Mace   MinDamage: 1   MaxDamage: 1
+36. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+37. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+38. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+39. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+40. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+41. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+42. Common Heavy Mace   MinDamage: 2   MaxDamage: 2
+43. Common Heavy Mace   MinDamage: 3   MaxDamage: 3
+44. Common Heavy Mace   MinDamage: 3   MaxDamage: 3
+45. Common Heavy Mace   MinDamage: 3   MaxDamage: 3
+46. Common Heavy Mace   MinDamage: 3   MaxDamage: 3
+47. Common Heavy Mace   MinDamage: 3   MaxDamage: 3
+48. Common Heavy Mace   MinDamage: 3   MaxDamage: 3
+49. Reliable Heavy Mace   MinDamage: 4   MaxDamage: 4
+50. Reliable Heavy Mace   MinDamage: 4   MaxDamage: 4
+51. Reliable Heavy Mace   MinDamage: 4   MaxDamage: 4
+52. Reliable Heavy Mace   MinDamage: 4   MaxDamage: 4
+53. Reliable Heavy Mace   MinDamage: 4   MaxDamage: 4
+54. Lucky Heavy Mace   MinDamage: 5   MaxDamage: 5
+55. Lucky Heavy Mace   MinDamage: 5   MaxDamage: 5
+56. Lucky Heavy Mace   MinDamage: 5   MaxDamage: 5
+57. Lucky Heavy Mace   MinDamage: 5   MaxDamage: 5
+58. Lucky Heavy Mace   MinDamage: 6   MaxDamage: 6
+59. Lucky Heavy Mace   MinDamage: 6   MaxDamage: 6
+60. Lucky Heavy Mace   MinDamage: 6   MaxDamage: 6
+61. Magic Heavy Mace   MinDamage: 7   MaxDamage: 7
+62. Magic Heavy Mace   MinDamage: 7   MaxDamage: 7
+63. Magic Heavy Mace   MinDamage: 8   MaxDamage: 8
+
+
+Test spearVector: 
+0. Common Spear   MinDamage: 1   MaxDamage: 1
+1. Common Spear   MinDamage: 1   MaxDamage: 1
+2. Common Spear   MinDamage: 1   MaxDamage: 1
+3. Common Spear   MinDamage: 1   MaxDamage: 1
+4. Common Spear   MinDamage: 1   MaxDamage: 1
+5. Common Spear   MinDamage: 1   MaxDamage: 1
+6. Common Spear   MinDamage: 2   MaxDamage: 2
+7. Common Spear   MinDamage: 2   MaxDamage: 2
+8. Common Spear   MinDamage: 2   MaxDamage: 2
+9. Common Spear   MinDamage: 2   MaxDamage: 2
+10. Common Spear   MinDamage: 2   MaxDamage: 2
+11. Reliable Spear   MinDamage: 3   MaxDamage: 3
+12. Reliable Spear   MinDamage: 3   MaxDamage: 3
+13. Reliable Spear   MinDamage: 3   MaxDamage: 3
+14. Reliable Spear   MinDamage: 3   MaxDamage: 3
+15. Lucky Spear   MinDamage: 4   MaxDamage: 4
+16. Lucky Spear   MinDamage: 4   MaxDamage: 4
+17. Lucky Spear   MinDamage: 4   MaxDamage: 4
+18. Lucky Spear   MinDamage: 5   MaxDamage: 5
+19. Lucky Spear   MinDamage: 5   MaxDamage: 5
+20. Magic Spear   MinDamage: 6   MaxDamage: 6
+21. Common Spear   MinDamage: 1   MaxDamage: 1
+22. Common Spear   MinDamage: 1   MaxDamage: 1
+23. Common Spear   MinDamage: 1   MaxDamage: 1
+24. Common Spear   MinDamage: 1   MaxDamage: 1
+25. Common Spear   MinDamage: 1   MaxDamage: 1
+26. Common Spear   MinDamage: 1   MaxDamage: 1
+27. Common Spear   MinDamage: 1   MaxDamage: 1
+28. Common Spear   MinDamage: 1   MaxDamage: 1
+29. Common Spear   MinDamage: 2   MaxDamage: 2
+30. Common Spear   MinDamage: 2   MaxDamage: 2
+31. Common Spear   MinDamage: 2   MaxDamage: 2
+32. Common Spear   MinDamage: 2   MaxDamage: 2
+33. Common Spear   MinDamage: 2   MaxDamage: 2
+34. Common Spear   MinDamage: 2   MaxDamage: 2
+35. Common Spear   MinDamage: 2   MaxDamage: 2
+36. Common Spear   MinDamage: 3   MaxDamage: 3
+37. Common Spear   MinDamage: 3   MaxDamage: 3
+38. Common Spear   MinDamage: 3   MaxDamage: 3
+39. Common Spear   MinDamage: 3   MaxDamage: 3
+40. Common Spear   MinDamage: 3   MaxDamage: 3
+41. Common Spear   MinDamage: 3   MaxDamage: 3
+42. Reliable Spear   MinDamage: 4   MaxDamage: 4
+43. Reliable Spear   MinDamage: 4   MaxDamage: 4
+44. Reliable Spear   MinDamage: 4   MaxDamage: 4
+45. Reliable Spear   MinDamage: 4   MaxDamage: 4
+46. Reliable Spear   MinDamage: 4   MaxDamage: 4
+47. Reliable Spear   MinDamage: 5   MaxDamage: 5
+48. Reliable Spear   MinDamage: 5   MaxDamage: 5
+49. Reliable Spear   MinDamage: 5   MaxDamage: 5
+50. Reliable Spear   MinDamage: 5   MaxDamage: 5
+51. Lucky Spear   MinDamage: 6   MaxDamage: 6
+52. Lucky Spear   MinDamage: 6   MaxDamage: 6
+53. Lucky Spear   MinDamage: 6   MaxDamage: 6
+54. Lucky Spear   MinDamage: 7   MaxDamage: 7
+55. Lucky Spear   MinDamage: 7   MaxDamage: 7
+56. Magic Spear   MinDamage: 8   MaxDamage: 8
+
+
+Test heavyCrossBowVector: 
+0. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+1. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+2. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+3. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+4. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+5. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+6. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+7. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+8. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+9. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+10. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+11. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+12. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+13. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+14. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+15. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+16. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+17. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+18. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+19. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+20. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+21. Reliable Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+22. Reliable Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+23. Reliable Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+24. Reliable Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+25. Reliable Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+26. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+27. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+28. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+29. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+30. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+31. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+32. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+33. Lucky Heavy CrossBow   MinDamage: 7   MaxDamage: 7
+34. Lucky Heavy CrossBow   MinDamage: 7   MaxDamage: 7
+35. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+36. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+37. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+38. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+39. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+40. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+41. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+42. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+43. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+44. Common Heavy CrossBow   MinDamage: 1   MaxDamage: 1
+45. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+46. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+47. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+48. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+49. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+50. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+51. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+52. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+53. Common Heavy CrossBow   MinDamage: 2   MaxDamage: 2
+54. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+55. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+56. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+57. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+58. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+59. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+60. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+61. Common Heavy CrossBow   MinDamage: 3   MaxDamage: 3
+62. Common Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+63. Common Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+64. Common Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+65. Common Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+66. Common Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+67. Common Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+68. Common Heavy CrossBow   MinDamage: 4   MaxDamage: 4
+69. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+70. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+71. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+72. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+73. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+74. Reliable Heavy CrossBow   MinDamage: 5   MaxDamage: 5
+75. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+76. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+77. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+78. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+79. Lucky Heavy CrossBow   MinDamage: 6   MaxDamage: 6
+80. Lucky Heavy CrossBow   MinDamage: 7   MaxDamage: 7
+81. Lucky Heavy CrossBow   MinDamage: 7   MaxDamage: 7
+82. Lucky Heavy CrossBow   MinDamage: 7   MaxDamage: 7
+83. Lucky Heavy CrossBow   MinDamage: 7   MaxDamage: 7
+84. Lucky Heavy CrossBow   MinDamage: 8   MaxDamage: 8
+85. Lucky Heavy CrossBow   MinDamage: 8   MaxDamage: 8
+86. Lucky Heavy CrossBow   MinDamage: 8   MaxDamage: 8
+87. Magic Heavy CrossBow   MinDamage: 9   MaxDamage: 9
+88. Magic Heavy CrossBow   MinDamage: 9   MaxDamage: 9
+89. Magic Heavy CrossBow   MinDamage: 10   MaxDamage: 10
+
+
+Test lightCrossBowVector: 
+0. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+1. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+2. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+3. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+4. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+5. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+6. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+7. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+8. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+9. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+10. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+11. Reliable Light CrossBow   MinDamage: 3   MaxDamage: 3
+12. Reliable Light CrossBow   MinDamage: 3   MaxDamage: 3
+13. Reliable Light CrossBow   MinDamage: 3   MaxDamage: 3
+14. Reliable Light CrossBow   MinDamage: 3   MaxDamage: 3
+15. Lucky Light CrossBow   MinDamage: 4   MaxDamage: 4
+16. Lucky Light CrossBow   MinDamage: 4   MaxDamage: 4
+17. Lucky Light CrossBow   MinDamage: 4   MaxDamage: 4
+18. Lucky Light CrossBow   MinDamage: 5   MaxDamage: 5
+19. Lucky Light CrossBow   MinDamage: 5   MaxDamage: 5
+20. Magic Light CrossBow   MinDamage: 6   MaxDamage: 6
+21. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+22. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+23. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+24. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+25. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+26. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+27. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+28. Common Light CrossBow   MinDamage: 1   MaxDamage: 1
+29. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+30. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+31. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+32. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+33. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+34. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+35. Common Light CrossBow   MinDamage: 2   MaxDamage: 2
+36. Common Light CrossBow   MinDamage: 3   MaxDamage: 3
+37. Common Light CrossBow   MinDamage: 3   MaxDamage: 3
+38. Common Light CrossBow   MinDamage: 3   MaxDamage: 3
+39. Common Light CrossBow   MinDamage: 3   MaxDamage: 3
+40. Common Light CrossBow   MinDamage: 3   MaxDamage: 3
+41. Common Light CrossBow   MinDamage: 3   MaxDamage: 3
+42. Reliable Light CrossBow   MinDamage: 4   MaxDamage: 4
+43. Reliable Light CrossBow   MinDamage: 4   MaxDamage: 4
+44. Reliable Light CrossBow   MinDamage: 4   MaxDamage: 4
+45. Reliable Light CrossBow   MinDamage: 4   MaxDamage: 4
+46. Reliable Light CrossBow   MinDamage: 4   MaxDamage: 4
+47. Reliable Light CrossBow   MinDamage: 5   MaxDamage: 5
+48. Reliable Light CrossBow   MinDamage: 5   MaxDamage: 5
+49. Reliable Light CrossBow   MinDamage: 5   MaxDamage: 5
+50. Reliable Light CrossBow   MinDamage: 5   MaxDamage: 5
+51. Lucky Light CrossBow   MinDamage: 6   MaxDamage: 6
+52. Lucky Light CrossBow   MinDamage: 6   MaxDamage: 6
+53. Lucky Light CrossBow   MinDamage: 6   MaxDamage: 6
+54. Lucky Light CrossBow   MinDamage: 7   MaxDamage: 7
+55. Lucky Light CrossBow   MinDamage: 7   MaxDamage: 7
+56. Magic Light CrossBow   MinDamage: 8   MaxDamage: 8
+
+
+Test battleaxeVector: 
+0. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+1. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+2. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+3. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+4. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+5. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+6. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+7. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+8. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+9. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+10. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+11. Reliable Battleaxe   MinDamage: 3   MaxDamage: 3
+12. Reliable Battleaxe   MinDamage: 3   MaxDamage: 3
+13. Reliable Battleaxe   MinDamage: 3   MaxDamage: 3
+14. Reliable Battleaxe   MinDamage: 3   MaxDamage: 3
+15. Lucky Battleaxe   MinDamage: 4   MaxDamage: 4
+16. Lucky Battleaxe   MinDamage: 4   MaxDamage: 4
+17. Lucky Battleaxe   MinDamage: 4   MaxDamage: 4
+18. Lucky Battleaxe   MinDamage: 5   MaxDamage: 5
+19. Lucky Battleaxe   MinDamage: 5   MaxDamage: 5
+20. Magic Battleaxe   MinDamage: 6   MaxDamage: 6
+21. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+22. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+23. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+24. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+25. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+26. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+27. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+28. Common Battleaxe   MinDamage: 1   MaxDamage: 1
+29. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+30. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+31. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+32. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+33. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+34. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+35. Common Battleaxe   MinDamage: 2   MaxDamage: 2
+36. Common Battleaxe   MinDamage: 3   MaxDamage: 3
+37. Common Battleaxe   MinDamage: 3   MaxDamage: 3
+38. Common Battleaxe   MinDamage: 3   MaxDamage: 3
+39. Common Battleaxe   MinDamage: 3   MaxDamage: 3
+40. Common Battleaxe   MinDamage: 3   MaxDamage: 3
+41. Common Battleaxe   MinDamage: 3   MaxDamage: 3
+42. Reliable Battleaxe   MinDamage: 4   MaxDamage: 4
+43. Reliable Battleaxe   MinDamage: 4   MaxDamage: 4
+44. Reliable Battleaxe   MinDamage: 4   MaxDamage: 4
+45. Reliable Battleaxe   MinDamage: 4   MaxDamage: 4
+46. Reliable Battleaxe   MinDamage: 4   MaxDamage: 4
+47. Lucky Battleaxe   MinDamage: 5   MaxDamage: 5
+48. Lucky Battleaxe   MinDamage: 5   MaxDamage: 5
+49. Lucky Battleaxe   MinDamage: 5   MaxDamage: 5
+50. Lucky Battleaxe   MinDamage: 5   MaxDamage: 5
+51. Lucky Battleaxe   MinDamage: 6   MaxDamage: 6
+52. Lucky Battleaxe   MinDamage: 6   MaxDamage: 6
+53. Lucky Battleaxe   MinDamage: 6   MaxDamage: 6
+54. Lucky Battleaxe   MinDamage: 7   MaxDamage: 7
+55. Lucky Battleaxe   MinDamage: 7   MaxDamage: 7
+56. Magic Battleaxe   MinDamage: 8   MaxDamage: 8
+
+
+Test longBowVector: 
+0. Common Longbow   MinDamage: 1   MaxDamage: 1
+1. Common Longbow   MinDamage: 1   MaxDamage: 1
+2. Common Longbow   MinDamage: 1   MaxDamage: 1
+3. Common Longbow   MinDamage: 1   MaxDamage: 1
+4. Common Longbow   MinDamage: 1   MaxDamage: 1
+5. Common Longbow   MinDamage: 1   MaxDamage: 1
+6. Common Longbow   MinDamage: 2   MaxDamage: 2
+7. Common Longbow   MinDamage: 2   MaxDamage: 2
+8. Common Longbow   MinDamage: 2   MaxDamage: 2
+9. Common Longbow   MinDamage: 2   MaxDamage: 2
+10. Common Longbow   MinDamage: 2   MaxDamage: 2
+11. Reliable Longbow   MinDamage: 3   MaxDamage: 3
+12. Reliable Longbow   MinDamage: 3   MaxDamage: 3
+13. Reliable Longbow   MinDamage: 3   MaxDamage: 3
+14. Reliable Longbow   MinDamage: 3   MaxDamage: 3
+15. Lucky Longbow   MinDamage: 4   MaxDamage: 4
+16. Lucky Longbow   MinDamage: 4   MaxDamage: 4
+17. Lucky Longbow   MinDamage: 4   MaxDamage: 4
+18. Lucky Longbow   MinDamage: 5   MaxDamage: 5
+19. Lucky Longbow   MinDamage: 5   MaxDamage: 5
+20. Magic Longbow   MinDamage: 6   MaxDamage: 6
+21. Common Longbow   MinDamage: 1   MaxDamage: 1
+22. Common Longbow   MinDamage: 1   MaxDamage: 1
+23. Common Longbow   MinDamage: 1   MaxDamage: 1
+24. Common Longbow   MinDamage: 1   MaxDamage: 1
+25. Common Longbow   MinDamage: 1   MaxDamage: 1
+26. Common Longbow   MinDamage: 1   MaxDamage: 1
+27. Common Longbow   MinDamage: 1   MaxDamage: 1
+28. Common Longbow   MinDamage: 1   MaxDamage: 1
+29. Common Longbow   MinDamage: 2   MaxDamage: 2
+30. Common Longbow   MinDamage: 2   MaxDamage: 2
+31. Common Longbow   MinDamage: 2   MaxDamage: 2
+32. Common Longbow   MinDamage: 2   MaxDamage: 2
+33. Common Longbow   MinDamage: 2   MaxDamage: 2
+34. Common Longbow   MinDamage: 2   MaxDamage: 2
+35. Common Longbow   MinDamage: 2   MaxDamage: 2
+36. Common Longbow   MinDamage: 3   MaxDamage: 3
+37. Common Longbow   MinDamage: 3   MaxDamage: 3
+38. Common Longbow   MinDamage: 3   MaxDamage: 3
+39. Common Longbow   MinDamage: 3   MaxDamage: 3
+40. Common Longbow   MinDamage: 3   MaxDamage: 3
+41. Common Longbow   MinDamage: 3   MaxDamage: 3
+42. Reliable Longbow   MinDamage: 4   MaxDamage: 4
+43. Reliable Longbow   MinDamage: 4   MaxDamage: 4
+44. Reliable Longbow   MinDamage: 4   MaxDamage: 4
+45. Reliable Longbow   MinDamage: 4   MaxDamage: 4
+46. Reliable Longbow   MinDamage: 4   MaxDamage: 4
+47. Lucky Longbow   MinDamage: 5   MaxDamage: 5
+48. Lucky Longbow   MinDamage: 5   MaxDamage: 5
+49. Lucky Longbow   MinDamage: 5   MaxDamage: 5
+50. Lucky Longbow   MinDamage: 5   MaxDamage: 5
+51. Lucky Longbow   MinDamage: 6   MaxDamage: 6
+52. Lucky Longbow   MinDamage: 6   MaxDamage: 6
+53. Lucky Longbow   MinDamage: 6   MaxDamage: 6
+54. Lucky Longbow   MinDamage: 7   MaxDamage: 7
+55. Lucky Longbow   MinDamage: 7   MaxDamage: 7
+56. Magic Longbow   MinDamage: 8   MaxDamage: 8
+
+

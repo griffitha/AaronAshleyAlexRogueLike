@@ -47,7 +47,7 @@ void enemy::createRobot(int factor)
     int experienceValue=(factor*(factor+1));
     setMaxHealth(healthValue);
     setHealth(getMaxHealth());
-    setMapRep('R');
+    setMapRep('C');
     setCharacterName("Robot");
     setBaseDamage(damageValue);
     setArmor(2);

@@ -37,11 +37,10 @@ int main()
     init_pair(2,COLOR_BLACK,COLOR_GREEN);
     //Converts to grey
     init_pair(3,COLOR_WHITE,COLOR_BLACK);
-    init_pair(4,COLOR_WHITE,COLOR_MAGENTA);
     wbkgd(stdscr, COLOR_PAIR(1));
     wbkgd(gameWindow, COLOR_PAIR(2));
     wbkgd(statusWindow, COLOR_PAIR(3));
-    wbkgd(messageWindow, COLOR_PAIR(4));
+    wbkgd(messageWindow, COLOR_PAIR(3));
     cbreak();
     refresh();
 
@@ -55,7 +54,7 @@ int main()
     vector<character> gameObjects;
 
     //Read Level from File
-    readLevel(symbolArray,gameObjects,thePlayer,52);
+    readLevel(symbolArray,gameObjects,thePlayer,50);
 
     //create and initialize health potion vector
     vector <Consumable> healthPotionVector;

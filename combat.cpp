@@ -80,3 +80,14 @@ int findTarget(int x, int y, std::vector<character> gameObjects)
         }
     }
 }
+
+//Goes through the vector and finds all the dead enemies and adds their experience accordingly
+void removeDead(player thePlayer, std::vector<character*> gameObjects)
+{
+    for (unsigned int i = 0; i < gameObjects.size(); i++)
+    {
+
+    }
+
+    //if (thePlayer.getExperience())
+}

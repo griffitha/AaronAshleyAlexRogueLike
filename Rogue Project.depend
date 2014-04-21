@@ -1,0 +1,70 @@
+# depslib dependency file v1.0
+1396539995 source:c:\users\blackie\desktop\school files\cs 240\curse project\maingamefile.cpp
+	"utility.h"
+	"rogue.h"
+
+1396448856 c:\users\blackie\desktop\school files\cs 240\curse project\utility.h
+	<curses.h>
+	<fstream>
+	<iostream>
+
+1396539820 c:\users\blackie\desktop\school files\cs 240\curse project\rogue.h
+
+1396539912 source:c:\users\blackie\desktop\school files\cs 240\curse project\utility.cpp
+	"utility.h"
+
+1398087600 source:c:\users\blackie\desktop\school files\cs 240\rogue project\utility.cpp
+	"utility.h"
+
+1397943360 c:\users\blackie\desktop\school files\cs 240\rogue project\utility.h
+	<curses.h>
+	<fstream>
+	<iostream>
+	<string>
+	<ctime>
+	<cstdlib>
+	<vector>
+	"AlexRogue.h"
+	"combat.h"
+	"Sokaban.h"
+	"itemh.h"
+
+1398081242 source:c:\users\blackie\desktop\school files\cs 240\rogue project\maingamefile.cpp
+	"utility.h"
+	"AlexRogue.h"
+
+1396617626 c:\users\blackie\desktop\school files\cs 240\rogue project\rogue.h
+	"utility.h"
+
+1397928240 c:\users\blackie\desktop\school files\cs 240\rogue project\alexrogue.h
+	"utility.h"
+
+1397927907 source:c:\users\blackie\desktop\school files\cs 240\rogue project\alexroguefunctions.cpp
+	"utility.h"
+
+1398105539 source:c:\users\blackie\desktop\school files\cs 240\rogue project\combat.cpp
+	"combat.h"
+
+1397927257 c:\users\blackie\desktop\school files\cs 240\rogue project\combat.h
+	"utility.h"
+
+1397495364 source:c:\users\blackie\desktop\school files\cs 240\rogue project\testmain.cpp
+	"utility.h"
+	"AlexRogue.h"
+	"combat.h"
+
+1397502192 source:c:\users\blackie\desktop\school files\cs 240\rogue project\vectorplayertest.cpp
+	"utility.h"
+
+1397926263 c:\users\blackie\desktop\school files\cs 240\rogue project\itemh.h
+	"utility.h"
+
+1397603855 source:c:\users\blackie\desktop\school files\cs 240\rogue project\item.cpp
+	"utility.h"
+
+1397944782 source:c:\users\blackie\desktop\school files\cs 240\rogue project\sokaban.cpp
+	"utility.h"
+
+1397944702 c:\users\blackie\desktop\school files\cs 240\rogue project\sokaban.h
+	"utility.h"
+

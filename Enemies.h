@@ -14,7 +14,7 @@ class enemy: public character
                     break;
             case 1: createBat(factor);
                     break;
-            case 2: createRobot(factor);
+            case 2: createCyborg(factor);
                     break;
         }
 
@@ -22,7 +22,7 @@ class enemy: public character
     private:
     void createGoblin(int factor);
     void createBat(int factor);
-    void createRobot(int factor);
+    void createCyborg(int factor);
 };
 int numOfEnemies(char symbolArray[500][500],vector <Location> &possiblePositions);
 void spawnEnemies(char symbolArray[500][500],vector <Location> &possiblePositions,int enemiesToCreate,player mainChar);

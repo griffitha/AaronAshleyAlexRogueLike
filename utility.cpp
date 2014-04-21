@@ -170,6 +170,18 @@ void printWindow(char symbolArray[500][500],std::vector<character> gameObjects, 
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
                 }
+                else if (symbolArray[X][Y] == 'G')
+                {
+                    mvwaddch(workingWindow,yCounter,xCounter,'G');
+                }
+                else if (symbolArray[X][Y] == 'B')
+                {
+                    mvwaddch(workingWindow,yCounter,xCounter,'B');
+                }
+                else if (symbolArray[X][Y] == 'C')
+                {
+                    mvwaddch(workingWindow,yCounter,xCounter,'C');
+                }
             }
 
             else

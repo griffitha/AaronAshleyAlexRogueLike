@@ -58,9 +58,9 @@ void enemy::createRobot(int factor)
 //modified version of numOfItems created by Ashley
 int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePositions)
 {
-    int spaceCounter = 0;
-    int enemiesToCreate = 0;
-    int enemiesPerSpaces = (rand()%20)+35;
+    int spaceCounter = possiblePositions.size();
+    int enemiesToCreate;
+    int enemiesPerSpaces = (rand()%50)+150;
     //1 enemy for every 20 spaces
     enemiesToCreate = spaceCounter/enemiesPerSpaces;
     //This guarantees at least 1 enemy to spawn in a given room
@@ -71,9 +71,10 @@ int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePosit
 
     return enemiesToCreate;
 }
-void spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions,int enemiesToCreate,player mainChar)
+vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions,int enemiesToCreate,player mainChar)
 {
-    for(int i=0;i>enemiesToCreate;i++)
+    vector<enemy> enemyList;
+    for(int i=0;i<=enemiesToCreate;i++)
     {
       //determine enemy type
     const int TYPES_OF_ENEMIES=3;
@@ -84,11 +85,14 @@ void spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePos
     int enemyX=spawnLocation.getX();
     int enemyY=spawnLocation.getY();
     //determine enemy level
-    int enemyLevel=rand()%mainChar.getLevel();
+    //int enemyLevel=rand()%mainChar.getLevel();
+    int enemyLevel=1;
     //spawn enemy
     enemy currentEnemy(enemyX,enemyY,enemyType,enemyLevel);
+    enemyList.push_back(currentEnemy);
     //place enemy on map
     symbolArray[enemyX][enemyY]=currentEnemy.getMapRep();
     }
-    return;
+    return enemyList;
 }
+

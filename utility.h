@@ -8,7 +8,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <vector>
-#include "AlexRogue.h"
+#include "Character.h"
 #include "combat.h"
 #include "itemh.h"
 #include "Sokaban.h"

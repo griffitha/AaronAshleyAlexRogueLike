@@ -389,7 +389,6 @@ void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
 player playerCreation()
 {
     player returnedPlayer(0,0);
-    returnedPlayer.setMapRep('X');
     std::string userInput;
     std::string playerClass;
     std::string playerRace;

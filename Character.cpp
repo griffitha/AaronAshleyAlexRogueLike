@@ -202,9 +202,6 @@ race player::getRace()
 void player::setClass(characterClass input)
 {
     playerClass=input;
-    setHealth(10);
-    setLevel(1);
-
     return;
 }
 characterClass player::getClass()

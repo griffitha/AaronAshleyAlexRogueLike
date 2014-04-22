@@ -117,7 +117,7 @@ int main()
     }
 
     positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
-    vector<enemy> enemyList=spawnEnemies(symbolArray,possiblePositions,enemiesNeeded,thePlayer);
+    //vector<enemy> enemyList=spawnEnemies(symbolArray,possiblePositions,enemiesNeeded,thePlayer);
 
     while((victoryAchieved == false) || (playerIsDead != true))
     {

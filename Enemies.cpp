@@ -55,6 +55,7 @@ void enemy::createRobot(int factor)
     setLevel(factor);
     setXpValue(experienceValue);
 }
+
 //modified version of numOfItems created by Ashley
 int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePositions)
 {
@@ -71,6 +72,7 @@ int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePosit
 
     return enemiesToCreate;
 }
+
 vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions,int enemiesToCreate,player mainChar)
 {
     vector<enemy> enemyList;
@@ -91,7 +93,6 @@ vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &po
     enemy currentEnemy(enemyX,enemyY,enemyType,enemyLevel);
     enemyList.push_back(currentEnemy);
     //place enemy on map
-    symbolArray[enemyX][enemyY]=currentEnemy.getMapRep();
     }
     return enemyList;
 }

@@ -2418,62 +2418,62 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
                   vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow)
 {
     wclear(workingWindow);
-    int numOfVectors = 3;
-    int chooseVector = rand() % numOfVectors + 1;
-
-    int positionInVector = 0;
-    Item itemToUse;
-
-    if(chooseVector == 1)
+    if (symbolArray[player.getXCoordinate()][player.getYCoordinate()] == '*')
     {
-        positionInVector = rand() % consumableVector.size();
-        itemToUse = consumableVector[positionInVector];
-    }
-    else if(chooseVector == 2)
-    {
-        positionInVector = rand() % armorVector.size();
-        itemToUse = armorVector[positionInVector];
-    }
-    else if(chooseVector == 3)
-    {
-        positionInVector = rand() % weaponVector.size();
-        itemToUse = weaponVector[positionInVector];
-    }
+        int numOfVectors = 3;
+        int chooseVector = rand() % numOfVectors + 1;
 
+        int positionInVector = 0;
+        Item itemToUse;
 
-    int currentX = player.getXCoordinate();
-    int currentY = player.getYCoordinate();
-
-    if(symbolArray[currentX][currentY] == '*')
-    {
-        wclear(workingWindow);
-
-        string currentString = "";
-
-        if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
-           itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
-           itemToUse.getName()[0] == 'o')//a or an
+        if(chooseVector == 1)
         {
-               currentString = "You have found an: ";
+            positionInVector = rand() % consumableVector.size();
+            itemToUse = consumableVector[positionInVector];
         }
-        else
+        else if(chooseVector == 2)
         {
-            currentString = "You have found a: ";
+            positionInVector = rand() % armorVector.size();
+            itemToUse = armorVector[positionInVector];
+        }
+        else if(chooseVector == 3)
+        {
+            positionInVector = rand() % weaponVector.size();
+            itemToUse = weaponVector[positionInVector];
         }
 
-        currentString = currentString + itemToUse.getName();
-        char * characterPointer = &currentString.at(0);
-        mvwprintw(workingWindow,0,3,characterPointer);
 
+        int currentX = player.getXCoordinate();
+        int currentY = player.getYCoordinate();
 
+        if(symbolArray[currentX][currentY] == '*')
+        {
+            wclear(workingWindow);
 
-        wrefresh(workingWindow);
+            string currentString = "";
+
+            if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+               itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+               itemToUse.getName()[0] == 'o')//a or an
+            {
+                   currentString = "You have found an: ";
+            }
+            else
+            {
+                currentString = "You have found a: ";
+            }
+
+            currentString = currentString + itemToUse.getName();
+            char * characterPointer = &currentString.at(0);
+            mvwprintw(workingWindow,0,3,characterPointer);
+
+            wrefresh(workingWindow);
+        }
     }
     else
     {
         return;
     }
-
     return;
 }
 

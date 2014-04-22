@@ -18,7 +18,8 @@ int main()
     char symbolArray[500][500];
     srand(time(NULL));
 
-    //player thePlayer = playerCreation();
+    player thePlayer = playerCreation();
+    player * playerPointer = &thePlayer;
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor
@@ -44,12 +45,6 @@ int main()
     refresh();
 
     //Player Creation TEST STUFF
-    player thePlayer(0,0);
-    player * playerPointer = &thePlayer;
-    thePlayer.setCharacterName("Tim the Viking");
-    thePlayer.setHealth(10);
-    thePlayer.setMaxHealth(10);
-    thePlayer.setMapRep('X');
     vector<character> gameObjects;
 
     //Read Level from File

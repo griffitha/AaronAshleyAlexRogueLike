@@ -42,6 +42,10 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, p
             levelFile.open("level3.txt");
             break;
 
+        case 4:
+            levelFile.open("level4.txt");
+            break;
+
         case 50:
             levelFile.open("SokabanLevel.txt");
             break;
@@ -249,7 +253,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         else if (symbolArray[playerX][playerY-1] == 'E')
         {
             //Level Transistion
-            int randomLevel = (rand() % 3) + 1;
+            int randomLevel = (rand() % 3) + 2;
             readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
         }
     }
@@ -275,7 +279,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         else if(symbolArray[playerX][playerY+1] == 'E')
         {
             //Level Transistion
-            int randomLevel = (rand() % 3) + 1;
+            int randomLevel = (rand() % 3) + 2;
             readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
         }
     }
@@ -300,7 +304,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         else if (symbolArray[playerX-1][playerY] == 'E')
         {
             //Level Transistion
-            int randomLevel = (rand() % 3) + 1;
+            int randomLevel = (rand() % 3) + 2;
             readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
         }
     }
@@ -327,7 +331,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         else if (symbolArray[playerX+1][playerY] == 'E')
         {
             //Level Transistion
-            int randomLevel = (rand() % 3) + 1;
+            int randomLevel = (rand() % 3) + 2;
             readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
         }
     }
@@ -385,6 +389,7 @@ void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
 player playerCreation()
 {
     player returnedPlayer(0,0);
+    returnedPlayer.setMapRep('X');
     std::string userInput;
     std::string playerClass;
     std::string playerRace;

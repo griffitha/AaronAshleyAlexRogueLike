@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
     bool victoryAchieved = false;
-    bool playerIsAlive = true;
+    bool playerIsDead = false;
     int const GAME_WINDOW_HEIGHT = 21;
     int const GAME_WINDOW_WIDTH = 31;
     int const STATUS_WINDOW_HEIGHT = 10;
@@ -18,7 +18,8 @@ int main()
     char symbolArray[500][500];
     srand(time(NULL));
 
-    //player thePlayer = playerCreation();
+    player thePlayer = playerCreation();
+    player * playerPointer = &thePlayer;
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor
@@ -44,17 +45,10 @@ int main()
     refresh();
 
     //Player Creation TEST STUFF
-    player thePlayer(0,0);
-    player * playerPointer = &thePlayer;
-    thePlayer.setCharacterName("Tim the Viking");
-    thePlayer.setHealth(10);
-    thePlayer.setMaxHealth(10);
-    thePlayer.setMapRep('X');
     vector<character> gameObjects;
 
     //Read Level from File
-    int firstLevelToLoad = 50;
-    readLevel(symbolArray,gameObjects,thePlayer,firstLevelToLoad);
+    readLevel(symbolArray,gameObjects,thePlayer,4);
 
     //create and initialize health potion vector
     vector <Consumable> healthPotionVector;
@@ -63,7 +57,6 @@ int main()
     //create and initialize magic potion vector
     vector <Consumable> magicPotionVector;
     initializeMagicPotionVector(magicPotionVector);
-
     //create and initialize armor vectors
     vector <Armor> leatherArmorVector;
     vector <Armor> metalArmorVector;
@@ -79,7 +72,6 @@ int main()
 
     vector <Weapon> heavyMaceVector;
     initializeHeavyMaceVector(heavyMaceVector);
-
     vector <Weapon> spearVector;
     initializeSpearVector(spearVector);
 
@@ -91,9 +83,9 @@ int main()
 
     vector <Weapon> battleaxeVector;
     initializeBattleaxeVector(battleaxeVector);
-
     vector <Weapon> heavyCrossBowVector;
     initializeHCrossBowVector(heavyCrossBowVector);
+
 
     //vector to hold corridinates for places in symbol array that contain spaces
     vector <Location> possiblePositions;
@@ -103,38 +95,34 @@ int main()
     vector <Armor> armorVector;
     vector <Weapon> weaponsVector;
 
-    if (firstLevelToLoad < 50)  //If not a Sokaban Map
+
+    //find number of items to place
+    int itemsNeeded = 0;
+    itemsNeeded = numOfItems(symbolArray,possiblePositions);
+    int enemiesNeeded = numOfEnemies(symbolArray,possiblePositions);
+
+    for(int i = 0; i < itemsNeeded; i++)
     {
+        itemChoice(thePlayer,consumableVector,armorVector,weaponsVector,
+            healthPotionVector,magicPotionVector,
+            leatherArmorVector,metalArmorVector,crystalArmorVector,
+            daggerVector, clubVector,heavyMaceVector,spearVector,
+            heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
 
-        //find number of items to place
-        int itemsNeeded = numOfItems(symbolArray,possiblePositions);
-
-        for(int i = 0; i < itemsNeeded; i++)
-        {
-            itemChoice(thePlayer,consumableVector,armorVector,weaponsVector,
-                       healthPotionVector,magicPotionVector,
-                       leatherArmorVector,metalArmorVector,crystalArmorVector,
-                       daggerVector, clubVector,heavyMaceVector,spearVector,
-                       heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
-
-        }
-
-        positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
     }
 
-    while((victoryAchieved == false) || (playerIsAlive != false))
+    positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
+    //vector<enemy> enemyList=spawnEnemies(symbolArray,possiblePositions,enemiesNeeded,thePlayer);
+
+    while((victoryAchieved == false) || (playerIsDead != true))
     {
         //Prints Windows
         printWindow(symbolArray,gameObjects,thePlayer,gameWindow,statusWindow,messageWindow);
         //Intiates player's turn
         playerTurn(symbolArray,gameObjects,thePlayer);
-        //Checks items at location
-        if (firstLevelToLoad < 50)
-        {
-            checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
-        }
+        checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
         victoryAchieved = checkSokabanVictory(gameObjects,symbolArray);
-        playerIsAlive = checkDead(playerPointer);
+        playerIsDead = checkDead(playerPointer);
     }
 
     endwin();

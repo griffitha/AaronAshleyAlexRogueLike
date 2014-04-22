@@ -1,6 +1,6 @@
 #include "combat.h"
 
-void meleeAttack(character * attacker, character * defender)
+void meleeAttack(character * attacker, character * defender, std::vector<character> gameObjects, std::vector<enemy> &enemyList)
 {
     //Variable Declarations
     int defenderHealth = defender -> getHealth();
@@ -45,16 +45,30 @@ bool checkDead(character * target)
     }
 }
 
-bool checkEmpty(int x, int y, std::vector<character> gameObjects)
+bool checkEmpty(int x, int y, std::vector<character> gameObjects,std::vector<enemy> enemyList)
 {
     //Function will go through and see if spot is occupied
     if (gameObjects.size() != 0)
     {
-        for (int i = 0; i < gameObjects.size(); i++)
+        for (unsigned int i = 0; i < gameObjects.size(); i++)
         {
             character currentObject = gameObjects.at(i);
             int designatedX = currentObject.getXCoordinate();
             int designatedY = currentObject.getYCoordinate();
+            if (designatedX == x && designatedY == y)
+            {
+                return false;
+            }
+        }
+    }
+
+    if (enemyList.size() != 0)
+    {
+        for (unsigned int i = 0; i < enemyList.size(); i++)
+        {
+            enemy currentEnemy = enemyList.at(i);
+            int designatedX = currentEnemy.getXCoordinate();
+            int designatedY = currentEnemy.getYCoordinate();
             if (designatedX == x && designatedY == y)
             {
                 return false;
@@ -68,9 +82,26 @@ int findTarget(int x, int y, std::vector<character> gameObjects)
 {
     if (gameObjects.size() != 0)
     {
-        for (int i = 0; i < gameObjects.size(); i++)
+        for (unsigned int i = 0; i < gameObjects.size(); i++)
         {
             character currentObject = gameObjects.at(i);
+            int designatedX = currentObject.getXCoordinate();
+            int designatedY = currentObject.getYCoordinate();
+            if (designatedX == x && designatedY == y)
+            {
+                return i;
+            }
+        }
+    }
+}
+
+int findTarget(int x, int y, std::vector<enemy> enemyList)
+{
+    if (enemyList.size() != 0)
+    {
+        for (unsigned int i = 0; i < enemyList.size(); i++)
+        {
+            enemy currentObject = enemyList.at(i);
             int designatedX = currentObject.getXCoordinate();
             int designatedY = currentObject.getYCoordinate();
             if (designatedX == x && designatedY == y)

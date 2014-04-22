@@ -18,7 +18,13 @@ int main()
     char symbolArray[500][500];
     srand(time(NULL));
 
-    //player thePlayer = playerCreation();
+    player thePlayer(0,0);
+    //thePlayer = playerCreation();
+    player * playerPointer = &thePlayer;
+    thePlayer.setCharacterName("Tim the Viking");
+    thePlayer.setMapRep('X');
+    thePlayer.setHealth(10);
+    thePlayer.setMaxHealth(10);
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor
@@ -44,16 +50,11 @@ int main()
     refresh();
 
     //Player Creation TEST STUFF
-    player thePlayer(0,0);
-    player * playerPointer = &thePlayer;
-    thePlayer.setCharacterName("Tim the Viking");
-    thePlayer.setHealth(10);
-    thePlayer.setMaxHealth(10);
-    thePlayer.setMapRep('X');
     vector<character> gameObjects;
+    vector<enemy> enemyList;
 
     //Read Level from File
-    readLevel(symbolArray,gameObjects,thePlayer,4);
+    readLevel(symbolArray,gameObjects,thePlayer,3);
 
     //create and initialize health potion vector
     vector <Consumable> healthPotionVector;
@@ -117,15 +118,16 @@ int main()
     }
 
     positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
-    //vector<enemy> enemyList=spawnEnemies(symbolArray,possiblePositions,enemiesNeeded,thePlayer);
+    enemyList=spawnEnemies(symbolArray,possiblePositions,enemiesNeeded,thePlayer);
 
-    while((victoryAchieved == false) || (playerIsDead != true))
+    while((victoryAchieved == false) && (playerIsDead != true))
     {
         //Prints Windows
-        printWindow(symbolArray,gameObjects,thePlayer,gameWindow,statusWindow,messageWindow);
+        printWindow(symbolArray,gameObjects,enemyList,thePlayer,gameWindow,statusWindow,messageWindow);
         //Intiates player's turn
-        playerTurn(symbolArray,gameObjects,thePlayer);
-        checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
+        playerTurn(symbolArray,gameObjects,enemyList,thePlayer);
+        //checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
+        enemyTurn(symbolArray,enemyList,gameObjects,thePlayer);
         victoryAchieved = checkSokabanVictory(gameObjects,symbolArray);
         playerIsDead = checkDead(playerPointer);
     }

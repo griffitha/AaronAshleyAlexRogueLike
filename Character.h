@@ -67,6 +67,7 @@ public:
     player(int x,int y):
                 character(x,y)
     {
+        setLevel(1);
     }
     void setExperience(int input);
     int getExperience();

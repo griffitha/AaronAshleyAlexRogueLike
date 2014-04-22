@@ -63,17 +63,7 @@ int character::getYCoordinate()
 
 void character::setHealth(int input)
 {
-    //Upon creation of character
-    if (health == 0)
-    {
-        health = input;
-        maxHealth = input;
-    }
-    //In other cases, just set health
-    else
-    {
-        health = input;
-    }
+    health = input;
     return;
 }
 
@@ -202,6 +192,9 @@ race player::getRace()
 void player::setClass(characterClass input)
 {
     playerClass=input;
+    setHealth(10);
+    setLevel(1);
+
     return;
 }
 characterClass player::getClass()
@@ -215,6 +208,30 @@ void player::setXpToLevel(int input)
 }
 void player::levelUp()
 {
+    //Assigns to a random value at this point
+    int currentAttribute;
+    int randomAttribute = rand() % 3;
+    switch(randomAttribute)
+    {
+        //Increases Damage
+        case 0:
+            currentAttribute = getBaseDamage() + 1;
+            setBaseDamage(currentAttribute);
+            break;
+        //Increases Armor
+        case 1:
+            currentAttribute = getArmor() + 1;
+            setArmor(currentAttribute);
+            break;
+        //Increase Health
+        case 2:
+            currentAttribute = getMaxHealth() + 1;
+            setHealth(currentAttribute);
+            setMaxHealth(currentAttribute);
+            break;
+    }
+
+
     experience=xpToLevel%experience;
     if((xpToLevel%2)>0)
     {

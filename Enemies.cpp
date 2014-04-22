@@ -25,6 +25,7 @@ void enemy::createGoblin(int factor)
     setLevel(factor);
     setXpValue(experienceValue);
 }
+
 void enemy::createBat(int factor)
 {
     int healthValue=(((factor + 3)^2) - 10)*.7;
@@ -97,3 +98,85 @@ vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &po
     return enemyList;
 }
 
+void enemyTurn(char symbolArray[500][500], std::vector<enemy> &enemyList, std::vector<character> gameObjects, player &thePlayer)
+{
+    player * playerPointer = &thePlayer;
+    //We will not make all the enemies have a turn
+    for (unsigned int i = 0; i < enemyList.size(); i++)
+    {
+        enemy * currentEnemy = &enemyList.at(i);
+        int playerX = thePlayer.getXCoordinate();
+        int playerY = thePlayer.getYCoordinate();
+        int enemyX = currentEnemy -> getXCoordinate();
+        int enemyY = currentEnemy -> getYCoordinate();
+        bool turnMade = false;
+
+        //Check around the player, needs to be revamped to include other things.
+        if (((enemyX == playerX+1) || (enemyX == playerX-1) || (enemyX == playerX)) &&
+            ((enemyY == playerY+1) || (enemyY == playerY-1) || (enemyY == playerY)))
+        {
+            meleeAttack(currentEnemy,playerPointer,gameObjects,enemyList);
+        }
+        else
+        {
+            while (turnMade == false)
+            {
+                //Random Movement protocol
+                int randomNumber = rand() % 4;
+                int movement;
+                switch(randomNumber)
+                {
+                    case 0:
+                        movement = KEY_UP;
+                        if (checkEmpty(enemyX,enemyY-1,gameObjects,enemyList) == true)
+                        {
+                            if (symbolArray[enemyX][enemyY-1] != '#')
+                            {
+                                currentEnemy -> moveChar(movement);
+                                turnMade = true;
+                            }
+                        }
+                        break;
+                    case 1:
+                        movement = KEY_DOWN;
+                        if (checkEmpty(enemyX,enemyY+1,gameObjects,enemyList) == true)
+                        {
+                            if (symbolArray[enemyX][enemyY+1] != '#')
+                            {
+                                currentEnemy -> moveChar(movement);
+                                turnMade = true;
+                            }
+                        }
+                        break;
+                    case 2:
+                        movement = KEY_LEFT;
+                        if (checkEmpty(enemyX-1,enemyY,gameObjects,enemyList) == true)
+                        {
+                            if (symbolArray[enemyX-1][enemyY] != '#')
+                            {
+                                currentEnemy -> moveChar(movement);
+                                turnMade = true;
+                            }
+                        }
+                        break;
+                    case 3:
+                        movement = KEY_RIGHT;
+                        if (checkEmpty(enemyX+1,enemyY,gameObjects,enemyList) == true)
+                        {
+                            if (symbolArray[enemyX+1][enemyY] != '#')
+                            {
+                                currentEnemy -> moveChar(movement);
+                                turnMade = true;
+                            }
+                        }
+                        break;
+                }
+
+        }
+
+
+    }
+
+}
+return;
+}

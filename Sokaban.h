@@ -15,7 +15,7 @@ class interactiveObject: public character
     void setRockAttributes();
 };
 
-void basicInteraction(int movement,int x,int y, std::vector<character> &gameObjects,player &thePlayer,char symbolArray[][500]);
+void basicInteraction(int movement,int x,int y, std::vector<character> &gameObjects,std::vector<enemy> &enemyList,player &thePlayer,char symbolArray[][500]);
 
 bool checkEmptyWithOmission(int x, int y, int omittedPosition, std::vector<character> gameObjects);
 

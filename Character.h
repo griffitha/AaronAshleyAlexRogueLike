@@ -37,7 +37,7 @@ public:
     char getMapRep();
     void setCharacterName(std::string input);
     std::string getCharacterName();
-    virtual int getBaseDamage();
+    int getBaseDamage();
     void setBaseDamage(int input);
     int getArmor();
     void setArmor(int input);
@@ -67,7 +67,6 @@ public:
     player(int x,int y):
                 character(x,y)
     {
-        setLevel(1);
     }
     void setExperience(int input);
     int getExperience();

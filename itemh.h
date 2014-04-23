@@ -25,8 +25,8 @@ class Item
 {
 public:
     Item();
-    void setX(int x);
-    void setY(int y);
+    void setX(int height, int width, int xOfWindow);
+    void setY(int height, int width, int yOfWindow);
     void setName(string name);
     void setDescription(string description);
     void setType(string type);
@@ -50,15 +50,12 @@ public:
     Consumable();
     void setHealthValue(int value);
     void setMagicValue(int value);
-    void setMagicAffect(string magicAffect);
     int getHealthValue();
     int getMagicValue();
-    string getMagicAffect();
     ~Consumable();
 private:
     int healthValue;//adds health
     int magicValue;//adds to strength
-    string magicAffect;
 };
 
 class consumablePack: public Consumable
@@ -174,31 +171,20 @@ class Inventory
 {
 public:
     Inventory();
-    void addToInventoryCArray(Consumable itemToAdd,WINDOW * messageWindow,char symbolArray[500][500]);//when player finds/picks up item
-    void addToInventoryAArray(Armor itemToAdd,WINDOW * messageWindow,char symbolArray[500][500]);
-    void addToInventoryWArray(Weapon itemToAdd,WINDOW * messageWindow,char symbolArray[500][500]);
-    void setPositionInInventoryCArray(int arrayPosition,Consumable itemToAdd);//when player chooses to replace item in array
-    void setPositionInInventoryAArray(int arrayPosition,Armor itemToAdd);
-    void setPositionInInventoryWArray(int arrayPosition,Weapon itemToAdd);
-    void removeFromCInventory(Consumable itemToRemove);//when player uses/replaces something in array
-    void removeFromAInventory(Armor itemToRemove);
-    void removeFromWInventory(Weapon itemToRemove);
+    void addToInventoryArray(Item itemToAdd);//when player finds/picks up item
+    void setPositionInInventoryArray(int arrayPosition,Item itemToAdd);//when player chooses to replace item in array
+    void removeFromInventory(Item itemToRemove);//when player uses/replaces something in array
     void setInventoryFull(bool inventoryFull);
-    void printInventoryArrays(WINDOW * messageWindow);
+    Item getInventoryArray(int arrayPosition);//used within for loop to show player inventory
     bool getInventoryFull();
-    int getSizeOfInventory();
     ~Inventory();
 private:
-    Consumable fillerC;
-    Armor fillerA;
-    Weapon fillerW;
+    Item fillerItem;
     int maxInventorySize;
-    int sizeOfInventory;
-    vector <Consumable> inventoryCArray;
-    vector <Armor> inventoryAArray;
-    vector <Weapon> inventoryWArray;
+    Item inventoryArray[];
     bool inventoryFull;
 };
+
 
 
 //creates health potions and pushes onto healthPotionVector
@@ -268,20 +254,7 @@ void itemChoice(character player,vector <Consumable> &consumableVector,vector <A
 
 //checks if item is in current position
 void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
-                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
-                  Inventory playerInventory);
-
-//prints consumable stats
-void printConsumableWindow(Consumable consumableToUse, WINDOW * messageWindow,
-                           char symbolArray[500][500],character player,Inventory playerInventory);
-
-//prints armor stats
-void printArmorWindow(Armor armorToUse, WINDOW * messageWindow,
-                      char symbolArray[500][500],character player,Inventory playerInventory);
-
-//prints weapon stats
-void printWeaponWindow(Weapon weaponToUse, WINDOW * messageWindow,
-                       char symbolArray[500][500],character player,Inventory playerInventory);
+                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow);
 
 //writes test to file
 void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,

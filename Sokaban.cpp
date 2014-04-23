@@ -15,20 +15,25 @@ void basicInteraction(int movement,int x,int y, std::vector<character> &gameObje
 {
     bool nextSpaceOpen = true;
     int currentObjectNumber;
-    character * enemyPointer;
     character currentObject(0,0);
     if (gameObjects.size() != 0)
     {
         currentObjectNumber = findTarget(x,y,gameObjects);
         currentObject = gameObjects.at(currentObjectNumber);
+        if (currentObjectNumber == -1)
+        {
+            return;
+        }
     }
 
     if (enemyList.size() != 0)
     {
         currentObjectNumber = findTarget(x,y,enemyList);
-        character * enemyPointer = &enemyList.at(currentObjectNumber);
+        if (currentObjectNumber == -1)
+        {
+            return;
+        }
     }
-    player * playerPointer = &thePlayer;
     if (currentObject.getMapRep() == 'R')
     {
         if (movement == KEY_UP)
@@ -86,7 +91,8 @@ void basicInteraction(int movement,int x,int y, std::vector<character> &gameObje
     }
     else
     {
-        meleeAttack(playerPointer,enemyPointer,gameObjects,enemyList);
+        playerMelee(thePlayer,enemyList.at(currentObjectNumber),enemyList);
+        removeEnemy(enemyList,thePlayer);
     }
     return;
 }

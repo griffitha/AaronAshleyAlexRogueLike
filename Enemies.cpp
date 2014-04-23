@@ -12,7 +12,7 @@ int enemy::getXpValue()
 //Health and  Base Damage formulas taken from alpha ver of Desktop Dungeons
 void enemy::createGoblin(int factor)
 {
-    int healthValue=((factor + 3)^2) - 10;
+    int healthValue=((factor + 3)^2);
     int damageValue=((factor)^2 / 2) + ((5 * factor) / 2);
     int experienceValue=(factor*(factor+1));
     setMaxHealth(healthValue);
@@ -28,8 +28,8 @@ void enemy::createGoblin(int factor)
 
 void enemy::createBat(int factor)
 {
-    int healthValue=(((factor + 3)^2) - 10)*.7;
-    int damageValue=(((factor)^2 / 2) + ((5 * factor) / 2))*.7;
+    int healthValue= 6*factor;
+    int damageValue= 2*factor;
     int experienceValue=(factor*(factor+1));
     setMaxHealth(healthValue);
     setHealth(getMaxHealth());
@@ -43,7 +43,7 @@ void enemy::createBat(int factor)
 }
 void enemy::createRobot(int factor)
 {
-    int healthValue=(((factor + 3)^2) - 10)*2;
+    int healthValue=((factor + 3)^2);
     int damageValue=(((factor)^2 / 2) + ((5 * factor) / 2))*.5;
     int experienceValue=(factor*(factor+1));
     setMaxHealth(healthValue);
@@ -89,22 +89,21 @@ vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &po
     int enemyY=spawnLocation.getY();
     //determine enemy level
     //int enemyLevel=rand()%mainChar.getLevel();
-    int enemyLevel=1;
+    int enemyLevel=mainChar.getLevel();
     //spawn enemy
     enemy currentEnemy(enemyX,enemyY,enemyType,enemyLevel);
     enemyList.push_back(currentEnemy);
-    //place enemy on map
     }
     return enemyList;
 }
 
 void enemyTurn(char symbolArray[500][500], std::vector<enemy> &enemyList, std::vector<character> gameObjects, player &thePlayer)
 {
-    player * playerPointer = &thePlayer;
+    character * playerPointer = &thePlayer;
     //We will not make all the enemies have a turn
     for (unsigned int i = 0; i < enemyList.size(); i++)
     {
-        enemy * currentEnemy = &enemyList.at(i);
+        character * currentEnemy = &enemyList.at(i);
         int playerX = thePlayer.getXCoordinate();
         int playerY = thePlayer.getYCoordinate();
         int enemyX = currentEnemy -> getXCoordinate();
@@ -115,7 +114,7 @@ void enemyTurn(char symbolArray[500][500], std::vector<enemy> &enemyList, std::v
         if (((enemyX == playerX+1) || (enemyX == playerX-1) || (enemyX == playerX)) &&
             ((enemyY == playerY+1) || (enemyY == playerY-1) || (enemyY == playerY)))
         {
-            meleeAttack(currentEnemy,playerPointer,gameObjects,enemyList);
+            meleeAttack(currentEnemy,playerPointer,enemyList);
         }
         else
         {
@@ -172,11 +171,11 @@ void enemyTurn(char symbolArray[500][500], std::vector<enemy> &enemyList, std::v
                         break;
                 }
 
+            }
+
+
         }
 
-
     }
-
-}
-return;
+    return;
 }

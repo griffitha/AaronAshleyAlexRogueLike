@@ -15,7 +15,7 @@ int main()
     int const STATUS_WINDOW_WIDTH = 44;
     int const LOG_WINDOW_HEIGHT = 10;
     int const LOG_WINDOW_WIDTH = 44;
-    char symbolArray[500][500];
+    char symbolArray[500][500] = {};
     srand(time(NULL));
 
     player thePlayer(0,0);
@@ -25,6 +25,7 @@ int main()
     thePlayer.setMapRep('X');
     thePlayer.setHealth(10);
     thePlayer.setMaxHealth(10);
+    thePlayer.setBaseDamage(4);
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor

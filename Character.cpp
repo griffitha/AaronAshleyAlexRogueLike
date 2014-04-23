@@ -8,9 +8,10 @@ character::character(int x,int y)
 
     //Set Values
     currentArmor = 1;
-    health = 0;
+    health = 1;
     accuracy = 80;
     baseDamage = 4;
+    level = 1;
 }
 
 void character::moveChar(int input)
@@ -197,6 +198,7 @@ void player::setClass(characterClass input)
 
     return;
 }
+
 characterClass player::getClass()
 {
     return playerClass;

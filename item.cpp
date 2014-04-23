@@ -44,22 +44,17 @@ Item::Item()
 }
 
 //set X
-void Item::setX(int height, int width, int xOfWindow)
+void Item::setX(int x)
 {
-    int maxX = xOfWindow + width;
-
-    this -> x = rand() % maxX + xOfWindow;
-
+    this -> x = x;
     return;
 }
 
 
 //setY
-void Item::setY(int height, int width, int yOfWindow)
+void Item::setY(int y)
 {
-    int maxY = yOfWindow + height;
-
-    this -> x = rand() % maxY + yOfWindow;
+    this -> y = y;
 
     return;
 }
@@ -74,6 +69,12 @@ void Item::setName(string name)
 void Item::setDescription(string description)
 {
     this -> description = description;
+}
+
+//set type
+void Item::setType(string type)
+{
+    this -> type = type;
 }
 
 //get X
@@ -100,6 +101,12 @@ string Item::getDescription()
     return description;
 }
 
+//get type
+string Item::getType()
+{
+    return type;
+}
+
 //deconstructor
 Item::~Item()
 {
@@ -124,16 +131,28 @@ void Consumable::setMagicValue(int value)
     magicValue = value;
 }
 
+//set magicAffects
+void Consumable::setMagicAffect(string magicAffect)
+{
+    this -> magicAffect = magicAffect;
+}
+
 //get healthValue
 int Consumable::getHealthValue()
 {
     return healthValue;
 }
 
-//get maficValue
+//get magicValue
 int Consumable::getMagicValue()
 {
     return magicValue;
+}
+
+//get mmagicValue
+string Consumable::getMagicAffect()
+{
+    return magicAffect;
 }
 
 //deconstructor--Consumable
@@ -219,37 +238,78 @@ consumablePack::~consumablePack()
 //constructor--Weapon
 Weapon::Weapon()
 {
-    damage = 0;
+    minDamage = 0;
 }
 
-//set damage
-void Weapon::setDamage(int damage)
+//set weaponType
+void Weapon::setWeaponType(string type)
 {
-    this -> damage = damage;
+    this -> weaponType = type;
 }
 
-//get damage
-int Weapon::getDamage()
+//set minDamage
+void Weapon::setMinDamage(int damage)
 {
-    return damage;
+    this -> minDamage = damage;
+}
+
+//set maxDamage
+void Weapon::setMaxDamage(int damage)
+{
+    this -> maxDamage = damage;
+}
+
+//set twoHanded
+void Weapon::setTwoHanded(bool twoHanded)
+{
+    this -> twoHanded = twoHanded;
+}
+
+//get weaponType
+string Weapon::getWeaponType()
+{
+    return weaponType;
+}
+
+
+//get minDamage
+int Weapon::getMinDamage()
+{
+    return minDamage;
+}
+
+//get maxDamage
+int Weapon::getMaxDamage()
+{
+    return maxDamage;
+}
+
+//getTwoHanded
+bool Weapon::getTwoHanded()
+{
+    return twoHanded;
 }
 
 //deconstructor--Weapon
 Weapon::~Weapon()
 {
-    damage = 0;
+    weaponType = "";
+    minDamage = 0;
+    maxDamage = 0;
 }
 
 //constructon--packOfArrows
 packOfArrows::packOfArrows()
 {
     numOfArrows = 0;
+    setMinDamage(0);
+    setMaxDamage(0);
 }
 
 //setNumOfArrows
 void packOfArrows::setNumOfArrows(int maxValue)
 {
-    srand(time(NULL));
+ //   srand(time(NULL));
 
     numOfArrows = rand() % maxValue + 1;
 }
@@ -270,7 +330,7 @@ packOfArrows::~packOfArrows()
 Armor::Armor()
 {
     strength = 0;
-    type = " ";
+    setType("Armor");
 }
 
 //setStrength
@@ -280,9 +340,9 @@ void Armor::setStrength(int strength)
 }
 
 //setType
-void Armor::setType(string type)
+void Armor::setCategory(string type)
 {
-    this -> type = type;
+    this -> category = type;
 }
 
 //get Strength
@@ -292,16 +352,16 @@ int Armor::getStrength()
 }
 
 //getType
-string Armor::getType()
+string Armor::getCategory()
 {
-    return type;
+    return category;
 }
 
 //deconstructor--Armor
 Armor::~Armor()
 {
     strength = 0;
-    type = " ";
+    setType("");
 }
 
 
@@ -374,59 +434,330 @@ Shield::~Shield()
     setType(" ");
 }
 
+//constructor--inventory
+Inventory::Inventory()
+{
+    inventoryFull = false;
+    maxInventorySize = 20;
+    sizeOfInventory = 0;
+
+    /*fillerC.setName("");
+    fillerA.setName("");
+    fillerW.setName("");
+
+    for(int i = 0; i < maxInventorySize; i++)
+    {
+        inventoryCArray.push_back(fillerC);
+        inventoryAArray.push_back(fillerA);
+        inventoryWArray.push_back(fillerW);
+    }*/
+}
+
+//when player finds/picks up item
+void Inventory::addToInventoryCArray(Consumable itemToAdd,WINDOW * messageWindow,char symbolArray[500][500])
+{
+    int ch = getch();
+
+    if(sizeOfInventory < maxInventorySize)
+    {
+        wclear(messageWindow);
+        inventoryCArray.push_back(itemToAdd);
+        sizeOfInventory++;
+        printInventoryArrays(messageWindow);
+        return;
+    }
+    else
+    {
+        string currentString = "Your inventory is full. Would you like to delete an item?(Enter for yes)";
+        char * characterPtr = &currentString.at(0);
+        mvwprintw(messageWindow,6,3,characterPtr);
+
+        if(ch == KEY_ENTER)
+        {
+            wclear(messageWindow);
+
+            currentString = "Which item would you like to remove?";
+            characterPtr = &currentString.at(0);
+            mvwprintw(messageWindow,1,3,characterPtr);
+
+            for(int i = 0;i < signed(inventoryAArray.size());i++)
+            {
+                if(inventoryAArray[i].getName() == currentString)
+                {
+                    removeFromAInventory(inventoryAArray[i]);
+                    inventoryCArray.push_back(itemToAdd);
+                    break;
+                }
+                if(inventoryCArray[i].getName() == currentString)
+                {
+                    removeFromCInventory(inventoryCArray[i]);
+                    setPositionInInventoryCArray(i,itemToAdd);
+                    break;
+                }
+                if(inventoryWArray[i].getName() == currentString)
+                {
+                    removeFromWInventory(inventoryWArray[i]);
+                    inventoryCArray.push_back(itemToAdd);
+                    break;
+                }
+            }
+            wclear(messageWindow);
+            //printInventoryArrays(messageWindow);
+        }
+    }
+    return;
+}
+
+//when player finds/picks up item
+void Inventory::addToInventoryAArray(Armor itemToAdd,WINDOW * messageWindow,char symbolArray[500][500])
+{
+    int ch = getch();
+
+    if(inventoryFull == false)
+    {
+        wclear(messageWindow);
+
+        inventoryAArray.push_back(itemToAdd);
+        sizeOfInventory++;
+        //symbolArray[itemToAdd.getX()][itemToAdd.getY()] = ' ';
+        //printInventoryArrays(messageWindow);
+        return;
+    }
+    else
+    {
+        string currentString = "Your inventory is full. Would you like to delete an item?(Enter for yes)";
+        char * characterPtr = &currentString.at(0);
+        mvwprintw(messageWindow,6,3,characterPtr);
+
+        if(ch == KEY_ENTER)
+        {
+            wclear(messageWindow);
+
+            currentString = "Which item would you like to remove?";
+            characterPtr = &currentString.at(0);
+            mvwprintw(messageWindow,1,3,characterPtr);
+
+            for(int i = 0;i < signed(inventoryAArray.size());i++)
+            {
+                if(inventoryAArray[i].getName() == currentString)
+                {
+                    removeFromAInventory(inventoryAArray[i]);
+                    setPositionInInventoryAArray(i,itemToAdd);
+                    break;
+                }
+                if(inventoryCArray[i].getName() == currentString)
+                {
+                    removeFromCInventory(inventoryCArray[i]);
+                    inventoryAArray.push_back(itemToAdd);
+                    break;
+                }
+                if(inventoryWArray[i].getName() == currentString)
+                {
+                    removeFromWInventory(inventoryWArray[i]);
+                    inventoryAArray.push_back(itemToAdd);
+                    break;
+                }
+
+            }
+
+            wclear(messageWindow);
+            //printInventoryArrays(messageWindow);
+        }
+
+    }
+    return;
+}
+
+//when player finds/picks up item
+void Inventory::addToInventoryWArray(Weapon itemToAdd,WINDOW * messageWindow,char symbolArray[500][500])
+{
+    wclear(messageWindow);
+
+    int ch = getch();
+
+    if(inventoryFull == false)
+    {
+        wclear(messageWindow);
+
+        inventoryWArray.push_back(itemToAdd);
+        sizeOfInventory++;
+        symbolArray[itemToAdd.getX()][itemToAdd.getY()] = ' ';
+
+        string currentString = "*";
+        char * characterPtr = &currentString.at(0);
+        mvwprintw(messageWindow,3,3,characterPtr);
+       // printInventoryArrays(messageWindow);
+        return;
+    }
+    else
+    {
+        string currentString = "Your inventory is full. Would you like to delete an item?(Enter for yes)";
+        char * characterPtr = &currentString.at(0);
+        mvwprintw(messageWindow,6,3,characterPtr);
+
+        if(ch == KEY_ENTER)
+        {
+            wclear(messageWindow);
+
+            currentString = "Which item would you like to remove?";
+            characterPtr = &currentString.at(0);
+            mvwprintw(messageWindow,1,3,characterPtr);
+
+            for(int i = 0;i < signed(inventoryAArray.size());i++)
+            {
+                if(inventoryAArray[i].getName() == currentString)
+                {
+                    removeFromAInventory(inventoryAArray[i]);
+                    inventoryWArray.push_back(itemToAdd);
+                    break;
+                }
+                if(inventoryCArray[i].getName() == currentString)
+                {
+                    removeFromCInventory(inventoryCArray[i]);
+                    inventoryWArray.push_back(itemToAdd);
+                    break;
+                }
+                if(inventoryWArray[i].getName() == currentString)
+                {
+                    removeFromWInventory(inventoryWArray[i]);
+                    setPositionInInventoryWArray(i,itemToAdd);
+                    break;
+                }
+            }
+
+            wclear(messageWindow);
+           // printInventoryArrays(messageWindow);
+        }
+
+    }
+    return;
+    return;
+}
+
+//when player chooses to replace item in array
+void Inventory::setPositionInInventoryCArray(int arrayPosition,Consumable itemToAdd)
+{
+    return;
+}
+
+//when player chooses to replace item in array
+void Inventory::setPositionInInventoryAArray(int arrayPosition,Armor itemToAdd)
+{
+    return;
+}
+
+//when player chooses to replace item in array
+void Inventory::setPositionInInventoryWArray(int arrayPosition,Weapon itemToAdd)
+{
+    return;
+}
+
+//when player uses/replaces something in array
+void Inventory::removeFromCInventory(Consumable itemToRemove)
+{
+    for(int i = 0; i < signed(inventoryCArray.size());i++)
+    {
+        if(inventoryCArray[i].getName() == itemToRemove.getName())
+        {
+            inventoryCArray[i] = fillerC;
+            sizeOfInventory--;
+        }
+    }
+    return;
+}
+
+//when player uses/replaces something in array
+void Inventory::removeFromAInventory(Armor itemToRemove)
+{
+    for(int i = 0; i < signed(inventoryAArray.size());i++)
+    {
+        if(inventoryAArray[i].getName() == itemToRemove.getName())
+        {
+            inventoryAArray[i] = fillerA;
+            sizeOfInventory--;
+        }
+    }
+
+    return;
+}
+
+//when player uses/replaces something in array
+void Inventory::removeFromWInventory(Weapon itemToRemove)
+{
+    for(int i = 0; i < signed(inventoryAArray.size());i++)
+    {
+        if(inventoryWArray[i].getName() == itemToRemove.getName())
+        {
+            inventoryWArray[i] = fillerW;
+            sizeOfInventory--;
+        }
+    }
+    return;
+}
+
+//setInventoryFull
+void Inventory::setInventoryFull(bool inventoryFull)
+{
+    this -> inventoryFull = inventoryFull;
+}
+
+//show inventory
+void Inventory::printInventoryArrays(WINDOW * messageWindow)
+{
+    return;
+}
+
+
+//returns true if inventory is full
+bool Inventory::getInventoryFull()
+{
+    return inventoryFull;
+}
+
+//returns current size of inventory
+int Inventory::getSizeOfInventory()
+{
+    return sizeOfInventory;
+}
+
+//deconstructor-inventory
+Inventory::~Inventory()
+{
+
+}
+
+
 //creates health potions and pushes onto healthPotionVector
 void initializeHealthPotionVector(vector <Consumable> &healthPotionVector)
 {
     Consumable firstHPotion;
+    firstHPotion.setName("Increase health by 5");
     firstHPotion.setMagicValue(0);
     firstHPotion.setHealthValue(5);
 
     Consumable secondHPotion;
+    firstHPotion.setName("Increase health by 10");
     secondHPotion.setMagicValue(0);
     secondHPotion.setHealthValue(10);
 
     Consumable thirdHPotion;
+    firstHPotion.setName("Increase health by 15");
     thirdHPotion.setMagicValue(0);
     thirdHPotion.setHealthValue(15);
 
     Consumable fourthHPotion;
+    firstHPotion.setName("Increase health by 20");
     fourthHPotion.setMagicValue(0);
     fourthHPotion.setHealthValue(20);
 
-    Consumable fifthHPotion;
-    fifthHPotion.setMagicValue(0);
-    fifthHPotion.setHealthValue(25);
+    for(int i = 0; i < 30; i++)
+    {
+        healthPotionVector.push_back(firstHPotion);
+    }
 
-    Consumable sixthHPotion;
-    sixthHPotion.setMagicValue(0);
-    sixthHPotion.setHealthValue(30);
-
-    Consumable seventhHPotion;
-    seventhHPotion.setMagicValue(0);
-    seventhHPotion.setHealthValue(35);
-
-    Consumable eighthHPotion;
-    eighthHPotion.setMagicValue(0);
-    eighthHPotion.setHealthValue(40);
-
-    Consumable ninthHPotion;
-    ninthHPotion.setMagicValue(0);
-    ninthHPotion.setHealthValue(45);
-
-    Consumable tenthHPotion;
-    tenthHPotion.setMagicValue(0);
-    tenthHPotion.setHealthValue(50);
-
-    healthPotionVector.push_back(firstHPotion);
     healthPotionVector.push_back(secondHPotion);
     healthPotionVector.push_back(thirdHPotion);
     healthPotionVector.push_back(fourthHPotion);
-    healthPotionVector.push_back(fifthHPotion);
-    healthPotionVector.push_back(sixthHPotion);
-    healthPotionVector.push_back(seventhHPotion);
-    healthPotionVector.push_back(eighthHPotion);
-    healthPotionVector.push_back(ninthHPotion);
-    healthPotionVector.push_back(tenthHPotion);
 
     return;
 }
@@ -435,114 +766,1260 @@ void initializeHealthPotionVector(vector <Consumable> &healthPotionVector)
 void initializeMagicPotionVector(vector <Consumable> &magicPotionVector)
 {
     Consumable firstMPotion;
+    firstMPotion.setName("Strengthen Armor by 5");
     firstMPotion.setMagicValue(5);
     firstMPotion.setHealthValue(0);
 
     Consumable secondMPotion;
+    firstMPotion.setName("Strengthen Armor by 10");
     secondMPotion.setMagicValue(10);
     secondMPotion.setHealthValue(0);
 
     Consumable thirdMPotion;
+    firstMPotion.setName("Strengthen Armor by 15");
     thirdMPotion.setMagicValue(15);
     thirdMPotion.setHealthValue(0);
 
     Consumable fourthMPotion;
+    firstMPotion.setName("Strengthen Armor by 20");
     fourthMPotion.setMagicValue(20);
     fourthMPotion.setHealthValue(0);
 
     Consumable fifthMPotion;
-    fifthMPotion.setMagicValue(25);
+    firstMPotion.setName("Strengthen Weapon by 5");
+    fifthMPotion.setMagicValue(5);
     fifthMPotion.setHealthValue(0);
 
     Consumable sixthMPotion;
-    sixthMPotion.setMagicValue(30);
+    firstMPotion.setName("Strengthen Weapon by 10");
+    sixthMPotion.setMagicValue(10);
     sixthMPotion.setHealthValue(0);
 
     Consumable seventhMPotion;
-    seventhMPotion.setMagicValue(35);
+    firstMPotion.setName("Strengthen Weapon by 15");
+    seventhMPotion.setMagicValue(15);
     seventhMPotion.setHealthValue(0);
 
     Consumable eighthMPotion;
-    eighthMPotion.setMagicValue(40);
+    firstMPotion.setName("Strengthen Weapon by 20");
+    eighthMPotion.setMagicValue(20);
     eighthMPotion.setHealthValue(0);
 
-    Consumable ninthMPotion;
-    ninthMPotion.setMagicValue(45);
-    ninthMPotion.setHealthValue(0);
+    for(int i = 0; i < 30; i++)
+    {
+        magicPotionVector.push_back(firstMPotion);
+        magicPotionVector.push_back(fifthMPotion);
+    }
 
-    Consumable tenthMPotion;
-    tenthMPotion.setMagicValue(50);
-    tenthMPotion.setHealthValue(0);
 
-    magicPotionVector.push_back(firstMPotion);
     magicPotionVector.push_back(secondMPotion);
     magicPotionVector.push_back(thirdMPotion);
     magicPotionVector.push_back(fourthMPotion);
-    magicPotionVector.push_back(fifthMPotion);
     magicPotionVector.push_back(sixthMPotion);
     magicPotionVector.push_back(seventhMPotion);
     magicPotionVector.push_back(eighthMPotion);
-    magicPotionVector.push_back(ninthMPotion);
-    magicPotionVector.push_back(tenthMPotion);
 
     return;
 }
 
 
 //creatss armor and pushes onto armorVector
-void initializeArmorVector(vector <Armor> &armorVector)
+void initializeArmorVector(vector <Armor> &leatherArmorVector, vector <Armor> &metalArmorVector, vector <Armor> &crystalArmorVector)
 {
-    Helmet leatherHelmet("leather", 0);
-    Breastplate leatherBreastplate("leather", 0);
-    Gloves leatherGloves("leather",0);
-    Shoes leatherShoes("leather",0);
-    Shield leatherShield("leather",0);
+    Helmet leatherHelmet("leather", 2);
+    leatherHelmet.setName("Leather Helmet");
 
-    Helmet metalHelmet("metal", 0);
-    Breastplate metalBreastplate("metal",0);
-    Gloves metalGloves("metal",0);
-    Shoes metalShoes("metal", 0);
-    Shield metalShield("metal", 0);
+    Breastplate leatherBreastplate("leather", 2);
+    leatherBreastplate.setName("Leather Breastplate");
 
-    Helmet crystalHelmet("crystal",0);
-    Breastplate crystalBreastplate("crystal",0);
-    Gloves crystalGloves("crystal",0);
-    Shoes crystalShoes("crystal",0);
-    Shield crystalShield("crystal",0);
+    Gloves leatherGloves("leather",2);
+    leatherGloves.setName("Leather Gloves");
 
-    armorVector.push_back(leatherHelmet);
-    armorVector.push_back(leatherBreastplate);
-    armorVector.push_back(leatherGloves);
-    armorVector.push_back(leatherShoes);
-    armorVector.push_back(leatherShield);
+    Shoes leatherShoes("leather",2);
+    leatherShoes.setName("Leather Shoes");
 
-    armorVector.push_back(metalHelmet);
-    armorVector.push_back(metalBreastplate);
-    armorVector.push_back(metalGloves);
-    armorVector.push_back(metalShoes);
-    armorVector.push_back(metalShield);
+    Shield leatherShield("leather",2);
+    leatherShield.setName("Leather Shield");
 
-    armorVector.push_back(crystalHelmet);
-    armorVector.push_back(crystalBreastplate);
-    armorVector.push_back(crystalGloves);
-    armorVector.push_back(crystalShoes);
-    armorVector.push_back(crystalShield);
+    Helmet metalHelmet("metal", 3);
+    metalHelmet.setName("Metal Helmet");
+
+    Breastplate metalBreastplate("metal",3);
+    metalBreastplate.setName("Metal Breastplate");
+
+    Gloves metalGloves("metal",3);
+    metalGloves.setName("Metal Gloves");
+
+    Shoes metalShoes("metal", 3);
+    metalShoes.setName("Metal Shoes");
+
+    Shield metalShield("metal", 3);
+    metalShield.setName("Metal Shield");
+
+    Helmet crystalHelmet("crystal",5);
+    crystalHelmet.setName("Crystal Helmet");
+
+    Breastplate crystalBreastplate("crystal",5);
+    crystalBreastplate.setName("Crystal Breastplate");
+
+    Gloves crystalGloves("crystal",5);
+    crystalGloves.setName("Crystal Gloves");
+
+    Shoes crystalShoes("crystal",5);
+    crystalShoes.setName("Crystal Shoes");
+
+    Shield crystalShield("crystal",5);
+    crystalShield.setName("Crystal Shield");
+
+    leatherArmorVector.push_back(leatherHelmet);
+    leatherArmorVector.push_back(leatherBreastplate);
+    leatherArmorVector.push_back(leatherGloves);
+    leatherArmorVector.push_back(leatherShoes);
+    leatherArmorVector.push_back(leatherShield);
+
+    metalArmorVector.push_back(metalHelmet);
+    metalArmorVector.push_back(metalBreastplate);
+    metalArmorVector.push_back(metalGloves);
+    metalArmorVector.push_back(metalShoes);
+    metalArmorVector.push_back(metalShield);
+
+    crystalArmorVector.push_back(crystalHelmet);
+    crystalArmorVector.push_back(crystalBreastplate);
+    crystalArmorVector.push_back(crystalGloves);
+    crystalArmorVector.push_back(crystalShoes);
+    crystalArmorVector.push_back(crystalShield);
 
     return;
 }
 
-//creates weapons and pushes onto weaponsVector
-/*void initializeWeaponsVector(vector <Weapon> &weaponsVector)
+//calculates difference between weapon's minDamage and maxDamage and pushes it on that many times
+//makes weapons with minDamage of 1 more likely than weapons with minDamage of 8
+void pushBackWeaponOntoVector(Weapon itemToPush, vector <Weapon> &weaponVector)
 {
-    Weapon
+    int numOfTimesToPush = (itemToPush.getMaxDamage() - itemToPush.getMinDamage()) + 1;
+
+    for(int i = 0; i < numOfTimesToPush; i++)
+    {
+        weaponVector.push_back(itemToPush);
+    }
 
     return;
-}*/
+}
 
+
+//creates weapons and pushes onto weaponsVector
+void initializeDaggerVector(vector <Weapon> &daggerVector)
+{
+    Weapon dagger1a;
+    dagger1a.setName("Common Dagger");
+    dagger1a.setDescription("");
+    dagger1a.setType("Weapon");
+    dagger1a.setWeaponType("Small Dagger");
+    dagger1a.setMinDamage(1);
+    dagger1a.setMaxDamage(3);
+    dagger1a.setTwoHanded(false);
+
+    Weapon dagger1b;
+    dagger1b.setName("Lucky Dagger");
+    dagger1b.setDescription("");
+    dagger1b.setType("Weapon");
+    dagger1b.setWeaponType("Small Dagger");
+    dagger1b.setMinDamage(2);
+    dagger1b.setMaxDamage(3);
+    dagger1b.setTwoHanded(false);
+
+    Weapon dagger1c;
+    dagger1c.setName("Magic Dagger");
+    dagger1c.setDescription("");
+    dagger1c.setType("Weapon");
+    dagger1c.setWeaponType("Small Dagger");
+    dagger1c.setMinDamage(3);
+    dagger1c.setMaxDamage(3);
+    dagger1c.setTwoHanded(false);
+
+    Weapon dagger2a;
+    dagger2a.setName("Common Dagger");
+    dagger2a.setDescription("");
+    dagger2a.setType("Weapon");
+    dagger2a.setWeaponType("Dagger");
+    dagger2a.setMinDamage(1);
+    dagger2a.setMaxDamage(4);
+    dagger2a.setTwoHanded(false);
+
+    Weapon dagger2b;
+    dagger2b.setName("Reliable Dagger");
+    dagger2b.setDescription("");
+    dagger2b.setType("Weapon");
+    dagger2b.setWeaponType("Dagger");
+    dagger2b.setMinDamage(2);
+    dagger2b.setMaxDamage(4);
+    dagger2b.setTwoHanded(false);
+
+    Weapon dagger2c;
+    dagger2c.setName("Lucky Dagger");
+    dagger2c.setDescription("");
+    dagger2c.setType("Weapon");
+    dagger2c.setWeaponType("Dagger");
+    dagger2c.setMinDamage(3);
+    dagger2c.setMaxDamage(4);
+    dagger2c.setTwoHanded(false);
+
+    Weapon dagger2d;
+    dagger2d.setName("Magic Dagger");
+    dagger2d.setDescription("");
+    dagger2d.setType("Weapon");
+    dagger2d.setWeaponType("Dagger");
+    dagger2d.setMinDamage(4);
+    dagger2d.setMaxDamage(4);
+    dagger2d.setTwoHanded(false);
+
+    pushBackWeaponOntoVector(dagger1a,daggerVector);
+    pushBackWeaponOntoVector(dagger1b,daggerVector);
+    pushBackWeaponOntoVector(dagger1c,daggerVector);
+    pushBackWeaponOntoVector(dagger2a,daggerVector);
+    pushBackWeaponOntoVector(dagger2b,daggerVector);
+    pushBackWeaponOntoVector(dagger2c,daggerVector);
+    pushBackWeaponOntoVector(dagger2d,daggerVector);
+
+    return;
+}
+
+//creates clubs and pushes onto clubsVector
+void initializeClubVector(vector <Weapon> &clubVector)
+{
+    Weapon club1a;
+    club1a.setName("Common Club");
+    club1a.setDescription("");
+    club1a.setType("Weapon");
+    club1a.setWeaponType("Small Club");
+    club1a.setMinDamage(1);
+    club1a.setMaxDamage(6);
+    club1a.setTwoHanded(false);
+
+    Weapon club1b;
+    club1b.setName("Club");
+    club1b.setDescription("");
+    club1b.setType("Weapon");
+    club1b.setWeaponType("Club");
+    club1b.setMinDamage(2);
+    club1b.setMaxDamage(6);
+    club1b.setTwoHanded(false);
+
+    Weapon club1c;
+    club1c.setName("Reliable Club");
+    club1c.setDescription("");
+    club1c.setType("Weapon");
+    club1c.setWeaponType("Club");
+    club1c.setMinDamage(3);
+    club1c.setMaxDamage(6);
+    club1c.setTwoHanded(false);
+
+    Weapon club1d;
+    club1d.setName("Lucky Club");
+    club1d.setDescription("");
+    club1d.setType("Weapon");
+    club1d.setWeaponType("Club");
+    club1d.setMinDamage(4);
+    club1d.setMaxDamage(6);
+    club1d.setTwoHanded(false);
+
+    Weapon club1e;
+    club1e.setName("Lucky Club");
+    club1e.setDescription("");
+    club1e.setType("Weapon");
+    club1e.setWeaponType("Club");
+    club1e.setMinDamage(5);
+    club1e.setMaxDamage(6);
+    club1e.setTwoHanded(false);
+
+    Weapon club1f;
+    club1f.setName("Magic Club");
+    club1f.setDescription("");
+    club1f.setType("Weapon");
+    club1f.setWeaponType("Club");
+    club1f.setMinDamage(6);
+    club1f.setMaxDamage(6);
+    club1f.setTwoHanded(false);
+
+    Weapon club2a;
+    club2a.setName("Common Club");
+    club2a.setDescription("");
+    club2a.setType("Weapon");
+    club2a.setWeaponType("Small Club");
+    club2a.setMinDamage(1);
+    club2a.setMaxDamage(4);
+    club2a.setTwoHanded(false);
+
+    Weapon club2b;
+    club2b.setName("Reliable Club");
+    club2b.setDescription("");
+    club2b.setType("Weapon");
+    club2b.setWeaponType("Small Club");
+    club2b.setMinDamage(2);
+    club2b.setMaxDamage(4);
+    club2b.setTwoHanded(false);
+
+    Weapon club2c;
+    club2c.setName("Lucky Club");
+    club2c.setDescription("");
+    club2c.setType("Weapon");
+    club2c.setWeaponType("Small Club");
+    club2c.setMinDamage(3);
+    club2c.setMaxDamage(4);
+    club2c.setTwoHanded(false);
+
+    Weapon club2d;
+    club2d.setName("Magic Club");
+    club2d.setDescription("");
+    club2d.setType("Weapon");
+    club2d.setWeaponType("Small Club");
+    club2d.setMinDamage(4);
+    club2d.setMaxDamage(4);
+    club2d.setTwoHanded(false);
+
+    pushBackWeaponOntoVector(club1a,clubVector);
+    pushBackWeaponOntoVector(club1b,clubVector);
+    pushBackWeaponOntoVector(club1c,clubVector);
+    pushBackWeaponOntoVector(club1d,clubVector);
+    pushBackWeaponOntoVector(club1e,clubVector);
+    pushBackWeaponOntoVector(club1f,clubVector);
+    pushBackWeaponOntoVector(club2a,clubVector);
+    pushBackWeaponOntoVector(club2b,clubVector);
+    pushBackWeaponOntoVector(club2c,clubVector);
+    pushBackWeaponOntoVector(club2d,clubVector);
+
+    return;
+}
+
+//creates heavy maces and pushes onto heavyMaceVector
+void initializeHeavyMaceVector(vector <Weapon> &heavyMaceVector)
+{
+    Weapon HMace1a;
+    HMace1a.setName("Common Heavy Mace");
+    HMace1a.setDescription("");
+    HMace1a.setType("Weapon");
+    HMace1a.setWeaponType("Small Heavy Mace");
+    HMace1a.setMinDamage(1);
+    HMace1a.setMaxDamage(6);
+    HMace1a.setTwoHanded(false);
+
+    Weapon HMace1b;
+    HMace1b.setName("Common Heavy Mace");
+    HMace1b.setDescription("");
+    HMace1b.setType("Weapon");
+    HMace1b.setWeaponType("Small Heavy Mace");
+    HMace1b.setMinDamage(2);
+    HMace1b.setMaxDamage(6);
+    HMace1b.setTwoHanded(false);
+
+    Weapon HMace1c;
+    HMace1c.setName("Reliable Heavy Mace");
+    HMace1c.setDescription("");
+    HMace1c.setType("Weapon");
+    HMace1c.setWeaponType("Small Heavy Mace");
+    HMace1c.setMinDamage(3);
+    HMace1c.setMaxDamage(6);
+    HMace1c.setTwoHanded(false);
+
+    Weapon HMace1d;
+    HMace1d.setName("Lucky Heavy Mace");
+    HMace1d.setDescription("");
+    HMace1d.setType("Weapon");
+    HMace1d.setWeaponType("Small Heavy Mace");
+    HMace1d.setMinDamage(4);
+    HMace1d.setMaxDamage(6);
+    HMace1d.setTwoHanded(false);
+
+    Weapon HMace1e;
+    HMace1e.setName("Lucky Heavy Mace");
+    HMace1e.setDescription("");
+    HMace1e.setType("Weapon");
+    HMace1e.setWeaponType("Small Heavy Mace");
+    HMace1e.setMinDamage(5);
+    HMace1e.setMaxDamage(6);
+    HMace1e.setTwoHanded(false);
+
+    Weapon HMace2a;
+    HMace2a.setName("Magic Heavy Mace");
+    HMace2a.setDescription("");
+    HMace2a.setType("Weapon");
+    HMace2a.setWeaponType("Small Heavy Mace");
+    HMace2a.setMinDamage(1);
+    HMace2a.setMaxDamage(8);
+    HMace2a.setTwoHanded(false);
+
+    Weapon HMace2b;
+    HMace2b.setName("Common Heavy Mace");
+    HMace2b.setDescription("");
+    HMace2b.setType("Weapon");
+    HMace2b.setWeaponType("Heavy Mace");
+    HMace2b.setMinDamage(1);
+    HMace2b.setMaxDamage(8);
+    HMace2b.setTwoHanded(false);
+
+    Weapon HMace2c;
+    HMace2c.setName("Common Heavy Mace");
+    HMace2c.setDescription("");
+    HMace2c.setType("Weapon");
+    HMace2c.setWeaponType("Heavy Mace");
+    HMace2c.setMinDamage(2);
+    HMace2c.setMaxDamage(8);
+    HMace2c.setTwoHanded(false);
+
+    Weapon HMace2d;
+    HMace2d.setName("Common Heavy Mace");
+    HMace2d.setDescription("");
+    HMace2d.setType("Weapon");
+    HMace2d.setWeaponType("Heavy Mace");
+    HMace2d.setMinDamage(3);
+    HMace2d.setMaxDamage(8);
+    HMace2d.setTwoHanded(false);
+
+    Weapon HMace2e;
+    HMace2e.setName("Reliable Heavy Mace");
+    HMace2e.setDescription("");
+    HMace2e.setType("Weapon");
+    HMace2e.setWeaponType("Heavy Mace");
+    HMace2e.setMinDamage(4);
+    HMace2e.setMaxDamage(8);
+    HMace2e.setTwoHanded(false);
+
+    Weapon HMace2f;
+    HMace2f.setName("Lucky Heavy Mace");
+    HMace2f.setDescription("");
+    HMace2f.setType("Weapon");
+    HMace2f.setWeaponType("Heavy Mace");
+    HMace2f.setMinDamage(5);
+    HMace2f.setMaxDamage(8);
+    HMace2f.setTwoHanded(false);
+
+    Weapon HMace2g;
+    HMace2g.setName("Lucky Heavy Mace");
+    HMace2g.setDescription("");
+    HMace2g.setType("Weapon");
+    HMace2g.setWeaponType("Heavy Mace");
+    HMace2g.setMinDamage(6);
+    HMace2g.setMaxDamage(8);
+    HMace2g.setTwoHanded(false);
+
+    Weapon HMace2h;
+    HMace2h.setName("Magic Heavy Mace");
+    HMace2h.setDescription("");
+    HMace2h.setType("Weapon");
+    HMace2h.setWeaponType("Heavy Mace");
+    HMace2h.setMinDamage(7);
+    HMace2h.setMaxDamage(8);
+    HMace2h.setTwoHanded(false);
+
+    Weapon HMace2i;
+    HMace2i.setName("Magic Heavy Mace");
+    HMace2i.setDescription("");
+    HMace2i.setType("Weapon");
+    HMace2i.setWeaponType("Heavy Mace");
+    HMace2i.setMinDamage(8);
+    HMace2i.setMaxDamage(8);
+    HMace2i.setTwoHanded(false);
+
+    pushBackWeaponOntoVector(HMace1a,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace1b,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace1c,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace1d,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace1e,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2a,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2b,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2c,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2d,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2e,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2f,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2g,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2h,heavyMaceVector);
+    pushBackWeaponOntoVector(HMace2i,heavyMaceVector);
+}
+
+//creates spears and pushes onto spearVector
+void initializeSpearVector(vector <Weapon> &spearVector)
+{
+    Weapon spear1a;
+    spear1a.setName("Common Spear");
+    spear1a.setDescription("");
+    spear1a.setType("Weapon");
+    spear1a.setWeaponType("Small Spear");
+    spear1a.setMinDamage(1);
+    spear1a.setMaxDamage(6);
+    spear1a.setTwoHanded(true);
+
+    Weapon spear1b;
+    spear1b.setName("Common Spear");
+    spear1b.setDescription("");
+    spear1b.setType("Weapon");
+    spear1b.setWeaponType("Small Spear");
+    spear1b.setMinDamage(2);
+    spear1b.setMaxDamage(6);
+    spear1b.setTwoHanded(true);
+
+    Weapon spear1c;
+    spear1c.setName("Reliable Spear");
+    spear1c.setDescription("");
+    spear1c.setType("Weapon");
+    spear1c.setWeaponType("Small Spear");
+    spear1c.setMinDamage(3);
+    spear1c.setMaxDamage(6);
+    spear1c.setTwoHanded(true);
+
+    Weapon spear1d;
+    spear1d.setName("Lucky Spear");
+    spear1d.setDescription("");
+    spear1d.setType("Weapon");
+    spear1d.setWeaponType("Small Spear");
+    spear1d.setMinDamage(4);
+    spear1d.setMaxDamage(6);
+    spear1d.setTwoHanded(true);
+
+    Weapon spear1e;
+    spear1e.setName("Lucky Spear");
+    spear1e.setDescription("");
+    spear1e.setType("Weapon");
+    spear1e.setWeaponType("Small Spear");
+    spear1e.setMinDamage(5);
+    spear1e.setMaxDamage(6);
+    spear1e.setTwoHanded(true);
+
+    Weapon spear1f;
+    spear1f.setName("Magic Spear");
+    spear1f.setDescription("");
+    spear1f.setType("Weapon");
+    spear1f.setWeaponType("Small Spear");
+    spear1f.setMinDamage(6);
+    spear1f.setMaxDamage(6);
+    spear1f.setTwoHanded(true);
+
+    Weapon spear2a;
+    spear2a.setName("Common Spear");
+    spear2a.setDescription("");
+    spear2a.setType("Weapon");
+    spear2a.setWeaponType("Spear");
+    spear2a.setMinDamage(1);
+    spear2a.setMaxDamage(8);
+    spear2a.setTwoHanded(true);
+
+    Weapon spear2b;
+    spear2b.setName("Common Spear");
+    spear2b.setDescription("");
+    spear2b.setType("Weapon");
+    spear2b.setWeaponType("Spear");
+    spear2b.setMinDamage(2);
+    spear2b.setMaxDamage(8);
+    spear2b.setTwoHanded(true);
+
+    Weapon spear2c;
+    spear2c.setName("Common Spear");
+    spear2c.setDescription("");
+    spear2c.setType("Weapon");
+    spear2c.setWeaponType("Spear");
+    spear2c.setMinDamage(3);
+    spear2c.setMaxDamage(8);
+    spear2c.setTwoHanded(true);
+
+    Weapon spear2d;
+    spear2d.setName("Reliable Spear");
+    spear2d.setDescription("");
+    spear2d.setType("Weapon");
+    spear2d.setWeaponType("Spear");
+    spear2d.setMinDamage(4);
+    spear2d.setMaxDamage(8);
+    spear2d.setTwoHanded(true);
+
+    Weapon spear2e;
+    spear2e.setName("Reliable Spear");
+    spear2e.setDescription("");
+    spear2e.setType("Weapon");
+    spear2e.setWeaponType("Spear");
+    spear2e.setMinDamage(5);
+    spear2e.setMaxDamage(8);
+    spear2e.setTwoHanded(true);
+
+    Weapon spear2f;
+    spear2f.setName("Lucky Spear");
+    spear2f.setDescription("");
+    spear2f.setType("Weapon");
+    spear2f.setWeaponType("Spear");
+    spear2f.setMinDamage(6);
+    spear2f.setMaxDamage(8);
+    spear2f.setTwoHanded(true);
+
+    Weapon spear2g;
+    spear2g.setName("Lucky Spear");
+    spear2g.setDescription("");
+    spear2g.setType("Weapon");
+    spear2g.setWeaponType("Spear");
+    spear2g.setMinDamage(7);
+    spear2g.setMaxDamage(8);
+    spear2g.setTwoHanded(true);
+
+    Weapon spear2h;
+    spear2h.setName("Magic Spear");
+    spear2h.setDescription("");
+    spear2h.setType("Weapon");
+    spear2h.setWeaponType("Spear");
+    spear2h.setMinDamage(8);
+    spear2h.setMaxDamage(8);
+    spear2h.setTwoHanded(true);
+
+    pushBackWeaponOntoVector(spear1a,spearVector);
+    pushBackWeaponOntoVector(spear1b,spearVector);
+    pushBackWeaponOntoVector(spear1c,spearVector);
+    pushBackWeaponOntoVector(spear1d,spearVector);
+    pushBackWeaponOntoVector(spear1e,spearVector);
+    pushBackWeaponOntoVector(spear1f,spearVector);
+
+    pushBackWeaponOntoVector(spear2a,spearVector);
+    pushBackWeaponOntoVector(spear2b,spearVector);
+    pushBackWeaponOntoVector(spear2c,spearVector);
+    pushBackWeaponOntoVector(spear2d,spearVector);
+    pushBackWeaponOntoVector(spear2e,spearVector);
+    pushBackWeaponOntoVector(spear2f,spearVector);
+    pushBackWeaponOntoVector(spear2g,spearVector);
+    pushBackWeaponOntoVector(spear2h,spearVector);
+
+    return;
+}
+
+//creates heavy crossbows and pushes onto heacyCrossBowsVector
+void initializeHCrossBowVector(vector <Weapon> &heavyCrossBowVector)
+{
+    Weapon crossBow1a;
+    crossBow1a.setName("Common Heavy CrossBow");
+    crossBow1a.setDescription("");
+    crossBow1a.setType("Weapon");
+    crossBow1a.setWeaponType("Small Heavy CrossBow");
+    crossBow1a.setMinDamage(1);
+    crossBow1a.setMaxDamage(8);
+    crossBow1a.setTwoHanded(true);
+
+    Weapon crossBow1b;
+    crossBow1b.setName("Common Heavy CrossBow");
+    crossBow1b.setDescription("");
+    crossBow1b.setType("Weapon");
+    crossBow1b.setWeaponType("Small Heavy CrossBow");
+    crossBow1b.setMinDamage(2);
+    crossBow1b.setMaxDamage(8);
+    crossBow1b.setTwoHanded(true);
+
+    Weapon crossBow1c;
+    crossBow1c.setName("Common Heavy CrossBow");
+    crossBow1c.setDescription("");
+    crossBow1c.setType("Weapon");
+    crossBow1c.setWeaponType("Small Heavy CrossBow");
+    crossBow1c.setMinDamage(3);
+    crossBow1c.setMaxDamage(8);
+    crossBow1c.setTwoHanded(true);
+
+    Weapon crossBow1d;
+    crossBow1d.setName("Reliable Heavy CrossBow");
+    crossBow1d.setDescription("");
+    crossBow1d.setType("Weapon");
+    crossBow1d.setWeaponType("Small Heavy CrossBow");
+    crossBow1d.setMinDamage(4);
+    crossBow1d.setMaxDamage(8);
+    crossBow1d.setTwoHanded(true);
+
+    Weapon crossBow1e;
+    crossBow1e.setName("Reliable Heavy CrossBow");
+    crossBow1e.setDescription("");
+    crossBow1e.setType("Weapon");
+    crossBow1e.setWeaponType("Small Heavy CrossBow");
+    crossBow1e.setMinDamage(5);
+    crossBow1e.setMaxDamage(8);
+    crossBow1e.setTwoHanded(true);
+
+    Weapon crossBow1f;
+    crossBow1f.setName("Lucky Heavy CrossBow");
+    crossBow1f.setDescription("");
+    crossBow1f.setType("Weapon");
+    crossBow1f.setWeaponType("Small Heavy CrossBow");
+    crossBow1f.setMinDamage(6);
+    crossBow1f.setMaxDamage(8);
+    crossBow1f.setTwoHanded(true);
+
+    Weapon crossBow1g;
+    crossBow1g.setName("Lucky Heavy CrossBow");
+    crossBow1g.setDescription("");
+    crossBow1g.setType("Weapon");
+    crossBow1g.setWeaponType("Small Heavy CrossBow");
+    crossBow1g.setMinDamage(7);
+    crossBow1g.setMaxDamage(8);
+    crossBow1g.setTwoHanded(true);
+
+    Weapon crossBow1h;
+    crossBow1h.setName("Magic Heavy CrossBow");
+    crossBow1h.setDescription("");
+    crossBow1h.setType("Weapon");
+    crossBow1h.setWeaponType("Small Heavy CrossBow");
+    crossBow1h.setMinDamage(8);
+    crossBow1h.setMaxDamage(8);
+    crossBow1h.setTwoHanded(true);
+
+    Weapon crossBow2a;
+    crossBow2a.setName("Common Heavy CrossBow");
+    crossBow2a.setDescription("");
+    crossBow2a.setType("Weapon");
+    crossBow2a.setWeaponType("Heavy CrossBow");
+    crossBow2a.setMinDamage(1);
+    crossBow2a.setMaxDamage(10);
+    crossBow2a.setTwoHanded(true);
+
+    Weapon crossBow2b;
+    crossBow2b.setName("Common Heavy CrossBow");
+    crossBow2b.setDescription("");
+    crossBow2b.setType("Weapon");
+    crossBow2b.setWeaponType("Heavy CrossBow");
+    crossBow2b.setMinDamage(2);
+    crossBow2b.setMaxDamage(10);
+    crossBow2b.setTwoHanded(true);
+
+    Weapon crossBow2c;
+    crossBow2c.setName("Common Heavy CrossBow");
+    crossBow2c.setDescription("");
+    crossBow2c.setType("Weapon");
+    crossBow2c.setWeaponType("Heavy CrossBow");
+    crossBow2c.setMinDamage(3);
+    crossBow2c.setMaxDamage(10);
+    crossBow2c.setTwoHanded(true);
+
+    Weapon crossBow2d;
+    crossBow2d.setName("Common Heavy CrossBow");
+    crossBow2d.setDescription("");
+    crossBow2d.setType("Weapon");
+    crossBow2d.setWeaponType("Heavy CrossBow");
+    crossBow2d.setMinDamage(4);
+    crossBow2d.setMaxDamage(10);
+    crossBow2d.setTwoHanded(true);
+
+    Weapon crossBow2e;
+    crossBow2e.setName("Reliable Heavy CrossBow");
+    crossBow2e.setDescription("");
+    crossBow2e.setType("Weapon");
+    crossBow2e.setWeaponType("Heavy CrossBow");
+    crossBow2e.setMinDamage(5);
+    crossBow2e.setMaxDamage(10);
+    crossBow2e.setTwoHanded(true);
+
+    Weapon crossBow2f;
+    crossBow2f.setName("Lucky Heavy CrossBow");
+    crossBow2f.setDescription("");
+    crossBow2f.setType("Weapon");
+    crossBow2f.setWeaponType("Heavy CrossBow");
+    crossBow2f.setMinDamage(6);
+    crossBow2f.setMaxDamage(10);
+    crossBow2f.setTwoHanded(true);
+
+    Weapon crossBow2g;
+    crossBow2g.setName("Lucky Heavy CrossBow");
+    crossBow2g.setDescription("");
+    crossBow2g.setType("Weapon");
+    crossBow2g.setWeaponType("Heavy CrossBow");
+    crossBow2g.setMinDamage(7);
+    crossBow2g.setMaxDamage(10);
+    crossBow2g.setTwoHanded(true);
+
+    Weapon crossBow2h;
+    crossBow2h.setName("Lucky Heavy CrossBow");
+    crossBow2h.setDescription("");
+    crossBow2h.setType("Weapon");
+    crossBow2h.setWeaponType("Heavy CrossBow");
+    crossBow2h.setMinDamage(8);
+    crossBow2h.setMaxDamage(10);
+    crossBow2h.setTwoHanded(true);
+
+    Weapon crossBow2i;
+    crossBow2i.setName("Magic Heavy CrossBow");
+    crossBow2i.setDescription("");
+    crossBow2i.setType("Weapon");
+    crossBow2i.setWeaponType("Heavy CrossBow");
+    crossBow2i.setMinDamage(9);
+    crossBow2i.setMaxDamage(10);
+    crossBow2i.setTwoHanded(true);
+
+    Weapon crossBow2j;
+    crossBow2j.setName("Magic Heavy CrossBow");
+    crossBow2j.setDescription("");
+    crossBow2j.setType("Weapon");
+    crossBow2j.setWeaponType("Heavy CrossBow");
+    crossBow2j.setMinDamage(10);
+    crossBow2j.setMaxDamage(10);
+    crossBow2j.setTwoHanded(true);
+
+    pushBackWeaponOntoVector(crossBow1a,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1b,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1c,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1d,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1e,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1f,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1g,heavyCrossBowVector);
+
+    pushBackWeaponOntoVector(crossBow2a,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2b,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2c,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2d,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2e,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2f,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2g,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2h,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2i,heavyCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2j,heavyCrossBowVector);
+
+    return;
+}
+
+//creates light crossbows and pushes onto lightCrossBowVector
+void initializeLightCrossBowVector(vector <Weapon> &lightCrossBowVector)
+{
+
+    Weapon crossBow1a;
+    crossBow1a.setName("Common Light CrossBow");
+    crossBow1a.setDescription("");
+    crossBow1a.setType("Weapon");
+    crossBow1a.setWeaponType("Small Light CrossBow");
+    crossBow1a.setMinDamage(1);
+    crossBow1a.setMaxDamage(6);
+    crossBow1a.setTwoHanded(true);
+
+    Weapon crossBow1b;
+    crossBow1b.setName("Common Light CrossBow");
+    crossBow1b.setDescription("");
+    crossBow1b.setType("Weapon");
+    crossBow1b.setWeaponType("Small Light CrossBow");
+    crossBow1b.setMinDamage(2);
+    crossBow1b.setMaxDamage(6);
+    crossBow1b.setTwoHanded(true);
+
+    Weapon crossBow1c;
+    crossBow1c.setName("Reliable Light CrossBow");
+    crossBow1c.setDescription("");
+    crossBow1c.setType("Weapon");
+    crossBow1c.setWeaponType("Small Light CrossBow");
+    crossBow1c.setMinDamage(3);
+    crossBow1c.setMaxDamage(6);
+    crossBow1c.setTwoHanded(true);
+
+    Weapon crossBow1d;
+    crossBow1d.setName("Lucky Light CrossBow");
+    crossBow1d.setDescription("");
+    crossBow1d.setType("Weapon");
+    crossBow1d.setWeaponType("Small Light CrossBow");
+    crossBow1d.setMinDamage(4);
+    crossBow1d.setMaxDamage(6);
+    crossBow1d.setTwoHanded(true);
+
+    Weapon crossBow1e;
+    crossBow1e.setName("Lucky Light CrossBow");
+    crossBow1e.setDescription("");
+    crossBow1e.setType("Weapon");
+    crossBow1e.setWeaponType("Small Light CrossBow");
+    crossBow1e.setMinDamage(5);
+    crossBow1e.setMaxDamage(6);
+    crossBow1e.setTwoHanded(true);
+
+    Weapon crossBow1f;
+    crossBow1f.setName("Magic Light CrossBow");
+    crossBow1f.setDescription("");
+    crossBow1f.setType("Weapon");
+    crossBow1f.setWeaponType("Small Light CrossBow");
+    crossBow1f.setMinDamage(6);
+    crossBow1f.setMaxDamage(6);
+    crossBow1f.setTwoHanded(true);
+
+    Weapon crossBow2a;
+    crossBow2a.setName("Common Light CrossBow");
+    crossBow2a.setDescription("");
+    crossBow2a.setType("Weapon");
+    crossBow2a.setWeaponType("Small Light CrossBow");
+    crossBow2a.setMinDamage(1);
+    crossBow2a.setMaxDamage(8);
+    crossBow2a.setTwoHanded(true);
+
+    Weapon crossBow2b;
+    crossBow2b.setName("Common Light CrossBow");
+    crossBow2b.setDescription("");
+    crossBow2b.setType("Weapon");
+    crossBow2b.setWeaponType("Small Light CrossBow");
+    crossBow2b.setMinDamage(2);
+    crossBow2b.setMaxDamage(8);
+    crossBow2b.setTwoHanded(true);
+
+    Weapon crossBow2c;
+    crossBow2c.setName("Common Light CrossBow");
+    crossBow2c.setDescription("");
+    crossBow2c.setType("Weapon");
+    crossBow2c.setWeaponType("Small Light CrossBow");
+    crossBow2c.setMinDamage(3);
+    crossBow2c.setMaxDamage(8);
+    crossBow2c.setTwoHanded(true);
+
+    Weapon crossBow2d;
+    crossBow2d.setName("Reliable Light CrossBow");
+    crossBow2d.setDescription("");
+    crossBow2d.setType("Weapon");
+    crossBow2d.setWeaponType("Small Light CrossBow");
+    crossBow2d.setMinDamage(4);
+    crossBow2d.setMaxDamage(8);
+    crossBow2d.setTwoHanded(true);
+
+    Weapon crossBow2e;
+    crossBow2e.setName("Reliable Light CrossBow");
+    crossBow2e.setDescription("");
+    crossBow2e.setType("Weapon");
+    crossBow2e.setWeaponType("Small Light CrossBow");
+    crossBow2e.setMinDamage(5);
+    crossBow2e.setMaxDamage(8);
+    crossBow2e.setTwoHanded(true);
+
+    Weapon crossBow2f;
+    crossBow2f.setName("Lucky Light CrossBow");
+    crossBow2f.setDescription("");
+    crossBow2f.setType("Weapon");
+    crossBow2f.setWeaponType("Small Light CrossBow");
+    crossBow2f.setMinDamage(6);
+    crossBow2f.setMaxDamage(8);
+    crossBow2f.setTwoHanded(true);
+
+    Weapon crossBow2g;
+    crossBow2g.setName("Lucky Light CrossBow");
+    crossBow2g.setDescription("");
+    crossBow2g.setType("Weapon");
+    crossBow2g.setWeaponType("Small Light CrossBow");
+    crossBow2g.setMinDamage(7);
+    crossBow2g.setMaxDamage(8);
+    crossBow2g.setTwoHanded(true);
+
+    Weapon crossBow2h;
+    crossBow2h.setName("Magic Light CrossBow");
+    crossBow2h.setDescription("");
+    crossBow2h.setType("Weapon");
+    crossBow2h.setWeaponType("Light CrossBow");
+    crossBow2h.setMinDamage(8);
+    crossBow2h.setMaxDamage(8);
+    crossBow2h.setTwoHanded(true);
+
+    pushBackWeaponOntoVector(crossBow1a,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1b,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1c,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1d,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1e,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow1f,lightCrossBowVector);
+
+    pushBackWeaponOntoVector(crossBow2a,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2b,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2c,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2d,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2e,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2f,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2g,lightCrossBowVector);
+    pushBackWeaponOntoVector(crossBow2h,lightCrossBowVector);
+
+}
+
+//creates battleaxes and pushes onto battleaxeVector
+void initializeBattleaxeVector(vector <Weapon> &battleaxeVector)
+{
+    Weapon battleaxe1a;
+    battleaxe1a.setName("Common Battleaxe");
+    battleaxe1a.setDescription("");
+    battleaxe1a.setType("Weapon");
+    battleaxe1a.setWeaponType("Small Battleaxe");
+    battleaxe1a.setMinDamage(1);
+    battleaxe1a.setMaxDamage(6);
+    battleaxe1a.setTwoHanded(false);
+
+    Weapon battleaxe1b;
+    battleaxe1b.setName("Common Battleaxe");
+    battleaxe1b.setDescription("");
+    battleaxe1b.setType("Weapon");
+    battleaxe1b.setWeaponType("Small Battleaxe");
+    battleaxe1b.setMinDamage(2);
+    battleaxe1b.setMaxDamage(6);
+    battleaxe1b.setTwoHanded(false);
+
+    Weapon battleaxe1c;
+    battleaxe1c.setName("Reliable Battleaxe");
+    battleaxe1c.setDescription("");
+    battleaxe1c.setType("Weapon");
+    battleaxe1c.setWeaponType("Small Battleaxe");
+    battleaxe1c.setMinDamage(3);
+    battleaxe1c.setMaxDamage(6);
+    battleaxe1c.setTwoHanded(false);
+
+    Weapon battleaxe1d;
+    battleaxe1d.setName("Lucky Battleaxe");
+    battleaxe1d.setDescription("");
+    battleaxe1d.setType("Weapon");
+    battleaxe1d.setWeaponType("Small Battleaxe");
+    battleaxe1d.setMinDamage(4);
+    battleaxe1d.setMaxDamage(6);
+    battleaxe1d.setTwoHanded(false);
+
+    Weapon battleaxe1e;
+    battleaxe1e.setName("Lucky Battleaxe");
+    battleaxe1e.setDescription("");
+    battleaxe1e.setType("Weapon");
+    battleaxe1e.setWeaponType("Small Battleaxe");
+    battleaxe1e.setMinDamage(5);
+    battleaxe1e.setMaxDamage(6);
+    battleaxe1e.setTwoHanded(false);
+
+    Weapon battleaxe1f;
+    battleaxe1f.setName("Magic Battleaxe");
+    battleaxe1f.setDescription("");
+    battleaxe1f.setType("Weapon");
+    battleaxe1f.setWeaponType("Small Battleaxe");
+    battleaxe1f.setMinDamage(6);
+    battleaxe1f.setMaxDamage(6);
+    battleaxe1f.setTwoHanded(false);
+
+    Weapon battleaxe2a;
+    battleaxe2a.setName("Common Battleaxe");
+    battleaxe2a.setDescription("");
+    battleaxe2a.setType("Weapon");
+    battleaxe2a.setWeaponType("Battleaxe");
+    battleaxe2a.setMinDamage(1);
+    battleaxe2a.setMaxDamage(8);
+    battleaxe2a.setTwoHanded(false);
+
+    Weapon battleaxe2b;
+    battleaxe2b.setName("Common Battleaxe");
+    battleaxe2b.setDescription("");
+    battleaxe2b.setType("Weapon");
+    battleaxe2b.setWeaponType("Battleaxe");
+    battleaxe2b.setMinDamage(2);
+    battleaxe2b.setMaxDamage(8);
+    battleaxe2b.setTwoHanded(false);
+
+    Weapon battleaxe2c;
+    battleaxe2c.setName("Common Battleaxe");
+    battleaxe2c.setDescription("");
+    battleaxe2c.setType("Weapon");
+    battleaxe2c.setWeaponType("Battleaxe");
+    battleaxe2c.setMinDamage(3);
+    battleaxe2c.setMaxDamage(8);
+    battleaxe2c.setTwoHanded(false);
+
+    Weapon battleaxe2d;
+    battleaxe2d.setName("Reliable Battleaxe");
+    battleaxe2d.setDescription("");
+    battleaxe2d.setType("Weapon");
+    battleaxe2d.setWeaponType("Battleaxe");
+    battleaxe2d.setMinDamage(4);
+    battleaxe2d.setMaxDamage(8);
+    battleaxe2d.setTwoHanded(false);
+
+    Weapon battleaxe2e;
+    battleaxe2e.setName("Lucky Battleaxe");
+    battleaxe2e.setDescription("");
+    battleaxe2e.setType("Weapon");
+    battleaxe2e.setWeaponType("Battleaxe");
+    battleaxe2e.setMinDamage(5);
+    battleaxe2e.setMaxDamage(8);
+    battleaxe2e.setTwoHanded(false);
+
+    Weapon battleaxe2f;
+    battleaxe2f.setName("Lucky Battleaxe");
+    battleaxe2f.setDescription("");
+    battleaxe2f.setType("Weapon");
+    battleaxe2f.setWeaponType("Battleaxe");
+    battleaxe2f.setMinDamage(6);
+    battleaxe2f.setMaxDamage(8);
+    battleaxe2f.setTwoHanded(false);
+
+    Weapon battleaxe2g;
+    battleaxe2g.setName("Lucky Battleaxe");
+    battleaxe2g.setDescription("");
+    battleaxe2g.setType("Weapon");
+    battleaxe2g.setWeaponType("Battleaxe");
+    battleaxe2g.setMinDamage(7);
+    battleaxe2g.setMaxDamage(8);
+    battleaxe2g.setTwoHanded(false);
+
+    Weapon battleaxe2h;
+    battleaxe2h.setName("Magic Battleaxe");
+    battleaxe2h.setDescription("");
+    battleaxe2h.setType("Weapon");
+    battleaxe2h.setWeaponType("Battleaxe");
+    battleaxe2h.setMinDamage(8);
+    battleaxe2h.setMaxDamage(8);
+    battleaxe2h.setTwoHanded(false);
+
+    pushBackWeaponOntoVector(battleaxe1a,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe1b,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe1c,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe1d,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe1e,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe1f,battleaxeVector);
+
+    pushBackWeaponOntoVector(battleaxe2a,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe2b,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe2c,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe2d,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe2e,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe2f,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe2g,battleaxeVector);
+    pushBackWeaponOntoVector(battleaxe2h,battleaxeVector);
+
+    return;
+}
+
+//creates longbows and pushes onto longBowsVector
+void initializeLongBowVector(vector <Weapon> &longBowVector)
+{
+    Weapon longBow1a;
+    longBow1a.setName("Common Longbow");
+    longBow1a.setDescription("");
+    longBow1a.setType("Weapon");
+    longBow1a.setWeaponType("Small Longbow");
+    longBow1a.setMinDamage(1);
+    longBow1a.setMaxDamage(6);
+    longBow1a.setTwoHanded(true);
+
+    Weapon longBow1b;
+    longBow1b.setName("Common Longbow");
+    longBow1b.setDescription("");
+    longBow1b.setType("Weapon");
+    longBow1b.setWeaponType("Small Longbow");
+    longBow1b.setMinDamage(2);
+    longBow1b.setMaxDamage(6);
+    longBow1b.setTwoHanded(true);
+
+    Weapon longBow1c;
+    longBow1c.setName("Reliable Longbow");
+    longBow1c.setDescription("");
+    longBow1c.setType("Weapon");
+    longBow1c.setWeaponType("Small Longbow");
+    longBow1c.setMinDamage(3);
+    longBow1c.setMaxDamage(6);
+    longBow1c.setTwoHanded(true);
+
+    Weapon longBow1d;
+    longBow1d.setName("Lucky Longbow");
+    longBow1d.setDescription("");
+    longBow1d.setType("Weapon");
+    longBow1d.setWeaponType("Small Longbow");
+    longBow1d.setMinDamage(4);
+    longBow1d.setMaxDamage(6);
+    longBow1d.setTwoHanded(true);
+
+    Weapon longBow1e;
+    longBow1e.setName("Lucky Longbow");
+    longBow1e.setDescription("");
+    longBow1e.setType("Weapon");
+    longBow1e.setWeaponType("Small Longbow");
+    longBow1e.setMinDamage(5);
+    longBow1e.setMaxDamage(6);
+    longBow1e.setTwoHanded(true);
+
+    Weapon longBow1f;
+    longBow1f.setName("Magic Longbow");
+    longBow1f.setDescription("");
+    longBow1f.setType("Weapon");
+    longBow1f.setWeaponType("Small Longbow");
+    longBow1f.setMinDamage(6);
+    longBow1f.setMaxDamage(6);
+    longBow1f.setTwoHanded(true);
+
+    Weapon longBow2a;
+    longBow2a.setName("Common Longbow");
+    longBow2a.setDescription("");
+    longBow2a.setType("Weapon");
+    longBow2a.setWeaponType("Longbow");
+    longBow2a.setMinDamage(1);
+    longBow2a.setMaxDamage(8);
+    longBow2a.setTwoHanded(true);
+
+    Weapon longBow2b;
+    longBow2b.setName("Common Longbow");
+    longBow2b.setDescription("");
+    longBow2b.setType("Weapon");
+    longBow2b.setWeaponType("Longbow");
+    longBow2b.setMinDamage(2);
+    longBow2b.setMaxDamage(8);
+    longBow2b.setTwoHanded(true);
+
+    Weapon longBow2c;
+    longBow2c.setName("Common Longbow");
+    longBow2c.setDescription("");
+    longBow2c.setType("Weapon");
+    longBow2c.setWeaponType("Longbow");
+    longBow2c.setMinDamage(3);
+    longBow2c.setMaxDamage(8);
+    longBow2c.setTwoHanded(true);
+
+    Weapon longBow2d;
+    longBow2d.setName("Reliable Longbow");
+    longBow2d.setDescription("");
+    longBow2d.setType("Weapon");
+    longBow2d.setWeaponType("Longbow");
+    longBow2d.setMinDamage(4);
+    longBow2d.setMaxDamage(8);
+    longBow2d.setTwoHanded(true);
+
+    Weapon longBow2e;
+    longBow2e.setName("Lucky Longbow");
+    longBow2e.setDescription("");
+    longBow2e.setType("Weapon");
+    longBow2e.setWeaponType("Longbow");
+    longBow2e.setMinDamage(5);
+    longBow2e.setMaxDamage(8);
+    longBow2e.setTwoHanded(true);
+
+    Weapon longBow2f;
+    longBow2f.setName("Lucky Longbow");
+    longBow2f.setDescription("");
+    longBow2f.setType("Weapon");
+    longBow2f.setWeaponType("Longbow");
+    longBow2f.setMinDamage(6);
+    longBow2f.setMaxDamage(8);
+    longBow2f.setTwoHanded(true);
+
+    Weapon longBow2g;
+    longBow2g.setName("Lucky Longbow");
+    longBow2g.setDescription("");
+    longBow2g.setType("Weapon");
+    longBow2g.setWeaponType("Longbow");
+    longBow2g.setMinDamage(7);
+    longBow2g.setMaxDamage(8);
+    longBow2g.setTwoHanded(true);
+
+    Weapon longBow2h;
+    longBow2h.setName("Magic Longbow");
+    longBow2h.setDescription("");
+    longBow2h.setType("Weapon");
+    longBow2h.setWeaponType("Longbow");
+    longBow2h.setMinDamage(8);
+    longBow2h.setMaxDamage(8);
+    longBow2h.setTwoHanded(true);
+
+    pushBackWeaponOntoVector(longBow1a,longBowVector);
+    pushBackWeaponOntoVector(longBow1b,longBowVector);
+    pushBackWeaponOntoVector(longBow1c,longBowVector);
+    pushBackWeaponOntoVector(longBow1d,longBowVector);
+    pushBackWeaponOntoVector(longBow1e,longBowVector);
+    pushBackWeaponOntoVector(longBow1f,longBowVector);
+
+    pushBackWeaponOntoVector(longBow2a,longBowVector);
+    pushBackWeaponOntoVector(longBow2b,longBowVector);
+    pushBackWeaponOntoVector(longBow2c,longBowVector);
+    pushBackWeaponOntoVector(longBow2d,longBowVector);
+    pushBackWeaponOntoVector(longBow2e,longBowVector);
+    pushBackWeaponOntoVector(longBow2f,longBowVector);
+    pushBackWeaponOntoVector(longBow2g,longBowVector);
+    pushBackWeaponOntoVector(longBow2h,longBowVector);
+
+    return;
+}
+
+//chooses potion
 Consumable chooseConsumable(vector <Consumable> potionVector)
 {
     Consumable potionToReturn;
-    int positionOfPotion;
+    int positionOfPotion = 0;
 
     positionOfPotion = rand() % potionVector.size();
     potionToReturn = potionVector[positionOfPotion];
@@ -550,13 +2027,34 @@ Consumable chooseConsumable(vector <Consumable> potionVector)
     return potionToReturn;
 }
 
+Armor chooseArmor(vector <Armor> armorVector)
+{
+    Armor armorToReturn;
+    int positionOfArmor = 0;
+
+    positionOfArmor = rand() % armorVector.size();
+    armorToReturn = armorVector[positionOfArmor];
+
+    return armorToReturn;
+}
+
+Weapon chooseWeapon(vector <Weapon> weaponVector)
+{
+    Weapon weaponToReturn;
+    int positionOfWeapon = 0;
+
+    positionOfWeapon = rand() % weaponVector.size();
+    weaponToReturn = weaponVector[positionOfWeapon];
+
+    return weaponToReturn;
+}
 
 //Picks a random number of items to place in a room once the room is entered
 int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions)
 {
     int spaceCounter = 0;
     int itemsToCreate = 0;
-    int numOfSpacesPerItem = 15;
+    int numOfSpacesPerItem = 300;
 
     for(int x = 0; x < 500; x++)
     {
@@ -590,10 +2088,14 @@ int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions)
 
 
 //chooses which item to place based on item rarity
-void itemChoice(character player,vector <Item> &itemVector,
-                vector <Consumable> healthPotionVector, vector <Consumable> magicPotionVector)
+void itemChoice(character player, vector <Consumable> &consumableVector,vector <Armor> &armorVector,
+                vector <Weapon> &weaponVector, vector <Consumable> healthPotionVector,
+                vector <Consumable> magicPotionVector, vector <Armor> leatherArmorVector,
+                vector <Armor> metalArmorVector,vector <Armor> crystalArmorVector,
+                vector <Weapon> daggerVector,vector <Weapon> clubVector,vector <Weapon> heavyMaceVector,
+                vector <Weapon> spearVector, vector <Weapon> heavyCrossBowVector,
+                vector <Weapon> lightCrossBowVector,vector <Weapon> battleaxeVector, vector <Weapon> longBowVector)
 {
-    srand(time(NULL));
 
     int min5pack = 1;
     int max5pack = 3;
@@ -611,8 +2113,8 @@ void itemChoice(character player,vector <Item> &itemVector,
     int maxLeather = 0;
     int minMetal = 0;
     int maxMetal = 0;
-    int minCyrstal = 0;
-    int maxCyrstal = 0;
+    int minCrystal = 0;
+    int maxCrystal = 0;
     int minWeapons = 71;
     int maxWeapons = 100;
     int minDagger = 0;
@@ -667,9 +2169,11 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable5;
             Consumable5 = chooseConsumable(healthPotionVector);
 
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
+            consumableVector.push_back(Consumable3);
+            consumableVector.push_back(Consumable4);
+            consumableVector.push_back(Consumable5);
         }
         else//magic
         {
@@ -688,9 +2192,11 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable5;
             Consumable5 = chooseConsumable(magicPotionVector);
 
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
+            consumableVector.push_back(Consumable3);
+            consumableVector.push_back(Consumable4);
+            consumableVector.push_back(Consumable5);
         }
 
     }//end of 5 pack(1-3)
@@ -712,11 +2218,10 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable4;
             Consumable4 = chooseConsumable(healthPotionVector);
 
-            Consumable Consumable5;
-
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
+            consumableVector.push_back(Consumable3);
+            consumableVector.push_back(Consumable4);
         }
         else//magic
         {
@@ -732,11 +2237,10 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable4;
             Consumable4 = chooseConsumable(magicPotionVector);
 
-            Consumable Consumable5;
-
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
+            consumableVector.push_back(Consumable3);
+            consumableVector.push_back(Consumable4);
         }//end of magic(4-8)
 
     }//end of 4 pack(4-8)
@@ -744,7 +2248,7 @@ void itemChoice(character player,vector <Item> &itemVector,
     {
         decidingMax = 2;
         decidingRoll = rand() % decidingMax + decidingMin;
-       if(decidingRoll == 1)//health
+        if(decidingRoll == 1)//health
         {
             Consumable Consumable1;
             Consumable1 = chooseConsumable(healthPotionVector);
@@ -755,13 +2259,9 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable3;
             Consumable3 = chooseConsumable(healthPotionVector);
 
-            Consumable Consumable4;
-
-            Consumable Consumable5;
-
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
+            consumableVector.push_back(Consumable3);
         }
         else//magic
         {
@@ -774,13 +2274,9 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable3;
             Consumable3 = chooseConsumable(magicPotionVector);
 
-            Consumable Consumable4;
-
-            Consumable Consumable5;
-
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
+            consumableVector.push_back(Consumable3);
         }//end of magic(9-15)
 
     }//end of 3 pack(9-15)
@@ -796,15 +2292,8 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable2;
             Consumable2 = chooseConsumable(healthPotionVector);
 
-            Consumable Consumable3;
-
-            Consumable Consumable4;
-
-            Consumable Consumable5;
-
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
         }
         else//magic
         {
@@ -814,15 +2303,8 @@ void itemChoice(character player,vector <Item> &itemVector,
             Consumable Consumable2;
             Consumable2 = chooseConsumable(magicPotionVector);
 
-            Consumable Consumable3;
-
-            Consumable Consumable4;
-
-            Consumable Consumable5;
-
-            consumablePack newConsumablePack(Consumable1,Consumable2,Consumable3,Consumable4,Consumable5);
-
-            itemVector.push_back(newConsumablePack);
+            consumableVector.push_back(Consumable1);
+            consumableVector.push_back(Consumable2);
 
         }//end of magic(16-15)
 
@@ -831,32 +2313,286 @@ void itemChoice(character player,vector <Item> &itemVector,
     {
         decidingMax = 2;
         decidingRoll = rand() % decidingMax + decidingMin;
-       if(decidingRoll == 1)//health
+        if(decidingRoll == 1)//health
         {
             Consumable newConsumable;
             newConsumable = chooseConsumable(healthPotionVector);
 
-            itemVector.push_back(newConsumable);
+            consumableVector.push_back(newConsumable);
         }//end of health(26-40)
         else//magic
         {
             Consumable newConsumable;
             newConsumable = chooseConsumable(magicPotionVector);
 
-            itemVector.push_back(newConsumable);
+            consumableVector.push_back(newConsumable);
         }//end of magic(26-40)
     }//end of 1 potion(26-40)
     else if(roll >= minArmor && roll <= maxArmor)//armor
     {
-        if(player.getLevel() == 1)
+        Armor newArmor;
+        if(player.getLevel() >= 0 && player.getLevel() <= 19)//15% leather,10%metal,5%crystal
         {
-
+            minLeather = 41;
+            maxLeather = 55;
+            minMetal = 56;
+            maxMetal = 65;
+            minCrystal = 66;
+            maxCrystal = 70;
+        }//end of level 1-19
+        else if(player.getLevel() >= 20 && player.getLevel() <= 29)//10%leather,15%metal,5%crystal
+        {
+            minLeather = 41;
+            maxLeather = 50;
+            minMetal = 51;
+            maxMetal = 65;
+            minCrystal = 66;
+            maxCrystal = 70;
+        }//end of level 20-29
+        else if(player.getLevel() >= 30 && player.getLevel() <= 39)//5%leather,15%metal,5%crystal
+        {
+            minLeather = 41;
+            maxLeather = 45;
+            minMetal = 46;
+            maxMetal = 60;
+            minCrystal = 61;
+            maxCrystal = 70;
+        }//end of level 30-39
+        else//5%leather,10%metal,15%crystal
+        {
+            minLeather = 41;
+            maxLeather = 45;
+            minMetal = 46;
+            maxMetal = 55;
+            minCrystal = 56;
+            maxCrystal = 70;
         }
 
+        if(roll >= minLeather && roll <= maxLeather)
+        {
+            newArmor = chooseArmor(leatherArmorVector);//0-first leather item in armorVector; 4 = last leather item
 
+            armorVector.push_back(newArmor);
+        }
+        else if (roll >= minMetal && roll <= maxMetal)
+        {
+            newArmor = chooseArmor(metalArmorVector);
+
+            armorVector.push_back(newArmor);
+        }
+        else if (roll >= minCrystal && roll <= maxCrystal)
+        {
+            newArmor = chooseArmor(crystalArmorVector);
+
+            armorVector.push_back(newArmor);
+        }
     }//end of armor(41-70)
     else if(roll >= minWeapons && roll <= maxWeapons)//weapons
     {
+        Weapon newWeapon;
+        if(player.getLevel() >= 0 && player.getLevel() <= 5)
+        {
+            minDagger = 71;//15&
+            maxDagger = 85;
+            minClub = 86;//10%
+            maxClub = 95;
+            minHeavyMace = 96;//1%
+            maxHeavyMace = 96;
+            minSpear = 97;//1%
+            maxSpear = 97;
+            minLCrossbow = 98;//1%
+            maxLCrossbow = 98;
+            minLongBow = 99;//1%
+            maxLongBow = 99;
+            minBattleaxe = 100;//1%
+            maxBattleaxe = 100;
+        }
+        else if(player.getLevel() >= 6 && player.getLevel() <= 9)
+        {
+            minDagger = 71;//10&
+            maxDagger = 80;
+            minClub = 81;//10%
+            maxClub = 90;
+            minHeavyMace = 91;//2%
+            maxHeavyMace = 92;
+            minSpear = 93;//2%
+            maxSpear = 94;
+            minArrows = 95;//2%
+            maxArrows = 96;
+            minLCrossbow = 97;//1%
+            maxLCrossbow = 97;
+            minLongBow = 98;//1%
+            maxLongBow = 98;
+            minBattleaxe = 99;//1%
+            maxBattleaxe = 99;
+            minHCrossbow = 100;//1%
+            maxHCrossbow = 100;
+        }
+        else if(player.getLevel() >= 10 && player.getLevel() <= 19)
+        {
+            minDagger = 71;//5&
+            maxDagger = 75;
+            minClub = 76;//10%
+            maxClub = 85;
+            minHeavyMace = 86;//4%
+            maxHeavyMace = 89;
+            minSpear = 90;//3%
+            maxSpear = 92;
+            minArrows = 93;//2%
+            maxArrows = 94;
+            minLCrossbow = 95;//3%
+            maxLCrossbow = 97;
+            minLongBow = 98;//1%
+            maxLongBow = 98;
+            minBattleaxe = 99;//1%
+            maxBattleaxe = 99;
+            minHCrossbow = 100;//1%
+            maxHCrossbow = 100;
+        }
+        else if(player.getLevel() >=20 && player.getLevel() <=29)
+        {
+            minDagger = 71;//4%
+            maxDagger = 74;
+            minClub = 75;//5%
+            maxClub = 79;
+            minHeavyMace = 80;//4%
+            maxHeavyMace = 83;
+            minSpear = 84;//4%
+            maxSpear = 87;
+            minArrows = 88;//4%
+            maxArrows = 91;
+            minLCrossbow = 92;//3%
+            maxLCrossbow = 94;
+            minLongBow = 95;//2%
+            maxLongBow = 96;
+            minBattleaxe = 97;//2%
+            maxBattleaxe = 98;
+            minHCrossbow = 99;//2%
+            maxHCrossbow = 100;
+        }
+        else if(player.getLevel() >= 30 && player.getLevel() <= 39)
+        {
+            minDagger = 71;//4%
+            maxDagger = 74;
+            minClub = 75;//4%
+            maxClub = 78;
+            minHeavyMace = 79;//3%
+            maxHeavyMace = 81;
+            minSpear = 82;//3%
+            maxSpear = 84;
+            minArrows = 85;//4%
+            maxArrows = 88;
+            minLCrossbow = 89;//3%
+            maxLCrossbow = 91;
+            minLongBow = 92;//3%
+            maxLongBow = 94;
+            minBattleaxe = 95;//3%
+            maxBattleaxe = 97;
+            minHCrossbow = 98;//3%
+            maxHCrossbow = 100;
+        }
+        else if(player.getLevel() >= 40 && player.getLevel() <= 49)
+        {
+            minDagger = 71;//1%
+            maxDagger = 71;
+            minClub = 72;//1%
+            maxClub = 72;
+            minHeavyMace = 73;//2%
+            maxHeavyMace = 74;
+            minSpear = 75;//4%
+            maxSpear = 78;
+            minArrows = 79;//5%
+            maxArrows = 83;
+            minLCrossbow = 84;//4%
+            maxLCrossbow = 87;
+            minLongBow = 88;//4%
+            maxLongBow = 91;
+            minBattleaxe = 92;//4%
+            maxBattleaxe = 95;
+            minHCrossbow = 96;//5%
+            maxHCrossbow = 100;
+
+        }
+        else
+        {
+            minClub = 71;//1%
+            maxClub = 71;
+            minHeavyMace = 72;//1%
+            maxHeavyMace = 72;
+            minSpear = 73;//1%
+            maxSpear = 73;
+            minArrows = 74;//5%
+            maxArrows = 78;
+            minLCrossbow = 79;//3%
+            maxLCrossbow = 81;
+            minLongBow = 82;//4%
+            maxLongBow = 85;
+            minBattleaxe = 86;//5%
+            maxBattleaxe = 90;
+            minHCrossbow = 91;//10%
+            maxHCrossbow = 100;
+        }
+
+        if(roll >= minDagger && roll <= maxDagger)
+        {
+            newWeapon = chooseWeapon(daggerVector);
+
+            weaponVector.push_back(newWeapon);
+        }
+        else if(roll >= minClub && roll <= maxClub)
+        {
+            newWeapon = chooseWeapon(clubVector);
+
+            weaponVector.push_back(newWeapon);
+        }
+        else if(roll >= minHeavyMace && roll <= maxHeavyMace)
+        {
+            newWeapon = chooseWeapon(heavyMaceVector);
+
+            weaponVector.push_back(newWeapon);
+        }
+        else if(roll >= minSpear && roll <= maxSpear)
+        {
+            newWeapon = chooseWeapon(spearVector);
+
+            weaponVector.push_back(newWeapon);
+        }
+        else if(roll >= minArrows && roll <= maxArrows)
+        {
+            quantityMin = 1;
+            quantityMax = 20;
+            quantity = rand() % quantityMax + quantityMin;
+
+            packOfArrows arrows;
+            arrows.setName("Pack of Arrows");
+            arrows.setNumOfArrows(quantity);
+
+            weaponVector.push_back(arrows);
+        }
+        else if(roll >= minLCrossbow && roll <= maxLCrossbow)
+        {
+            newWeapon = chooseWeapon(lightCrossBowVector);
+
+            weaponVector.push_back(newWeapon);
+        }
+        else if(roll >= minLongBow && roll <= maxLongBow)
+        {
+            newWeapon = chooseWeapon(longBowVector);
+
+            weaponVector.push_back(newWeapon);
+        }
+        else if(roll >= minBattleaxe && roll <= maxBattleaxe)
+        {
+            newWeapon = chooseWeapon(battleaxeVector);
+
+            weaponVector.push_back(newWeapon);
+        }
+        else if(roll >= minHCrossbow && roll <= maxHCrossbow)
+        {
+            newWeapon = chooseWeapon(heavyCrossBowVector);
+
+            weaponVector.push_back(newWeapon);
+        }
 
     }//end of weapons(71-100)
 
@@ -864,30 +2600,12 @@ void itemChoice(character player,vector <Item> &itemVector,
 }
 
 //Chooses the starting x and y coordinates for each item
-void positions(char symbolArray[500][500], vector <Item> itemVector,vector <Location> &possiblePositions)
+void positions(char symbolArray[500][500], vector <Consumable> consumableVector,vector <Armor> &armorVector,
+               vector <Weapon> weaponVector,vector <Location> &possiblePositions)
 {
-    ofstream oFile("test.txt");
+    //srand(time(NULL));
 
-   /* oFile << "possiblePositionsVector: " << endl;
-    for(int x = 0; x < possiblePositions.size(); x++)
-    {
-
-        oFile << x << ".  (" << possiblePositions[x].getX() << "," << possiblePositions[x].getY() << ")" << endl;
-    }
-
-    oFile << endl << endl;*/
-
-    for(int y = 0; y < 500; y++)
-    {
-        for(int x = 0; x < 500; x++)
-        {
-            oFile << symbolArray[x][y] << endl;
-        }
-    }
-
-    srand(time(NULL));
-
-    int numOfLocationsNeeded = itemVector.size();
+    int numOfLocationsNeeded = consumableVector.size() + armorVector.size() + weaponVector.size();
     int maxPercent = possiblePositions.size() - 1;
     int possiblePositionsLocation = 0;
     int itemX;
@@ -900,12 +2618,388 @@ void positions(char symbolArray[500][500], vector <Item> itemVector,vector <Loca
         itemY = possiblePositions[possiblePositionsLocation].getY();
         symbolArray[itemX][itemY] = '*';
     }
+}
 
-    for(int y = 0; y < 500; y++)
+void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
+                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
+                  Inventory playerInventory)
+{
+    wclear(workingWindow);
+    int numOfVectors = 3;
+    int chooseVector = rand() % numOfVectors + 1;
+
+    int positionInVector = 0;
+
+    int currentX = player.getXCoordinate();
+    int currentY = player.getYCoordinate();
+
+    string currentString = "";
+
+    if(symbolArray[currentX][currentY] == '*')
     {
-        for(int x = 0; x < 500; x++)
+        wclear(workingWindow);
+
+        if(chooseVector == 1)
         {
-            oFile << symbolArray[x][y] << endl;
+            positionInVector = rand() % consumableVector.size();
+            Consumable itemToUse = consumableVector[positionInVector];
+            itemToUse.setX(currentX);
+            itemToUse.setY(currentY);
+
+            if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+            itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+            itemToUse.getName()[0] == 'o')//a or an
+            {
+                currentString = "You have found an: ";
+            }
+            else
+            {
+                currentString = "You have found a: ";
+            }
+
+            currentString = currentString + itemToUse.getName();
+            char * characterPointer = &currentString.at(0);
+            mvwprintw(workingWindow,0,3,characterPointer);
+
+            printConsumableWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
         }
+        else if(chooseVector == 2)
+        {
+            positionInVector = rand() % armorVector.size();
+            Armor itemToUse = armorVector[positionInVector];
+            itemToUse.setX(currentX);
+            itemToUse.setY(currentY);
+
+            if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+            itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+            itemToUse.getName()[0] == 'o')//a or an
+            {
+                currentString = "You have found an: ";
+            }
+            else
+            {
+                currentString = "You have found a: ";
+            }
+
+            currentString = currentString + itemToUse.getName();
+            char * characterPointer = &currentString.at(0);
+            mvwprintw(workingWindow,0,3,characterPointer);
+
+            printArmorWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
+        }
+        else if(chooseVector == 3)
+        {
+            positionInVector = rand() % weaponVector.size();
+            Weapon itemToUse = weaponVector[positionInVector];
+            itemToUse.setX(currentX);
+            itemToUse.setY(currentY);
+
+            if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+            itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+            itemToUse.getName()[0] == 'o')//a or an
+            {
+                currentString = "You have found an: ";
+            }
+            else
+            {
+                currentString = "You have found a: ";
+            }
+
+            currentString = currentString + itemToUse.getName();
+            char * characterPointer = &currentString.at(0);
+            mvwprintw(workingWindow,0,3,characterPointer);
+
+            printWeaponWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
+        }
+
+        wrefresh(workingWindow);
     }
+    else
+    {
+        return;
+    }
+
+    return;
+}
+
+//prints consumable stats
+void printConsumableWindow(Consumable consumableToUse, WINDOW * messageWindow,
+                           char symbolArray[500][500],character player,Inventory playerInventory)
+{
+    if(consumableToUse.getMagicValue() != 0)
+    {
+        string currentString = consumableToUse.getName();
+        int magicValue = consumableToUse.getMagicValue();
+        char * characterPointer = &currentString.at(0);
+        mvwprintw(messageWindow,2,3,characterPointer);
+        mvwprintw(messageWindow,2,18,"%d",magicValue);
+    }
+    else
+    {
+        string currentString = consumableToUse.getName();
+        int healthValue = consumableToUse.getHealthValue();
+        char * characterPointer = &currentString.at(0);
+        mvwprintw(messageWindow,2,3,characterPointer);
+        mvwprintw(messageWindow,2,18,"%d",healthValue);
+    }
+
+    string currentString = "Would you like to place item in your inventory?(Enter for yes)";
+    char * characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,5,3,characterPointer);
+
+    int ch = getch();
+
+    if(ch == KEY_ENTER)
+    {
+        playerInventory.addToInventoryCArray(consumableToUse,messageWindow,symbolArray);
+        symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
+
+    }
+}
+
+//prints armor stats
+void printArmorWindow(Armor armorToUse, WINDOW * messageWindow,
+                      char symbolArray[500][500], character player,Inventory playerInventory)
+{
+    string currentString = "Strength: ";
+    int strength = armorToUse.getStrength();
+    char * characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,1,3,characterPointer);
+    mvwprintw(messageWindow,1,12,"%d",strength);
+
+    currentString = "Would you like to place item in your inventory?(Enter for yes)";
+    characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,5,3,characterPointer);
+
+    int ch = getch();
+
+    if(ch == KEY_ENTER)
+    {
+        playerInventory.addToInventoryAArray(armorToUse,messageWindow,symbolArray);
+        symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
+
+    }
+
+    return;
+}
+
+//prints weapon stats
+void printWeaponWindow(Weapon weaponToUse, WINDOW * messageWindow,
+                       char symbolArray[500][500], character player,Inventory playerInventory)
+{
+    string currentString = "Minimum Damage: ";
+    int minDamage = weaponToUse.getMinDamage();
+    char * characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,1,3,characterPointer);
+    mvwprintw(messageWindow,1,18,"%d",minDamage);
+
+    currentString = "Maximum Damage: ";
+    int maxDamage = weaponToUse.getMaxDamage();
+    characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,2,3,characterPointer);
+    mvwprintw(messageWindow,2,18,"%d",maxDamage);
+
+    currentString = "Would you like to place item in your inventory?(Enter for yes)";
+    characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,5,3,characterPointer);
+
+    int ch = getch();
+
+    if(ch == KEY_ENTER)
+    {
+        playerInventory.addToInventoryWArray(weaponToUse,messageWindow,symbolArray);
+        symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
+    }
+
+    return;
+}
+
+//write tests out to file
+void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,
+                vector <Weapon> weaponVector, vector <Location> positionVector,vector <Consumable> healthPotionVector,
+                vector <Consumable> magicPotionVector, vector <Armor> leatherArmorVector, vector <Armor> metalArmorVector,
+                vector <Armor> crystalArmorVector, vector <Weapon> daggerVector,
+                vector <Weapon> clubVector, vector <Weapon> heavyMaceVector,vector <Weapon> spearVector,
+                vector <Weapon> heavyCrossBowVector, vector <Weapon> lightCrossBowVector,
+                vector <Weapon> battleaxeVector, vector <Weapon> longBowVector)
+{
+    ofstream oFile("test.txt");
+
+    oFile << "Test Consumable Vector:" << endl;
+
+    for(int a = 0; a < signed(consumableVector.size()); a++)
+    {
+        oFile << a << ". " << consumableVector[a].getName() << endl
+              << "    " << consumableVector[a].getType() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test Armor Vector:" << endl;
+
+    for(int b = 0; b < signed(armorVector.size()); b++)
+    {
+        oFile << b << ". " << armorVector[b].getName() << endl
+              << "    " << armorVector[b].getType() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test Weapon Vector:" << endl;
+
+    for(int c = 0; c < signed(weaponVector.size()); c++)
+    {
+        oFile << c << ". " << weaponVector[c].getName() << endl
+              << "    " << weaponVector[c].getType() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test Position Vector:" << endl;
+
+    for(int b = 0; b < signed(positionVector.size());b++)
+    {
+        oFile << b << ". X: " << positionVector[b].getX() << endl
+              << "    Y: " << positionVector[b].getY() << endl;
+    }
+
+    oFile << endl << endl;
+
+    //test healthPotionVection
+    oFile << "Test Health Potion Vector: " << endl;
+
+    for(int c = 0; c < signed(healthPotionVector.size()); c++)
+    {
+        oFile << c << ". " << healthPotionVector[c].getName() << endl
+              << "    " << healthPotionVector[c].getType() << endl
+              << "    " << healthPotionVector[c].getHealthValue() << endl;
+    }
+
+    oFile << endl << endl;
+
+    //test magicPotionVector
+    oFile << "Test Magic Potion Vector: " << endl;
+
+    for(int d = 0; d < signed(healthPotionVector.size()); d++)
+    {
+        oFile << d << ". " << magicPotionVector[d].getName() << endl
+              << "    " << magicPotionVector[d].getType() << endl
+              << "    " << magicPotionVector[d].getMagicValue() << endl;
+    }
+
+    oFile << endl << endl;
+
+    //test leatherArmorVector
+    oFile << "Test leatherArmorVector: " << endl;
+
+    for(int e = 0; e < signed(leatherArmorVector.size()); e++)
+    {
+        oFile << e << ". " << leatherArmorVector[e].getName() << endl
+              << "    " << leatherArmorVector[e].getType() << endl;
+    }
+
+    oFile << endl << endl;
+
+    //test metalArmorVector
+    oFile << "Test metalArmorVector: " << endl;
+
+    for(int f = 0; f < signed(metalArmorVector.size()); f++)
+    {
+        oFile << f << ". " << metalArmorVector[f].getName() << endl
+              << "    " << metalArmorVector[f].getType() << endl;
+    }
+
+    oFile << endl << endl;
+
+    //test crystalArmorVector
+    oFile << "Test crystalArmorVector: " << endl;
+
+    for(int g = 0; g < signed(metalArmorVector.size()); g++)
+    {
+        oFile << g << ". " << metalArmorVector[g].getName() << endl
+              << "    " << metalArmorVector[g].getType() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test daggerVector: " << endl;
+    for(int h = 0; h < signed(daggerVector.size());h++)
+    {
+        oFile << h << ". " << daggerVector[h].getName()
+              << "   MinDamage: " << daggerVector[h].getMinDamage()
+              << "   MaxDamage: " << daggerVector[h].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test clubVector: " << endl;
+    for(int i = 0; i < signed(clubVector.size()); i++)
+    {
+        oFile << i << ". " << clubVector[i].getName()
+              << "   MinDamage: " << daggerVector[i].getMinDamage()
+              << "   MaxDamage: " << daggerVector[i].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test heavyMaceVector: " << endl;
+    for(int j = 0; j < signed(heavyMaceVector.size()); j++)
+    {
+        oFile << j << ". " << heavyMaceVector[j].getName()
+              << "   MinDamage: " << heavyMaceVector[j].getMinDamage()
+              << "   MaxDamage: " << heavyMaceVector[j].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test spearVector: " << endl;
+    for(int k = 0; k < signed(spearVector.size()); k++)
+    {
+        oFile << k << ". " << spearVector[k].getName()
+              << "   MinDamage: " << spearVector[k].getMinDamage()
+              << "   MaxDamage: " << spearVector[k].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test heavyCrossBowVector: " << endl;
+    for(int l = 0; l < signed(heavyCrossBowVector.size()); l++)
+    {
+        oFile << l << ". " << heavyCrossBowVector[l].getName()
+              << "   MinDamage: " << heavyCrossBowVector[l].getMinDamage()
+              << "   MaxDamage: " << heavyCrossBowVector[l].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test lightCrossBowVector: " << endl;
+    for(int m = 0; m < signed(lightCrossBowVector.size()); m++)
+    {
+        oFile << m << ". " << lightCrossBowVector[m].getName()
+              << "   MinDamage: " << lightCrossBowVector[m].getMinDamage()
+              << "   MaxDamage: " << lightCrossBowVector[m].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test battleaxeVector: " << endl;
+    for(int n = 0; n < signed(battleaxeVector.size()); n++)
+    {
+        oFile << n << ". " << battleaxeVector[n].getName()
+              << "   MinDamage: " << battleaxeVector[n].getMinDamage()
+              << "   MaxDamage: " << battleaxeVector[n].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
+    oFile << "Test longBowVector: " << endl;
+    for(int o = 0; o < signed(longBowVector.size()); o++)
+    {
+        oFile << o << ". " << longBowVector[o].getName()
+              << "   MinDamage: " << longBowVector[o].getMinDamage()
+              << "   MaxDamage: " << longBowVector[o].getMinDamage() << endl;
+    }
+
+    oFile << endl << endl;
+
 }

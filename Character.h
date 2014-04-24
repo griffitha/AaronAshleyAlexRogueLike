@@ -78,6 +78,7 @@ public:
     characterClass getClass();
     void setXpToLevel(int input);
     void levelUp();
+    void rest();
 
 private:
     int xpToLevel;

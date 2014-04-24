@@ -67,7 +67,6 @@ void playerMelee(player &thePlayer, enemy &defender, std::vector<enemy> &enemyLi
         {
             defender.setHealth(newHealthValue);
         }
-        std::cout << defender.getHealth();
     }
 
     return;
@@ -162,7 +161,10 @@ void removeEnemy(std::vector<enemy> &enemyList, player &thePlayer)
     {
         if (enemyList.at(i).getHealth() == 0)
         {
+            enemy currentEnemy = enemyList.at(i);
+            int awardedEXP = currentEnemy.getXpValue();
             enemyList = removeFromVector(i,enemyList);
+            thePlayer.setExperience(thePlayer.getExperience() + awardedEXP);
         }
     }
 }

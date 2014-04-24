@@ -3,7 +3,7 @@
 
 //Utility Functions CPP
 
-void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, player &thePlayer, int levelNumber)
+void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, std::vector<enemy> &enemyList,std::vector<Location> &possibleLocations, player &thePlayer, int levelNumber)
 {
     //File Data Type where the file will be loaded
     std::ifstream levelFile;
@@ -24,6 +24,11 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, p
         {
             gameObjects.pop_back();
         }
+    }
+    //Clears enemies from map
+    if (enemyList.size() > 0)
+    {
+        enemyList.clear();
     }
 
     //Select the level to load
@@ -124,6 +129,13 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, p
     }
     //Close File
     levelFile.close();
+
+    //Items and Enemy Management
+    int itemsNeeded = 0;
+    itemsNeeded = numOfItems(symbolArray,possibleLocations);
+
+    int enemiesNeeded = numOfEnemies(symbolArray,possibleLocations);
+    enemyList=spawnEnemies(symbolArray,possibleLocations,enemiesNeeded,thePlayer);
     return;
 }
 
@@ -215,7 +227,7 @@ void printWindow(char symbolArray[][500],std::vector<character> gameObjects,std:
     return;
 }
 
-void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std::vector<enemy> &enemyList, player &thePlayer)
+void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std::vector<enemy> &enemyList,std::vector<Location> possibleLocations, player &thePlayer)
 {
     //Save Player's current position
     int playerX = thePlayer.getXCoordinate();
@@ -247,7 +259,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
     }
     //Move Down
@@ -273,7 +285,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
     }
     //Move Left
@@ -298,7 +310,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
     }
     //Move Right
@@ -325,8 +337,12 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
+    }
+    else if (ch == 'R' || ch == 'r')
+    {
+        thePlayer.rest();
     }
     return;
 }

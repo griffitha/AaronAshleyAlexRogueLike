@@ -161,6 +161,10 @@ int character::getLevel()
 void player::setExperience(int input)
 {
     experience=input;
+    if (experience > xpToLevel)
+    {
+        levelUp();
+    }
     return;
 }
 
@@ -193,7 +197,8 @@ race player::getRace()
 void player::setClass(characterClass input)
 {
     playerClass=input;
-    setHealth(10);
+    setHealth(20);
+    setMaxHealth(20);
     setLevel(1);
 
     return;
@@ -247,5 +252,16 @@ void player::levelUp()
     int levelHolder=getLevel();
     levelHolder++;
     setLevel(levelHolder);
+    return;
+}
+
+void player::rest()
+{
+    //Heals by one point and takes up one turn
+    if (getHealth() < getMaxHealth())
+    {
+        int newHealth = getHealth() + 1;
+        setHealth(newHealth);
+    }
     return;
 }

@@ -29,7 +29,7 @@ class enemy: public character
     int xpValue;
 };
 
-int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePositions);
+int numOfEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions);
 vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions,int enemiesToCreate,player mainChar);
 void enemyTurn(char symbolArray[500][500], std::vector<enemy> &enemyList, std::vector<character> gameObjects, player &thePlayer);
 

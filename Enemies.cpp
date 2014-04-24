@@ -58,7 +58,7 @@ void enemy::createRobot(int factor)
 }
 
 //modified version of numOfItems created by Ashley
-int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePositions)
+int numOfEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions)
 {
     int spaceCounter = possiblePositions.size();
     int enemiesToCreate;

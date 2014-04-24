@@ -18,18 +18,11 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, s
     }
 
     //If there are objects in the array, clear them
-    if (gameObjects.size() > 0)
-    {
-        for (unsigned int i = 0; i < gameObjects.size(); i++)
-        {
-            gameObjects.pop_back();
-        }
-    }
+    gameObjects.clear();
     //Clears enemies from map
-    if (enemyList.size() > 0)
-    {
-        enemyList.clear();
-    }
+    enemyList.clear();
+
+    possibleLocations.clear();
 
     //Select the level to load
     switch(levelNumber)
@@ -130,9 +123,32 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, s
     //Close File
     levelFile.close();
 
+    int spaceCounter = 0;
+    for(int x = 0; x < 500; x++)
+    {
+        for(int y = 0; y < 500; y++)
+        {
+            if(symbolArray[x][y] == ' ')
+            {
+                if(symbolArray[x][y+1] == ' ' && symbolArray[x][y-1] == ' ')
+                {
+                    spaceCounter++;
+
+                    Location newLocation(x,y);
+                    possibleLocations.push_back(newLocation);
+                }
+                if(symbolArray[x+1][y] == ' ' && symbolArray[x-1][y] == ' ')
+                {
+                    spaceCounter++;
+
+                    Location newLocation(x,y);
+                    possibleLocations.push_back(newLocation);
+                }
+            }
+        }
+    }
+
     //Items and Enemy Management
-    int itemsNeeded = 0;
-    itemsNeeded = numOfItems(symbolArray,possibleLocations);
 
     int enemiesNeeded = numOfEnemies(symbolArray,possibleLocations);
     enemyList=spawnEnemies(symbolArray,possibleLocations,enemiesNeeded,thePlayer);
@@ -357,6 +373,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
 
 void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
 {
+    wclear(statusWindow);
     //Prints player name on first line
     std::string currentString = thePlayer.getCharacterName();
     int currentInteger = thePlayer.getLevel();
@@ -388,6 +405,12 @@ void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
     mvwprintw(statusWindow,3,3,characterPointer);
     mvwprintw(statusWindow,3,11,"%d",currentInteger);
 
+    //Prints Damage
+    currentString = "Damage: ";
+    currentInteger = thePlayer.getBaseDamage();
+    mvwprintw(statusWindow,4,3,characterPointer);
+    mvwprintw(statusWindow,4,11,"%d",currentInteger);
+
     //Prints X coordinate
     currentString = "X:";
     currentInteger = thePlayer.getXCoordinate();
@@ -400,6 +423,13 @@ void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
     mvwprintw(statusWindow,1,28,characterPointer);
     mvwprintw(statusWindow,1,31,"%d",currentInteger);
 
+    //Prints current Experience
+    currentString = "EXP: ";
+    currentInteger = thePlayer.getExperience();
+    mvwprintw(statusWindow,2,28,characterPointer);
+    mvwprintw(statusWindow,2,32,"%d",currentInteger);
+
+    wrefresh(statusWindow);
     return;
 }
 

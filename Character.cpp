@@ -200,6 +200,8 @@ void player::setClass(characterClass input)
     setHealth(20);
     setMaxHealth(20);
     setLevel(1);
+    setExperience(0);
+    setXpToLevel(10);
 
     return;
 }

@@ -15,10 +15,12 @@ int main()
     int const STATUS_WINDOW_WIDTH = 44;
     int const LOG_WINDOW_HEIGHT = 10;
     int const LOG_WINDOW_WIDTH = 44;
-    char symbolArray[500][500];
+    char symbolArray[500][500] = {};
     srand(time(NULL));
 
-    //player thePlayer = playerCreation();
+    player thePlayer(0,0);
+    thePlayer = playerCreation();
+    player * playerPointer = &thePlayer;
     //Creates Screen
     initscr();
     curs_set(0); //set visibility of cursor
@@ -44,16 +46,8 @@ int main()
     refresh();
 
     //Player Creation TEST STUFF
-    player thePlayer(0,0);
-    player * playerPointer = &thePlayer;
-    thePlayer.setCharacterName("Tim the Viking");
-    thePlayer.setHealth(10);
-    thePlayer.setMaxHealth(10);
-    thePlayer.setMapRep('X');
     vector<character> gameObjects;
-
-    //Read Level from File
-    readLevel(symbolArray,gameObjects,thePlayer,4);
+    vector<enemy> enemyList;
 
     //create and initialize health potion vector
     vector <Consumable> healthPotionVector;
@@ -100,12 +94,15 @@ int main()
     vector <Armor> armorVector;
     vector <Weapon> weaponsVector;
 
+    //Read Level from File
+    readLevel(symbolArray,gameObjects,enemyList,possiblePositions,thePlayer,1);
+
+    positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
 
     //find number of items to place
     int itemsNeeded = 0;
     itemsNeeded = numOfItems(symbolArray,possiblePositions);
-    int enemiesNeeded = numOfEnemies(symbolArray,possiblePositions);
-
+    /*
     for(int i = 0; i < itemsNeeded; i++)
     {
         itemChoice(thePlayer,consumableVector,armorVector,weaponsVector,
@@ -115,17 +112,16 @@ int main()
             heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
 
     }
-
+    */
     positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
-    //vector<enemy> enemyList=spawnEnemies(symbolArray,possiblePositions,enemiesNeeded,thePlayer);
-
-    while((victoryAchieved == false) || (playerIsDead != true))
+    while((victoryAchieved == false) && (playerIsDead != true))
     {
         //Prints Windows
-        printWindow(symbolArray,gameObjects,thePlayer,gameWindow,statusWindow,messageWindow);
+        printWindow(symbolArray,gameObjects,enemyList,thePlayer,gameWindow,statusWindow,messageWindow);
         //Intiates player's turn
-        playerTurn(symbolArray,gameObjects,thePlayer);
-        checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
+        playerTurn(symbolArray,gameObjects,enemyList,possiblePositions,thePlayer);
+        //checkForItem(thePlayer,symbolArray,consumableVector,armorVector,weaponsVector,messageWindow);
+        enemyTurn(symbolArray,enemyList,gameObjects,thePlayer);
         victoryAchieved = checkSokabanVictory(gameObjects,symbolArray);
         playerIsDead = checkDead(playerPointer);
     }

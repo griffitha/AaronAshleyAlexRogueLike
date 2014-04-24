@@ -239,8 +239,10 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
     if (ch == KEY_UP)
     {
         //If there is a movable spot
-        if (symbolArray[playerX][playerY-1] == ' ' || symbolArray[playerX][playerY-1] == '*' ||
+        if (symbolArray[playerX][playerY-1] == ' '|| symbolArray[playerX][playerY-1] == 'c' ||
+            symbolArray[playerX][playerY-1] == 'a' || symbolArray[playerX][playerY-1] == 'w' ||
             symbolArray[playerX][playerY-1] == 'O')
+
         {
             //Checks for object
             openSpace = checkEmpty(playerX,playerY-1,gameObjects,enemyList);
@@ -266,8 +268,10 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
     else if (ch == KEY_DOWN)
     {
         //Checks for the different open spaces
-        if (symbolArray[playerX][playerY+1] == ' '|| symbolArray[playerX][playerY+1] == '*' ||
+        if (symbolArray[playerX][playerY+1] == ' '|| symbolArray[playerX][playerY+1] == 'c' ||
+            symbolArray[playerX][playerY+1] == 'a' || symbolArray[playerX][playerY+1] == 'w' ||
             symbolArray[playerX][playerY+1] == 'O')
+
         {
             //Checks if there is an open space
             openSpace = checkEmpty(playerX,playerY+1,gameObjects,enemyList);
@@ -291,8 +295,10 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
     //Move Left
     else if (ch == KEY_LEFT)
     {
-        if (symbolArray[playerX-1][playerY] == ' ' || symbolArray[playerX-1][playerY] == '*' ||
+        if (symbolArray[playerX-1][playerY] == ' '|| symbolArray[playerX-1][playerY] == 'c' ||
+            symbolArray[playerX-1][playerY] == 'a' || symbolArray[playerX-1][playerY] == 'w' ||
             symbolArray[playerX-1][playerY] == 'O')
+
         {
             //Checks if it was opened
             openSpace = checkEmpty(playerX-1,playerY,gameObjects,enemyList);
@@ -317,8 +323,10 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
     else if (ch == KEY_RIGHT)
     {
         //Check if the spot is empty
-        if (symbolArray[playerX+1][playerY] == ' ' || symbolArray[playerX+1][playerY] == '*' ||
+        if (symbolArray[playerX+1][playerY] == ' '|| symbolArray[playerX+1][playerY] == 'c' ||
+            symbolArray[playerX+1][playerY] == 'a' || symbolArray[playerX+1][playerY] == 'w' ||
             symbolArray[playerX+1][playerY] == 'O')
+
         {
             //Check if empty of enemies
             openSpace = checkEmpty(playerX+1,playerY,gameObjects,enemyList);

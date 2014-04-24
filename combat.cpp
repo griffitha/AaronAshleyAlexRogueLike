@@ -180,7 +180,7 @@ std::vector<T> removeFromVector(int position, std::vector<T> targetVector)
         {
             T item = targetVector.at(i);
             targetVector.pop_back();
-            targetVector.push_back(item);
+            returnedVector.push_back(item);
         }
         else
         {

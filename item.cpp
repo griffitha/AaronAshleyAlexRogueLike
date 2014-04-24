@@ -160,6 +160,7 @@ Consumable::~Consumable()
 {
 }
 
+/*
 //constructor--consumable pack
 consumablePack::consumablePack(Consumable potion1,Consumable potion2,Consumable potion3, Consumable potion4, Consumable potion5)
 {
@@ -233,7 +234,7 @@ Consumable consumablePack::getPotion5()
 consumablePack::~consumablePack()
 {
 }
-
+*/
 
 //constructor--Weapon
 Weapon::Weapon()
@@ -271,7 +272,6 @@ string Weapon::getWeaponType()
     return weaponType;
 }
 
-
 //get minDamage
 int Weapon::getMinDamage()
 {
@@ -298,6 +298,7 @@ Weapon::~Weapon()
     maxDamage = 0;
 }
 
+/*
 //constructon--packOfArrows
 packOfArrows::packOfArrows()
 {
@@ -324,7 +325,7 @@ int packOfArrows::getNumOfArrows()
 packOfArrows::~packOfArrows()
 {
     numOfArrows = 0;
-}
+}*/
 
 //constructor--Armor
 Armor::Armor()
@@ -439,216 +440,79 @@ Inventory::Inventory()
 {
     inventoryFull = false;
     maxInventorySize = 20;
-    sizeOfInventory = 0;
-
-    /*fillerC.setName("");
-    fillerA.setName("");
-    fillerW.setName("");
-
-    for(int i = 0; i < maxInventorySize; i++)
-    {
-        inventoryCArray.push_back(fillerC);
-        inventoryAArray.push_back(fillerA);
-        inventoryWArray.push_back(fillerW);
-    }*/
+    lineCounter = 1;
+    counter = 1;
 }
 
 //when player finds/picks up item
 void Inventory::addToInventoryCArray(Consumable itemToAdd,WINDOW * messageWindow,char symbolArray[500][500])
 {
-    int ch = getch();
+    inventoryCArray.push_back(itemToAdd);
+    sizeOfInventory++;
+    printInventoryArrays(messageWindow);
 
-    if(sizeOfInventory < maxInventorySize)
+    if(sizeOfInventory == maxInventorySize)
     {
-        wclear(messageWindow);
-        inventoryCArray.push_back(itemToAdd);
-        sizeOfInventory++;
-        printInventoryArrays(messageWindow);
-        return;
+        setInventoryFull(true);
     }
-    else
-    {
-        string currentString = "Your inventory is full. Would you like to delete an item?(Enter for yes)";
-        char * characterPtr = &currentString.at(0);
-        mvwprintw(messageWindow,6,3,characterPtr);
 
-        if(ch == KEY_ENTER)
-        {
-            wclear(messageWindow);
-
-            currentString = "Which item would you like to remove?";
-            characterPtr = &currentString.at(0);
-            mvwprintw(messageWindow,1,3,characterPtr);
-
-            for(int i = 0;i < signed(inventoryAArray.size());i++)
-            {
-                if(inventoryAArray[i].getName() == currentString)
-                {
-                    removeFromAInventory(inventoryAArray[i]);
-                    inventoryCArray.push_back(itemToAdd);
-                    break;
-                }
-                if(inventoryCArray[i].getName() == currentString)
-                {
-                    removeFromCInventory(inventoryCArray[i]);
-                    setPositionInInventoryCArray(i,itemToAdd);
-                    break;
-                }
-                if(inventoryWArray[i].getName() == currentString)
-                {
-                    removeFromWInventory(inventoryWArray[i]);
-                    inventoryCArray.push_back(itemToAdd);
-                    break;
-                }
-            }
-            wclear(messageWindow);
-            //printInventoryArrays(messageWindow);
-        }
-    }
     return;
+
 }
 
 //when player finds/picks up item
 void Inventory::addToInventoryAArray(Armor itemToAdd,WINDOW * messageWindow,char symbolArray[500][500])
 {
-    int ch = getch();
 
-    if(inventoryFull == false)
+    inventoryAArray.push_back(itemToAdd);
+    sizeOfInventory++;
+    printInventoryArrays(messageWindow);
+
+    if(sizeOfInventory == maxInventorySize)
     {
-        wclear(messageWindow);
-
-        inventoryAArray.push_back(itemToAdd);
-        sizeOfInventory++;
-        //symbolArray[itemToAdd.getX()][itemToAdd.getY()] = ' ';
-        //printInventoryArrays(messageWindow);
-        return;
+        setInventoryFull(true);
     }
-    else
-    {
-        string currentString = "Your inventory is full. Would you like to delete an item?(Enter for yes)";
-        char * characterPtr = &currentString.at(0);
-        mvwprintw(messageWindow,6,3,characterPtr);
 
-        if(ch == KEY_ENTER)
-        {
-            wclear(messageWindow);
-
-            currentString = "Which item would you like to remove?";
-            characterPtr = &currentString.at(0);
-            mvwprintw(messageWindow,1,3,characterPtr);
-
-            for(int i = 0;i < signed(inventoryAArray.size());i++)
-            {
-                if(inventoryAArray[i].getName() == currentString)
-                {
-                    removeFromAInventory(inventoryAArray[i]);
-                    setPositionInInventoryAArray(i,itemToAdd);
-                    break;
-                }
-                if(inventoryCArray[i].getName() == currentString)
-                {
-                    removeFromCInventory(inventoryCArray[i]);
-                    inventoryAArray.push_back(itemToAdd);
-                    break;
-                }
-                if(inventoryWArray[i].getName() == currentString)
-                {
-                    removeFromWInventory(inventoryWArray[i]);
-                    inventoryAArray.push_back(itemToAdd);
-                    break;
-                }
-
-            }
-
-            wclear(messageWindow);
-            //printInventoryArrays(messageWindow);
-        }
-
-    }
     return;
 }
 
 //when player finds/picks up item
 void Inventory::addToInventoryWArray(Weapon itemToAdd,WINDOW * messageWindow,char symbolArray[500][500])
 {
-    wclear(messageWindow);
 
-    int ch = getch();
+    inventoryWArray.push_back(itemToAdd);
+    sizeOfInventory++;
+    printInventoryArrays(messageWindow);
 
-    if(inventoryFull == false)
+    if(sizeOfInventory == maxInventorySize)
     {
-        wclear(messageWindow);
-
-        inventoryWArray.push_back(itemToAdd);
-        sizeOfInventory++;
-        symbolArray[itemToAdd.getX()][itemToAdd.getY()] = ' ';
-
-        string currentString = "*";
-        char * characterPtr = &currentString.at(0);
-        mvwprintw(messageWindow,3,3,characterPtr);
-       // printInventoryArrays(messageWindow);
-        return;
+        setInventoryFull(true);
     }
-    else
-    {
-        string currentString = "Your inventory is full. Would you like to delete an item?(Enter for yes)";
-        char * characterPtr = &currentString.at(0);
-        mvwprintw(messageWindow,6,3,characterPtr);
 
-        if(ch == KEY_ENTER)
-        {
-            wclear(messageWindow);
-
-            currentString = "Which item would you like to remove?";
-            characterPtr = &currentString.at(0);
-            mvwprintw(messageWindow,1,3,characterPtr);
-
-            for(int i = 0;i < signed(inventoryAArray.size());i++)
-            {
-                if(inventoryAArray[i].getName() == currentString)
-                {
-                    removeFromAInventory(inventoryAArray[i]);
-                    inventoryWArray.push_back(itemToAdd);
-                    break;
-                }
-                if(inventoryCArray[i].getName() == currentString)
-                {
-                    removeFromCInventory(inventoryCArray[i]);
-                    inventoryWArray.push_back(itemToAdd);
-                    break;
-                }
-                if(inventoryWArray[i].getName() == currentString)
-                {
-                    removeFromWInventory(inventoryWArray[i]);
-                    setPositionInInventoryWArray(i,itemToAdd);
-                    break;
-                }
-            }
-
-            wclear(messageWindow);
-           // printInventoryArrays(messageWindow);
-        }
-
-    }
-    return;
     return;
 }
 
 //when player chooses to replace item in array
 void Inventory::setPositionInInventoryCArray(int arrayPosition,Consumable itemToAdd)
 {
+    inventoryCArray[arrayPosition] = itemToAdd;
+
     return;
 }
 
 //when player chooses to replace item in array
 void Inventory::setPositionInInventoryAArray(int arrayPosition,Armor itemToAdd)
 {
+    inventoryAArray[arrayPosition] = itemToAdd;
+
     return;
 }
 
 //when player chooses to replace item in array
 void Inventory::setPositionInInventoryWArray(int arrayPosition,Weapon itemToAdd)
 {
+    inventoryWArray[arrayPosition] = itemToAdd;
+
     return;
 }
 
@@ -663,6 +527,7 @@ void Inventory::removeFromCInventory(Consumable itemToRemove)
             sizeOfInventory--;
         }
     }
+
     return;
 }
 
@@ -684,7 +549,7 @@ void Inventory::removeFromAInventory(Armor itemToRemove)
 //when player uses/replaces something in array
 void Inventory::removeFromWInventory(Weapon itemToRemove)
 {
-    for(int i = 0; i < signed(inventoryAArray.size());i++)
+    for(int i = 0; i < signed(inventoryWArray.size());i++)
     {
         if(inventoryWArray[i].getName() == itemToRemove.getName())
         {
@@ -692,6 +557,7 @@ void Inventory::removeFromWInventory(Weapon itemToRemove)
             sizeOfInventory--;
         }
     }
+
     return;
 }
 
@@ -701,12 +567,154 @@ void Inventory::setInventoryFull(bool inventoryFull)
     this -> inventoryFull = inventoryFull;
 }
 
+//get consumable
+Consumable Inventory::getConsumable(int position)
+{
+    return inventoryCArray[position];
+}
+
+//get armor
+Armor Inventory::getArmorPiece(int position)
+{
+    return inventoryAArray[position];
+}
+
+//get weapon
+Weapon Inventory::getWeapon(int position)
+{
+    return inventoryWArray[position];
+}
+
+//show consumables
+void Inventory::printConsumables(WINDOW * messageWindow)
+{
+    string currentString = "";
+
+    for(int i = 0;i < signed(inventoryCArray.size());i++)
+    {
+        if(counter == 21)
+                break;
+        currentString = ". " + inventoryCArray[i].getName();
+        char * characterPtr = &currentString.at(0);
+        if(counter < 11)
+        {
+            mvwprintw(messageWindow,lineCounter,1,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,2,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+        else if(counter == 11)
+        {
+            lineCounter = 0;
+            mvwprintw(messageWindow,lineCounter,25,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,28,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+        else
+        {
+            mvwprintw(messageWindow,lineCounter,25,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,28,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+    }
+}
+
+//print armor
+void Inventory::printArmor(WINDOW * messageWindow)
+{
+    string currentString = "";
+
+     for(int x = 0; x < signed(inventoryAArray.size());x++)
+    {
+        if(counter == 21)
+            break;
+        currentString = ". " + inventoryAArray[x].getName();
+        char * characterPtr = &currentString.at(0);
+        mvwprintw(messageWindow,counter,1,"%d",counter);
+        mvwprintw(messageWindow,counter,2,characterPtr);
+        if(counter < 11)
+        {
+            mvwprintw(messageWindow,lineCounter,1,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,2,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+        else if(counter == 11)
+        {
+            lineCounter = 0;
+            mvwprintw(messageWindow,lineCounter,22,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,25,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+        else
+        {
+            mvwprintw(messageWindow,lineCounter,22,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,25,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+    }
+}
+
+//show weapons
+void Inventory::printWeapons(WINDOW * messageWindow)
+{
+    string currentString = "";
+
+    for(int y = 0; y < signed(inventoryWArray.size());y++)
+    {
+        if(counter == 21)
+            break;
+        currentString = ". " + inventoryWArray[y].getName();
+        char * characterPtr = &currentString.at(0);
+        mvwprintw(messageWindow,counter,1,"%d",counter);
+        mvwprintw(messageWindow,counter,2,characterPtr);
+        if(counter < 11)
+        {
+            mvwprintw(messageWindow,lineCounter,1,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,2,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+        else if(counter == 11)
+        {
+            lineCounter = 0;
+            mvwprintw(messageWindow,lineCounter,25,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,28,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+        else
+        {
+            mvwprintw(messageWindow,lineCounter,25,"%d",counter);
+            mvwprintw(messageWindow,lineCounter,28,characterPtr);
+            counter++;
+            lineCounter++;
+        }
+    }
+}
+
+
 //show inventory
 void Inventory::printInventoryArrays(WINDOW * messageWindow)
 {
+    string currentString = "Inventory: ";
+    char * charPtr = &currentString.at(0);
+    mvwprintw(messageWindow,0,1,charPtr);
+
+    counter = 1;
+    lineCounter = 1;
+
+    printConsumables(messageWindow);
+    printArmor(messageWindow);
+    printWeapons(messageWindow);
+
+
     return;
 }
-
 
 //returns true if inventory is full
 bool Inventory::getInventoryFull()
@@ -727,6 +735,7 @@ Inventory::~Inventory()
 }
 
 
+
 //creates health potions and pushes onto healthPotionVector
 void initializeHealthPotionVector(vector <Consumable> &healthPotionVector)
 {
@@ -736,17 +745,17 @@ void initializeHealthPotionVector(vector <Consumable> &healthPotionVector)
     firstHPotion.setHealthValue(5);
 
     Consumable secondHPotion;
-    firstHPotion.setName("Increase health by 10");
+    secondHPotion.setName("Increase health by 10");
     secondHPotion.setMagicValue(0);
     secondHPotion.setHealthValue(10);
 
     Consumable thirdHPotion;
-    firstHPotion.setName("Increase health by 15");
+    thirdHPotion.setName("Increase health by 15");
     thirdHPotion.setMagicValue(0);
     thirdHPotion.setHealthValue(15);
 
     Consumable fourthHPotion;
-    firstHPotion.setName("Increase health by 20");
+    fourthHPotion.setName("Increase health by 20");
     fourthHPotion.setMagicValue(0);
     fourthHPotion.setHealthValue(20);
 
@@ -769,41 +778,49 @@ void initializeMagicPotionVector(vector <Consumable> &magicPotionVector)
     firstMPotion.setName("Strengthen Armor by 5");
     firstMPotion.setMagicValue(5);
     firstMPotion.setHealthValue(0);
+    firstMPotion.setMagicAffect("Strengthen Armor");
 
     Consumable secondMPotion;
-    firstMPotion.setName("Strengthen Armor by 10");
+    secondMPotion.setName("Strengthen Armor by 10");
     secondMPotion.setMagicValue(10);
     secondMPotion.setHealthValue(0);
+    secondMPotion.setMagicAffect("Strengthen Armor");
 
     Consumable thirdMPotion;
-    firstMPotion.setName("Strengthen Armor by 15");
+    thirdMPotion.setName("Strengthen Armor by 15");
     thirdMPotion.setMagicValue(15);
     thirdMPotion.setHealthValue(0);
+    thirdMPotion.setMagicAffect("Strengthen Armor");
 
     Consumable fourthMPotion;
-    firstMPotion.setName("Strengthen Armor by 20");
+    fourthMPotion.setName("Strengthen Armor by 20");
     fourthMPotion.setMagicValue(20);
     fourthMPotion.setHealthValue(0);
+    fourthMPotion.setMagicAffect("Strengthen Armor");
 
     Consumable fifthMPotion;
-    firstMPotion.setName("Strengthen Weapon by 5");
+    fifthMPotion.setName("Strengthen Weapon by 5");
     fifthMPotion.setMagicValue(5);
     fifthMPotion.setHealthValue(0);
+    fifthMPotion.setMagicAffect("Strengthen Weapon");
 
     Consumable sixthMPotion;
-    firstMPotion.setName("Strengthen Weapon by 10");
+    sixthMPotion.setName("Strengthen Weapon by 10");
     sixthMPotion.setMagicValue(10);
     sixthMPotion.setHealthValue(0);
+    sixthMPotion.setMagicAffect("Strengthen Weapon");
 
     Consumable seventhMPotion;
-    firstMPotion.setName("Strengthen Weapon by 15");
+    seventhMPotion.setName("Strengthen Weapon by 15");
     seventhMPotion.setMagicValue(15);
     seventhMPotion.setHealthValue(0);
+    seventhMPotion.setMagicAffect("Strengthen Weapon");
 
     Consumable eighthMPotion;
-    firstMPotion.setName("Strengthen Weapon by 20");
+    eighthMPotion.setName("Strengthen Weapon by 20");
     eighthMPotion.setMagicValue(20);
     eighthMPotion.setHealthValue(0);
+    eighthMPotion.setMagicAffect("Strengthen Weapon");
 
     for(int i = 0; i < 30; i++)
     {
@@ -1571,6 +1588,7 @@ void initializeHCrossBowVector(vector <Weapon> &heavyCrossBowVector)
     return;
 }
 
+
 //creates light crossbows and pushes onto lightCrossBowVector
 void initializeLightCrossBowVector(vector <Weapon> &lightCrossBowVector)
 {
@@ -2054,7 +2072,7 @@ int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions)
 {
     int spaceCounter = 0;
     int itemsToCreate = 0;
-    int numOfSpacesPerItem = 300;
+    int numOfSpacesPerItem = 15;
 
     for(int x = 0; x < 500; x++)
     {
@@ -2085,7 +2103,6 @@ int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions)
 
     return itemsToCreate;
 }
-
 
 //chooses which item to place based on item rarity
 void itemChoice(character player, vector <Consumable> &consumableVector,vector <Armor> &armorVector,
@@ -2563,9 +2580,45 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             quantityMax = 20;
             quantity = rand() % quantityMax + quantityMin;
 
-            packOfArrows arrows;
-            arrows.setName("Pack of Arrows");
-            arrows.setNumOfArrows(quantity);
+            Weapon arrows;
+            if(quantity == 1)
+                arrows.setName("1 Arrow");
+            else if(quantity == 2)
+                arrows.setName("2 Arrows");
+            else if(quantity == 3)
+                arrows.setName("3 Arrows");
+            else if(quantity == 4)
+                arrows.setName("4 Arrows");
+            else if(quantity == 5)
+                arrows.setName("5 Arrows");
+            else if(quantity == 6)
+                arrows.setName("6 Arrows");
+            else if(quantity == 7)
+                arrows.setName("7 Arrows");
+            else if(quantity == 8)
+                arrows.setName("8 Arrows");
+            else if(quantity == 9)
+                arrows.setName("9 Arrows");
+            else if(quantity == 10)
+                arrows.setName("10 Arrows");
+            else if(quantity == 11)
+                arrows.setName("11 Arrows");
+            else if(quantity == 12)
+                arrows.setName("12 Arrows");
+            else if(quantity == 13)
+                arrows.setName("13 Arrows");
+            else if(quantity == 14)
+                arrows.setName("14 Arrows");
+            else if(quantity == 15)
+                arrows.setName("15 Arrows");
+            else if(quantity == 16)
+                arrows.setName("16 Arrows");
+            else if(quantity == 17)
+                arrows.setName("17 Arrows");
+            else if(quantity == 18)
+                arrows.setName("18 Arrows");
+            else if(quantity == 19)
+                arrows.setName("19 Arrows");
 
             weaponVector.push_back(arrows);
         }
@@ -2599,56 +2652,183 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
     return;
 }
 
+//removes position from vector
+void removePosition(vector <Location> &possiblePositions,int XtoClear, int YtoClear)
+{
+    for(int i = 0; i < signed(possiblePositions.size()); i++)
+    {
+        if(possiblePositions[i].getX() == XtoClear && possiblePositions[i].getY() == YtoClear)
+        {
+            possiblePositions[i].setX(0);
+            possiblePositions[i].setY(0);
+        }
+    }
+}
+
 //Chooses the starting x and y coordinates for each item
-void positions(char symbolArray[500][500], vector <Consumable> consumableVector,vector <Armor> &armorVector,
+void positions(char symbolArray[500][500], vector <Consumable> consumableVector,vector <Armor> armorVector,
                vector <Weapon> weaponVector,vector <Location> &possiblePositions)
 {
-    //srand(time(NULL));
 
     int numOfLocationsNeeded = consumableVector.size() + armorVector.size() + weaponVector.size();
-    int maxPercent = possiblePositions.size() - 1;
-    int possiblePositionsLocation = 0;
+    int chooseVector = 0;
+    int position = 0;
     int itemX;
     int itemY;
 
     for(int i = 0; i < numOfLocationsNeeded; i++)
     {
-        possiblePositionsLocation = rand() % maxPercent;
-        itemX = possiblePositions[possiblePositionsLocation].getX();
-        itemY = possiblePositions[possiblePositionsLocation].getY();
-        symbolArray[itemX][itemY] = '*';
+        chooseVector = rand() % 3 + 1;
+        if(chooseVector == 1)
+        {
+            position = rand() % consumableVector.size();
+            itemX = consumableVector[position].getX();
+            itemY = consumableVector[position].getY();
+            symbolArray[itemX][itemY] = 'c';
+        }
+        else if (chooseVector == 2)
+        {
+            position = rand() % armorVector.size();
+            itemX = armorVector[position].getX();
+            itemY = armorVector[position].getY();
+            symbolArray[itemX][itemY] = 'a';
+        }
+        else if(chooseVector == 3)
+        {
+            position = rand() % weaponVector.size();
+            itemX = weaponVector[position].getX();
+            itemY = weaponVector[position].getY();
+            symbolArray[itemX][itemY] = 'w';
+        }
+    }
+
+    return;
+}
+
+//sets items' x and y to positions taken from array
+void matchItemWithPosition(char symbolArray[500][500],vector <Location> &possiblePositions, vector <Consumable> &consumableVector, vector <Armor> &armorVector, vector <Weapon> &weaponsVector)
+{
+    int itemX = 0;
+    int itemY = 0;
+    int randPosition = 0;
+
+    for(int i = 0; i < signed(consumableVector.size()); i++)
+    {
+        randPosition = rand() % possiblePositions.size();
+        while(possiblePositions[randPosition].getX() == 0 && possiblePositions[randPosition].getY() == 0)
+        {
+            randPosition = rand() % possiblePositions.size();
+        }
+
+        itemX = possiblePositions[randPosition].getX();
+        itemY = possiblePositions[randPosition].getY();
+
+        consumableVector[i].setX(itemX);
+        consumableVector[i].setY(itemY);
+
+        possiblePositions[randPosition].setX(0);
+        possiblePositions[randPosition].setY(0);
+    }
+    for(int a = 0; a < signed(armorVector.size()); a++)
+    {
+        randPosition = rand() % possiblePositions.size();
+        while(possiblePositions[randPosition].getX() == 0 && possiblePositions[randPosition].getY() == 0)
+        {
+            randPosition = rand() % possiblePositions.size();
+        }
+
+        itemX = possiblePositions[randPosition].getX();
+        itemY = possiblePositions[randPosition].getY();
+
+        armorVector[a].setX(itemX);
+        armorVector[a].setY(itemY);
+
+        possiblePositions[randPosition].setX(0);
+        possiblePositions[randPosition].setY(0);
+    }
+    for(int b = 0; b < signed(weaponsVector.size()); b++)
+    {
+        randPosition = rand() % possiblePositions.size();
+        while(possiblePositions[randPosition].getX() == 0 && possiblePositions[randPosition].getY() == 0)
+        {
+            randPosition = rand() % possiblePositions.size();
+        }
+
+        itemX = possiblePositions[randPosition].getX();
+        itemY = possiblePositions[randPosition].getY();
+
+        weaponsVector[b].setX(itemX);
+        weaponsVector[b].setY(itemY);
+
+        possiblePositions[randPosition].setX(0);
+        possiblePositions[randPosition].setY(0);
+    }
+
+    return;
+}
+
+//finds consumable with Xposition and Yposition
+Consumable findConsumable(vector<Consumable> consumabeVector,int Xposition, int Yposition)
+{
+    for(int i = 0; i < signed(consumabeVector.size()); i++)
+    {
+        if(consumabeVector[i].getX() == Xposition && consumabeVector[i].getY() == Yposition)
+        {
+            return consumabeVector[i];
+        }
     }
 }
 
+
+//find armor with xPosition and yPosition
+Armor findArmor(vector <Armor> armorVector,int xPosition, int yPosition)
+{
+    for(int i = 0; i < signed(armorVector.size());i++)
+    {
+        if(armorVector[i].getX() == xPosition && armorVector[i].getY() == yPosition)
+        {
+            return armorVector[i];
+        }
+    }
+}
+
+//find weapon with xPosition and yPosition
+Weapon findWeapon(vector <Weapon> weaponVector, int xPosition, int yPosition)
+{
+    for(int i = 0; i < signed(weaponVector.size());i++)
+    {
+        if(weaponVector[i].getX() == xPosition && weaponVector[i].getY() == yPosition)
+        {
+            return weaponVector[i];
+        }
+    }
+}
+
+//checks if player is standind on item
 void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
-                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
-                  Inventory playerInventory)
+                  vector <Armor> armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
+                  Inventory &playerInventory,vector <Location> possiblePositions)
 {
     wclear(workingWindow);
-    int numOfVectors = 3;
-    int chooseVector = rand() % numOfVectors + 1;
-
-    int positionInVector = 0;
 
     int currentX = player.getXCoordinate();
     int currentY = player.getYCoordinate();
 
     string currentString = "";
 
-    if(symbolArray[currentX][currentY] == '*')
+    if(symbolArray[currentX][currentY] == 'c')
     {
-        wclear(workingWindow);
+        Consumable itemToUse = findConsumable(consumableVector,currentX,currentY);
 
-        if(chooseVector == 1)
+        if(itemToUse.getName()[itemToUse.getName().length()] == 's')
         {
-            positionInVector = rand() % consumableVector.size();
-            Consumable itemToUse = consumableVector[positionInVector];
-            itemToUse.setX(currentX);
-            itemToUse.setY(currentY);
-
-            if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
-            itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
-            itemToUse.getName()[0] == 'o')//a or an
+            currentString = "You found: ";
+        }
+        else
+        {
+           if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+           itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+           itemToUse.getName()[0] == 'o')//a or an
             {
                 currentString = "You have found an: ";
             }
@@ -2656,23 +2836,51 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
             {
                 currentString = "You have found a: ";
             }
-
-            currentString = currentString + itemToUse.getName();
-            char * characterPointer = &currentString.at(0);
-            mvwprintw(workingWindow,0,3,characterPointer);
-
-            printConsumableWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
         }
-        else if(chooseVector == 2)
-        {
-            positionInVector = rand() % armorVector.size();
-            Armor itemToUse = armorVector[positionInVector];
-            itemToUse.setX(currentX);
-            itemToUse.setY(currentY);
 
-            if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
-            itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
-            itemToUse.getName()[0] == 'o')//a or an
+
+        currentString = currentString + itemToUse.getName();
+        char * characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,0,3,characterPointer);
+
+        currentString = "Would you like to use item,";
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,4,3,characterPointer);
+        currentString = " place item in your inventory or";
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,5,3,characterPointer);
+        currentString = "move along?(Y/U/M)";
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,6,3,characterPointer);
+
+        int ch = getch();
+
+        if(ch == 'y')
+        {
+            playerInventory.addToInventoryCArray(itemToUse,workingWindow,symbolArray);
+            symbolArray[itemToUse.getX()][itemToUse.getY()] = ' ';
+            itemToUse.setX(0);
+            itemToUse.setY(0);
+            wclear(workingWindow);
+            playerInventory.printInventoryArrays(workingWindow);
+            return;
+        }
+
+     //   printConsumableWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
+    }
+    else if(symbolArray[currentX][currentY] == 'a')
+    {
+        Armor itemToUse = findArmor(armorVector,currentX,currentY);
+
+        if(itemToUse.getName()[itemToUse.getName().length()] == 's')
+        {
+            currentString = "You found: ";
+        }
+        else
+        {
+           if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+           itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+           itemToUse.getName()[0] == 'o')//a or an
             {
                 currentString = "You have found an: ";
             }
@@ -2680,23 +2888,53 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
             {
                 currentString = "You have found a: ";
             }
-
-            currentString = currentString + itemToUse.getName();
-            char * characterPointer = &currentString.at(0);
-            mvwprintw(workingWindow,0,3,characterPointer);
-
-            printArmorWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
         }
-        else if(chooseVector == 3)
-        {
-            positionInVector = rand() % weaponVector.size();
-            Weapon itemToUse = weaponVector[positionInVector];
-            itemToUse.setX(currentX);
-            itemToUse.setY(currentY);
 
-            if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
-            itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
-            itemToUse.getName()[0] == 'o')//a or an
+        currentString = currentString + itemToUse.getName();
+        char * characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,0,3,characterPointer);
+
+        string currentString = "Strength: ";
+        int strength = itemToUse.getStrength();
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,1,3,characterPointer);
+        mvwprintw(workingWindow,1,12,"%d",strength);
+
+        currentString = "Would you like to place item in your";
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,4,3,characterPointer);
+        currentString = "inventory?(Enter for yes)";
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,5,3,characterPointer);
+
+        int ch = getch();
+
+        if(ch == 'y')
+        {
+            playerInventory.addToInventoryAArray(itemToUse,workingWindow,symbolArray);
+            symbolArray[itemToUse.getX()][itemToUse.getY()] = ' ';
+            itemToUse.setX(0);
+            itemToUse.setY(0);
+            wclear(workingWindow);
+            playerInventory.printInventoryArrays(workingWindow);
+            return;
+        }
+
+       // printArmorWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
+    }
+    else if(symbolArray[currentX][currentY] == 'w')
+    {
+        Weapon itemToUse = findWeapon(weaponVector,currentX,currentY);
+
+        if(itemToUse.getName()[itemToUse.getName().length()] == 's')
+        {
+            currentString = "You found: ";
+        }
+        else
+        {
+           if(itemToUse.getName()[0] == 'a' || itemToUse.getName()[0] == 'e' ||
+           itemToUse.getName()[0] == 'u' || itemToUse.getName()[0] == 'i' ||
+           itemToUse.getName()[0] == 'o')//a or an
             {
                 currentString = "You have found an: ";
             }
@@ -2704,62 +2942,129 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
             {
                 currentString = "You have found a: ";
             }
+        }
+        currentString = currentString + itemToUse.getName();
+        char * characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,0,3,characterPointer);
 
-            currentString = currentString + itemToUse.getName();
-            char * characterPointer = &currentString.at(0);
-            mvwprintw(workingWindow,0,3,characterPointer);
+        string currentString = "Minimum Damage: ";
+        int minDamage = itemToUse.getMinDamage();
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,1,3,characterPointer);
+        mvwprintw(workingWindow,1,18,"%d",minDamage);
 
-            printWeaponWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
+        currentString = "Maximum Damage: ";
+        int maxDamage = itemToUse.getMaxDamage();
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,2,3,characterPointer);
+        mvwprintw(workingWindow,2,18,"%d",maxDamage);
+
+        currentString = "Would you like to place item in your";
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,4,3,characterPointer);
+        currentString = "inventory?(Enter for yes)";
+        characterPointer = &currentString.at(0);
+        mvwprintw(workingWindow,5,3,characterPointer);
+
+        int ch = getch();
+
+        if(ch == 'y')
+        {
+            playerInventory.addToInventoryWArray(itemToUse,workingWindow,symbolArray);
+            symbolArray[itemToUse.getX()][itemToUse.getY()] = ' ';
+            itemToUse.setX(0);
+            itemToUse.setY(0);
+            wclear(workingWindow);
+            playerInventory.printInventoryArrays(workingWindow);
+            return;
         }
 
-        wrefresh(workingWindow);
+       // printWeaponWindow(itemToUse,workingWindow,symbolArray,player,playerInventory);
     }
     else
     {
         return;
     }
-
-    return;
 }
 
 //prints consumable stats
 void printConsumableWindow(Consumable consumableToUse, WINDOW * messageWindow,
-                           char symbolArray[500][500],character player,Inventory playerInventory)
+                           char symbolArray[500][500],character player,Inventory &playerInventory)
 {
-    if(consumableToUse.getMagicValue() != 0)
-    {
-        string currentString = consumableToUse.getName();
-        int magicValue = consumableToUse.getMagicValue();
-        char * characterPointer = &currentString.at(0);
-        mvwprintw(messageWindow,2,3,characterPointer);
-        mvwprintw(messageWindow,2,18,"%d",magicValue);
-    }
-    else
-    {
-        string currentString = consumableToUse.getName();
-        int healthValue = consumableToUse.getHealthValue();
-        char * characterPointer = &currentString.at(0);
-        mvwprintw(messageWindow,2,3,characterPointer);
-        mvwprintw(messageWindow,2,18,"%d",healthValue);
-    }
-
-    string currentString = "Would you like to place item in your inventory?(Enter for yes)";
+    string currentString = "Would you like to use item,";
     char * characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,4,3,characterPointer);
+    currentString = " place item in your inventory or";
+    characterPointer = &currentString.at(0);
     mvwprintw(messageWindow,5,3,characterPointer);
+    currentString = "move along?(Y/U/M)";
+    characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,6,3,characterPointer);
 
-    int ch = getch();
+    int ch = getchar();
+    bool checkFull = false;
 
-    if(ch == KEY_ENTER)
+    if(ch == 'Y' || ch == 'y')
     {
-        playerInventory.addToInventoryCArray(consumableToUse,messageWindow,symbolArray);
-        symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
-
+        checkFull = playerInventory.getInventoryFull();
+        if(checkFull == false)
+        {
+            wclear(messageWindow);
+            playerInventory.addToInventoryCArray(consumableToUse,messageWindow,symbolArray);
+            symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
+            return;
+        }
     }
+    /*else if(ch == 'U' || ch == 'u')
+    {
+        if(consumableToUse.getHealthValue() != 0)
+        {
+            player.setHealth(player.getHealth() + consumableToUse.getHealthValue());
+            return;
+        }
+        else
+        {
+            if(consumableToUse.getMagicAffect() == "Strengthen Armor")
+            {
+                currentString = "Which piece of armor would you like to strengthen?";
+                characterPointer = &currentString.at(0);
+                mvwprintw(messageWindow,0,1,characterPointer);
+
+                playerInventory.printArmor(messageWindow);
+
+                ch = getchar();
+                ch = ch - 1;
+
+                Armor armorToStrengthen = playerInventory.getArmorPiece(ch);
+                armorToStrengthen.setStrength(armorToStrengthen.getStrength() + consumableToUse.getMagicValue());
+                playerInventory.removeFromAInventory(playerInventory.getArmorPiece(ch));
+                playerInventory.addToInventoryAArray(armorToStrengthen,messageWindow,symbolArray);
+            }
+            else if(consumableToUse.getMagicAffect() == "Strengthen Weapon")
+            {
+                currentString = "Which weapon would you like to stregthen?";
+                characterPointer = &currentString.at(0);
+                mvwprintw(messageWindow,0,1,characterPointer);
+
+                playerInventory.printWeapons(messageWindow);
+
+                ch = getchar();
+                ch = ch - 1;
+
+                Weapon weaponToStrengthen = playerInventory.getWeapon(ch);
+                weaponToStrengthen.setMaxDamage(weaponToStrengthen.getMaxDamage() + consumableToUse.getMagicValue());
+                playerInventory.removeFromWInventory(playerInventory.getWeapon(ch));
+                playerInventory.addToInventoryWArray(weaponToStrengthen,messageWindow,symbolArray);
+            }
+        }
+    }*/
+    return;
+
 }
 
 //prints armor stats
 void printArmorWindow(Armor armorToUse, WINDOW * messageWindow,
-                      char symbolArray[500][500], character player,Inventory playerInventory)
+                      char symbolArray[500][500], character player,Inventory &playerInventory)
 {
     string currentString = "Strength: ";
     int strength = armorToUse.getStrength();
@@ -2767,25 +3072,41 @@ void printArmorWindow(Armor armorToUse, WINDOW * messageWindow,
     mvwprintw(messageWindow,1,3,characterPointer);
     mvwprintw(messageWindow,1,12,"%d",strength);
 
-    currentString = "Would you like to place item in your inventory?(Enter for yes)";
+    currentString = "Would you like to place item in your";
+    characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,4,3,characterPointer);
+    currentString = "inventory?(Enter for yes)";
     characterPointer = &currentString.at(0);
     mvwprintw(messageWindow,5,3,characterPointer);
+/*
+    int ch = getchar();
+    bool checkFull = false;
 
-    int ch = getch();
-
-    if(ch == KEY_ENTER)
+    if(ch == 'Y' || ch == 'y')
     {
-        playerInventory.addToInventoryAArray(armorToUse,messageWindow,symbolArray);
-        symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
-
+        checkFull = playerInventory.getInventoryFull();
+        if(checkFull == false)
+        {
+            wclear(messageWindow);
+            playerInventory.addToInventoryAArray(armorToUse,messageWindow,symbolArray);
+            symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
+            return;
+        }
+        else
+        {
+            currentString = "Your inventory is full. Would you like to drop something?(Y for yes)";
+            characterPointer = &currentString.at(0);
+            mvwprintw(messageWindow,0,1,characterPointer);
+            return;
+        }
     }
-
+*/
     return;
 }
 
 //prints weapon stats
 void printWeaponWindow(Weapon weaponToUse, WINDOW * messageWindow,
-                       char symbolArray[500][500], character player,Inventory playerInventory)
+                       char symbolArray[500][500], character player,Inventory &playerInventory)
 {
     string currentString = "Minimum Damage: ";
     int minDamage = weaponToUse.getMinDamage();
@@ -2799,18 +3120,36 @@ void printWeaponWindow(Weapon weaponToUse, WINDOW * messageWindow,
     mvwprintw(messageWindow,2,3,characterPointer);
     mvwprintw(messageWindow,2,18,"%d",maxDamage);
 
-    currentString = "Would you like to place item in your inventory?(Enter for yes)";
+    currentString = "Would you like to place item in your";
+    characterPointer = &currentString.at(0);
+    mvwprintw(messageWindow,4,3,characterPointer);
+    currentString = "inventory?(Enter for yes)";
     characterPointer = &currentString.at(0);
     mvwprintw(messageWindow,5,3,characterPointer);
+/*
+    int ch = getchar();
+    bool checkFull = false;
 
-    int ch = getch();
-
-    if(ch == KEY_ENTER)
+    if(ch == 'Y' || ch == 'y')
     {
-        playerInventory.addToInventoryWArray(weaponToUse,messageWindow,symbolArray);
-        symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
+        checkFull = playerInventory.getInventoryFull();
+        if(checkFull == false)
+        {
+            wclear(messageWindow);
+            playerInventory.addToInventoryWArray(weaponToUse,messageWindow,symbolArray);
+            symbolArray[player.getXCoordinate()][player.getYCoordinate()] = ' ';
+            playerInventory.printInventoryArrays(messageWindow);
+            return;
+        }
+        else
+        {
+            currentString = "Your inventory is full. Would you like to drop something?(Y for yes)";
+            characterPointer = &currentString.at(0);
+            mvwprintw(messageWindow,0,1,characterPointer);
+            return;
+        }
     }
-
+*/
     return;
 }
 
@@ -2821,7 +3160,7 @@ void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,
                 vector <Armor> crystalArmorVector, vector <Weapon> daggerVector,
                 vector <Weapon> clubVector, vector <Weapon> heavyMaceVector,vector <Weapon> spearVector,
                 vector <Weapon> heavyCrossBowVector, vector <Weapon> lightCrossBowVector,
-                vector <Weapon> battleaxeVector, vector <Weapon> longBowVector)
+                vector <Weapon> battleaxeVector, vector <Weapon> longBowVector,Inventory playerInventory)
 {
     ofstream oFile("test.txt");
 
@@ -2830,7 +3169,9 @@ void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,
     for(int a = 0; a < signed(consumableVector.size()); a++)
     {
         oFile << a << ". " << consumableVector[a].getName() << endl
-              << "    " << consumableVector[a].getType() << endl;
+              << "    " << consumableVector[a].getType() << endl
+              << "X: " << consumableVector[a].getX() << endl
+              << "Y: " << consumableVector[a].getY() << endl;
     }
 
     oFile << endl << endl;
@@ -2840,7 +3181,9 @@ void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,
     for(int b = 0; b < signed(armorVector.size()); b++)
     {
         oFile << b << ". " << armorVector[b].getName() << endl
-              << "    " << armorVector[b].getType() << endl;
+              << "    " << armorVector[b].getType() << endl
+              << "X: " << armorVector[b].getX() << endl
+              << "Y: " << armorVector[b].getY() << endl;
     }
 
     oFile << endl << endl;
@@ -2850,7 +3193,9 @@ void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,
     for(int c = 0; c < signed(weaponVector.size()); c++)
     {
         oFile << c << ". " << weaponVector[c].getName() << endl
-              << "    " << weaponVector[c].getType() << endl;
+              << "    " << weaponVector[c].getType() << endl
+              << "X: " << weaponVector[c].getX() << endl
+              << "Y: " << weaponVector[c].getY() << endl;
     }
 
     oFile << endl << endl;

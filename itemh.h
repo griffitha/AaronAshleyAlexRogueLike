@@ -61,6 +61,7 @@ private:
     string magicAffect;
 };
 
+/*
 class consumablePack: public Consumable
 {
 public:
@@ -83,6 +84,7 @@ private:
     Consumable potion4;
     Consumable potion5;
 };
+*/
 
 class Weapon: public Item
 {
@@ -102,18 +104,6 @@ private:
     int minDamage;
     int maxDamage;
     bool twoHanded;
-};
-
-
-class packOfArrows: public Weapon
-{
-public:
-    packOfArrows();
-    void setNumOfArrows(int maxValue);
-    int getNumOfArrows();
-    ~packOfArrows();
-private:
-    int numOfArrows;
 };
 
 class Armor: public Item
@@ -184,6 +174,12 @@ public:
     void removeFromAInventory(Armor itemToRemove);
     void removeFromWInventory(Weapon itemToRemove);
     void setInventoryFull(bool inventoryFull);
+    Consumable getConsumable(int position);
+    Armor getArmorPiece(int position);
+    Weapon getWeapon(int position);
+    void printConsumables(WINDOW * messageWindow);
+    void printArmor(WINDOW * messageWindow);
+    void printWeapons(WINDOW * messageWindow);
     void printInventoryArrays(WINDOW * messageWindow);
     bool getInventoryFull();
     int getSizeOfInventory();
@@ -198,6 +194,8 @@ private:
     vector <Armor> inventoryAArray;
     vector <Weapon> inventoryWArray;
     bool inventoryFull;
+    int lineCounter;
+    int counter;
 };
 
 
@@ -255,9 +253,11 @@ int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions);
 
 
 //Chooses the starting x and y coordinates for each item
-void positions(char symbolArray[500][500],vector <Consumable> consumableVector,vector <Armor> &armorVector,
+void positions(char symbolArray[500][500],vector <Consumable> consumableVector,vector <Armor> armorVector,
                 vector <Weapon> weaponVector,vector <Location> &possiblePositions);
 
+//remove from positions vector
+void removePosition(vector <Location> &possiblePositions,int XtoClear,int YtoClear);
 
 //chooses which item to place based on item rarity
 void itemChoice(character player,vector <Consumable> &consumableVector,vector <Armor> &armorVector,
@@ -266,22 +266,28 @@ void itemChoice(character player,vector <Consumable> &consumableVector,vector <A
                 vector <Weapon> clubVector, vector <Weapon> heavyMaceVector,vector <Weapon> spearVector, vector <Weapon> heavyCrossBowVector,
                 vector <Weapon> lightCrossBowVector, vector <Weapon> battleaxeVector, vector <Weapon> longBowVector);
 
+//sets items' x and y to positions taken from array
+void matchItemWithPosition(char symbolArray[500][500],vector <Location> &possiblePositions, vector <Consumable> &consumableVector, vector <Armor> &armorVector, vector <Weapon> &weaponsVector);
+
+//finds consumable with Xposition and Yposition
+Consumable findConsumable(vector<Consumable> consumabeVector,int Xposition, int Yposition);
+
 //checks if item is in current position
 void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
-                  vector <Armor> &armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
-                  Inventory playerInventory);
+                  vector <Armor> armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
+                  Inventory &playerInventory,vector <Location> possiblePositions);
 
 //prints consumable stats
 void printConsumableWindow(Consumable consumableToUse, WINDOW * messageWindow,
-                           char symbolArray[500][500],character player,Inventory playerInventory);
+                           char symbolArray[500][500],character player,Inventory &playerInventory);
 
 //prints armor stats
 void printArmorWindow(Armor armorToUse, WINDOW * messageWindow,
-                      char symbolArray[500][500],character player,Inventory playerInventory);
+                      char symbolArray[500][500],character player,Inventory &playerInventory);
 
 //prints weapon stats
 void printWeaponWindow(Weapon weaponToUse, WINDOW * messageWindow,
-                       char symbolArray[500][500],character player,Inventory playerInventory);
+                       char symbolArray[500][500],character player,Inventory &playerInventory);
 
 //writes test to file
 void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,
@@ -290,7 +296,7 @@ void writeTests(vector <Consumable> consumableVector,vector <Armor> armorVector,
                 vector <Armor> crystalArmorVector, vector <Weapon> daggerVector,
                 vector <Weapon> clubVector, vector <Weapon> heavyMaceVector,vector <Weapon> spearVector,
                 vector <Weapon> heavyCrossBowVector, vector <Weapon> lightCrossBowVector,
-                vector <Weapon> battleaxeVector, vector <Weapon> longBowVector);
+                vector <Weapon> battleaxeVector, vector <Weapon> longBowVector,Inventory playerInventory);
 
 
 

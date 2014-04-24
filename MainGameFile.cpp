@@ -97,12 +97,11 @@ int main()
     //Read Level from File
     readLevel(symbolArray,gameObjects,enemyList,possiblePositions,thePlayer,1);
 
-    positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
 
     //find number of items to place
     int itemsNeeded = 0;
-    itemsNeeded = numOfItems(symbolArray,possiblePositions);
-    /*
+    itemsNeeded =  numOfItems(symbolArray,possiblePositions);
+
     for(int i = 0; i < itemsNeeded; i++)
     {
         itemChoice(thePlayer,consumableVector,armorVector,weaponsVector,
@@ -110,9 +109,9 @@ int main()
             leatherArmorVector,metalArmorVector,crystalArmorVector,
             daggerVector, clubVector,heavyMaceVector,spearVector,
             heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
-
     }
-    */
+
+
     positions(symbolArray,consumableVector,armorVector,weaponsVector,possiblePositions);
     while((victoryAchieved == false) && (playerIsDead != true))
     {

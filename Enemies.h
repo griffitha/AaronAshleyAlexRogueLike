@@ -31,7 +31,7 @@ class enemy: public character
 
 int numOfEnemies(char symbolArray[500][500],std::vector <Location> possiblePositions);
 vector<enemy> spawnEnemies(char symbolArray[500][500],std::vector <Location> &possiblePositions,int enemiesToCreate,player mainChar);
-
+void enemyTurn(char symbolArray[500][500], std::vector<enemy> &enemyList, std::vector<character> gameObjects, player &thePlayer);
 
 
 #endif // ENEMIES_H_INCLUDED

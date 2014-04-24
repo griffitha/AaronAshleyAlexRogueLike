@@ -3,7 +3,7 @@
 
 //Utility Functions CPP
 
-void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, player &thePlayer, int levelNumber)
+void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, std::vector<enemy> &enemyList,std::vector<Location> &possibleLocations, player &thePlayer, int levelNumber)
 {
     //File Data Type where the file will be loaded
     std::ifstream levelFile;
@@ -24,6 +24,11 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, p
         {
             gameObjects.pop_back();
         }
+    }
+    //Clears enemies from map
+    if (enemyList.size() > 0)
+    {
+        enemyList.clear();
     }
 
     //Select the level to load
@@ -124,10 +129,17 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, p
     }
     //Close File
     levelFile.close();
+
+    //Items and Enemy Management
+    int itemsNeeded = 0;
+    itemsNeeded = numOfItems(symbolArray,possibleLocations);
+
+    int enemiesNeeded = numOfEnemies(symbolArray,possibleLocations);
+    enemyList=spawnEnemies(symbolArray,possibleLocations,enemiesNeeded,thePlayer);
     return;
 }
 
-void printWindow(char symbolArray[500][500],std::vector<character> gameObjects, player thePlayer, WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
+void printWindow(char symbolArray[][500],std::vector<character> gameObjects,std::vector<enemy> enemyList, player thePlayer, WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
 {
         int X;
         int Y;
@@ -178,18 +190,11 @@ void printWindow(char symbolArray[500][500],std::vector<character> gameObjects, 
                 mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
             }
 
-                //This will print any objects that are available
-            if (gameObjects.size() > 0)
+            //This will print any objects that are available
+            if (gameObjects.size() > 0 || enemyList.size() > 0)
             {
-                for (unsigned int i = 0; i < gameObjects.size(); i++)
-                {
-                    character currentObject = gameObjects.at(i);
-                    if (currentObject.getXCoordinate() == X && currentObject.getYCoordinate() == Y)
-                    {
-                        mvwaddch(workingWindow,yCounter,xCounter,currentObject.getMapRep());
-                    }
-                }
-    }
+                printObjects(X,Y,xCounter,yCounter,symbolArray,gameObjects,enemyList,thePlayer,workingWindow);
+            }
             //Move up to the next column
             X++;
             xCounter++;
@@ -222,7 +227,7 @@ void printWindow(char symbolArray[500][500],std::vector<character> gameObjects, 
     return;
 }
 
-void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, player &thePlayer)
+void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std::vector<enemy> &enemyList,std::vector<Location> possibleLocations, player &thePlayer)
 {
     //Save Player's current position
     int playerX = thePlayer.getXCoordinate();
@@ -234,15 +239,17 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
     if (ch == KEY_UP)
     {
         //If there is a movable spot
-        if (symbolArray[playerX][playerY-1] == ' ' || symbolArray[playerX][playerY-1] == '*' ||
+        if (symbolArray[playerX][playerY-1] == ' '|| symbolArray[playerX][playerY-1] == 'c' ||
+            symbolArray[playerX][playerY-1] == 'a' || symbolArray[playerX][playerY-1] == 'w' ||
             symbolArray[playerX][playerY-1] == 'O')
+
         {
             //Checks for object
-            openSpace = checkEmpty(playerX,playerY-1,gameObjects);
+            openSpace = checkEmpty(playerX,playerY-1,gameObjects,enemyList);
             if (!openSpace)
             {
                 //If there, do something about it.
-                basicInteraction(ch,playerX,playerY-1,gameObjects,thePlayer,symbolArray);
+                basicInteraction(ch,playerX,playerY-1,gameObjects,enemyList,thePlayer,symbolArray);
             }
             else if (openSpace)
             {
@@ -254,22 +261,24 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
     }
     //Move Down
     else if (ch == KEY_DOWN)
     {
         //Checks for the different open spaces
-        if (symbolArray[playerX][playerY+1] == ' '|| symbolArray[playerX][playerY+1] == '*' ||
+        if (symbolArray[playerX][playerY+1] == ' '|| symbolArray[playerX][playerY+1] == 'c' ||
+            symbolArray[playerX][playerY+1] == 'a' || symbolArray[playerX][playerY+1] == 'w' ||
             symbolArray[playerX][playerY+1] == 'O')
+
         {
             //Checks if there is an open space
-            openSpace = checkEmpty(playerX,playerY+1,gameObjects);
+            openSpace = checkEmpty(playerX,playerY+1,gameObjects,enemyList);
             if (!openSpace)
             {
                 //If there is something, let's do something with it
-                basicInteraction(ch,playerX,playerY+1,gameObjects,thePlayer,symbolArray);
+                basicInteraction(ch,playerX,playerY+1,gameObjects,enemyList,thePlayer,symbolArray);
             }
             else if (openSpace)
             {
@@ -280,21 +289,23 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
     }
     //Move Left
     else if (ch == KEY_LEFT)
     {
-        if (symbolArray[playerX-1][playerY] == ' ' || symbolArray[playerX-1][playerY] == '*' ||
+        if (symbolArray[playerX-1][playerY] == ' '|| symbolArray[playerX-1][playerY] == 'c' ||
+            symbolArray[playerX-1][playerY] == 'a' || symbolArray[playerX-1][playerY] == 'w' ||
             symbolArray[playerX-1][playerY] == 'O')
+
         {
             //Checks if it was opened
-            openSpace = checkEmpty(playerX-1,playerY,gameObjects);
+            openSpace = checkEmpty(playerX-1,playerY,gameObjects,enemyList);
             if (!openSpace)
             {
                 //Do something to do the object
-                basicInteraction(ch,playerX-1,playerY,gameObjects,thePlayer,symbolArray);
+                basicInteraction(ch,playerX-1,playerY,gameObjects,enemyList,thePlayer,symbolArray);
             }
             else if (openSpace)
             {
@@ -305,22 +316,24 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
     }
     //Move Right
     else if (ch == KEY_RIGHT)
     {
         //Check if the spot is empty
-        if (symbolArray[playerX+1][playerY] == ' ' || symbolArray[playerX+1][playerY] == '*' ||
+        if (symbolArray[playerX+1][playerY] == ' '|| symbolArray[playerX+1][playerY] == 'c' ||
+            symbolArray[playerX+1][playerY] == 'a' || symbolArray[playerX+1][playerY] == 'w' ||
             symbolArray[playerX+1][playerY] == 'O')
+
         {
             //Check if empty of enemies
-            openSpace = checkEmpty(playerX+1,playerY,gameObjects);
+            openSpace = checkEmpty(playerX+1,playerY,gameObjects,enemyList);
             if (!openSpace)
             {
                 //Do something to the object
-                basicInteraction(ch,playerX+1,playerY,gameObjects,thePlayer,symbolArray);
+                basicInteraction(ch,playerX+1,playerY,gameObjects,enemyList,thePlayer,symbolArray);
             }
             else if (openSpace)
             {
@@ -332,8 +345,12 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects, pl
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,thePlayer,randomLevel);
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
         }
+    }
+    else if (ch == 'R' || ch == 'r')
+    {
+        thePlayer.rest();
     }
     return;
 }
@@ -389,6 +406,7 @@ void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
 player playerCreation()
 {
     player returnedPlayer(0,0);
+    returnedPlayer.setMapRep('X');
     std::string userInput;
     std::string playerClass;
     std::string playerRace;
@@ -489,4 +507,30 @@ player playerCreation()
         }
     }
     return returnedPlayer;
+}
+
+void printObjects(int X, int Y, int xCounter, int yCounter, char symbol[][500], std::vector<character> gameObjects,
+                  std::vector<enemy> enemyList, player thePlayer, WINDOW * workingWindow)
+{
+    //Prints any objects on the map
+    for (unsigned int i = 0; i < gameObjects.size(); i++)
+    {
+        character currentObject = gameObjects.at(i);
+        if (currentObject.getXCoordinate() == X && currentObject.getYCoordinate() == Y)
+        {
+            mvwaddch(workingWindow,yCounter,xCounter,currentObject.getMapRep());
+        }
+    }
+
+    //Prints any enemies on the map
+    for (unsigned int i = 0; i < enemyList.size(); i++)
+    {
+        enemy currentEnemy = enemyList.at(i);
+        if (currentEnemy.getXCoordinate() == X && currentEnemy.getYCoordinate() == Y)
+        {
+            mvwaddch(workingWindow,yCounter,xCounter,currentEnemy.getMapRep());
+        }
+    }
+
+    return;
 }

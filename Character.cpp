@@ -8,9 +8,10 @@ character::character(int x,int y)
 
     //Set Values
     currentArmor = 1;
-    health = 0;
+    health = 1;
     accuracy = 80;
     baseDamage = 4;
+    level = 1;
 }
 
 void character::moveChar(int input)
@@ -63,17 +64,7 @@ int character::getYCoordinate()
 
 void character::setHealth(int input)
 {
-    //Upon creation of character
-    if (health == 0)
-    {
-        health = input;
-        maxHealth = input;
-    }
-    //In other cases, just set health
-    else
-    {
-        health = input;
-    }
+    health = input;
     return;
 }
 
@@ -170,6 +161,10 @@ int character::getLevel()
 void player::setExperience(int input)
 {
     experience=input;
+    if (experience > xpToLevel)
+    {
+        levelUp();
+    }
     return;
 }
 
@@ -202,8 +197,13 @@ race player::getRace()
 void player::setClass(characterClass input)
 {
     playerClass=input;
+    setHealth(20);
+    setMaxHealth(20);
+    setLevel(1);
+
     return;
 }
+
 characterClass player::getClass()
 {
     return playerClass;
@@ -215,6 +215,30 @@ void player::setXpToLevel(int input)
 }
 void player::levelUp()
 {
+    //Assigns to a random value at this point
+    int currentAttribute;
+    int randomAttribute = rand() % 3;
+    switch(randomAttribute)
+    {
+        //Increases Damage
+        case 0:
+            currentAttribute = getBaseDamage() + 1;
+            setBaseDamage(currentAttribute);
+            break;
+        //Increases Armor
+        case 1:
+            currentAttribute = getArmor() + 1;
+            setArmor(currentAttribute);
+            break;
+        //Increase Health
+        case 2:
+            currentAttribute = getMaxHealth() + 1;
+            setHealth(currentAttribute);
+            setMaxHealth(currentAttribute);
+            break;
+    }
+
+
     experience=xpToLevel%experience;
     if((xpToLevel%2)>0)
     {
@@ -228,5 +252,16 @@ void player::levelUp()
     int levelHolder=getLevel();
     levelHolder++;
     setLevel(levelHolder);
+    return;
+}
+
+void player::rest()
+{
+    //Heals by one point and takes up one turn
+    if (getHealth() < getMaxHealth())
+    {
+        int newHealth = getHealth() + 1;
+        setHealth(newHealth);
+    }
     return;
 }

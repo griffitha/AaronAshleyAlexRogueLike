@@ -11,12 +11,29 @@ void interactiveObject::setRockAttributes()
 }
 
 //Basic interaction between objects
-void basicInteraction(int movement,int x,int y, std::vector<character> &gameObjects,player &thePlayer,char symbolArray[][500])
+void basicInteraction(int movement,int x,int y, std::vector<character> &gameObjects,std::vector<enemy> &enemyList,player &thePlayer,char symbolArray[][500])
 {
     bool nextSpaceOpen = true;
-    int currentObjectNumber = findTarget(x,y,gameObjects);
-    character currentObject = gameObjects.at(currentObjectNumber);
+    int currentObjectNumber;
+    character currentObject(0,0);
+    if (gameObjects.size() != 0)
+    {
+        currentObjectNumber = findTarget(x,y,gameObjects);
+        currentObject = gameObjects.at(currentObjectNumber);
+        if (currentObjectNumber == -1)
+        {
+            return;
+        }
+    }
 
+    if (enemyList.size() != 0)
+    {
+        currentObjectNumber = findTarget(x,y,enemyList);
+        if (currentObjectNumber == -1)
+        {
+            return;
+        }
+    }
     if (currentObject.getMapRep() == 'R')
     {
         if (movement == KEY_UP)
@@ -72,6 +89,12 @@ void basicInteraction(int movement,int x,int y, std::vector<character> &gameObje
             }
         }
     }
+    else
+    {
+        playerMelee(thePlayer,enemyList.at(currentObjectNumber),enemyList);
+        removeEnemy(enemyList,thePlayer);
+    }
+    return;
 }
 
 //Checks to make sure no other units exist with designated values except that value

@@ -3,7 +3,8 @@
 
 //Utility Functions CPP
 
-void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, std::vector<enemy> &enemyList,std::vector<Location> &possibleLocations, player &thePlayer, int levelNumber)
+void readLevel(char symbolArray[500][500],vector<character> &gameObjects, vector<enemy> &enemyList,vector<Location> &possibleLocations, player &thePlayer, int levelNumber,
+               vector <Consumable> consumableVector, vector <Armor> armorVector, vector <Weapon> weaponVector)
 {
     //File Data Type where the file will be loaded
     std::ifstream levelFile;
@@ -148,14 +149,28 @@ void readLevel(char symbolArray[500][500],std::vector<character> &gameObjects, s
         }
     }
 
-    //Items and Enemy Management
+    /*int itemsNeeded = 0;
+    itemsNeeded =  numOfItems(symbolArray,possibleLocations);
+
+    for(int i = 0; i < itemsNeeded; i++)
+    {
+        itemChoice(thePlayer,consumableVector,armorVector,weaponVector,
+                    healthPotionVector,magicPotionVector,
+                    leatherArmorVector,metalArmorVector,crystalArmorVector,
+                    daggerVector, clubVector,heavyMaceVector,spearVector,
+                    heavyCrossBowVector, lightCrossBowVector,battleaxeVector,longBowVector);
+    }
+*/
+    matchItemWithPosition(symbolArray,possibleLocations,consumableVector,armorVector,weaponVector);
+    positions(symbolArray,consumableVector,armorVector,weaponVector,possibleLocations);
+
 
     int enemiesNeeded = numOfEnemies(symbolArray,possibleLocations);
     enemyList=spawnEnemies(symbolArray,possibleLocations,enemiesNeeded,thePlayer);
     return;
 }
 
-void printWindow(char symbolArray[][500],std::vector<character> gameObjects,std::vector<enemy> enemyList, player thePlayer, WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message)
+void printWindow(char symbolArray[][500],std::vector<character> gameObjects,std::vector<enemy> enemyList, player thePlayer, WINDOW * workingWindow, WINDOW * statusWindow, WINDOW * message,Equipped playerEquipped)
 {
         int X;
         int Y;
@@ -186,7 +201,7 @@ void printWindow(char symbolArray[][500],std::vector<character> gameObjects,std:
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,ACS_BLOCK);
                 }
-                else if (symbolArray[X][Y] == '*')
+                else if (symbolArray[X][Y] == 'c' || symbolArray[X][Y] == 'a' || symbolArray[X][Y] == 'w')
                 {
                     mvwaddch(workingWindow,yCounter,xCounter,ACS_DIAMOND);
                 }
@@ -233,7 +248,7 @@ void printWindow(char symbolArray[][500],std::vector<character> gameObjects,std:
         }
 
     //Prints Status Window based on player stats
-    printStatusWindow(thePlayer,statusWindow);
+    printStatusWindow(thePlayer,statusWindow,playerEquipped);
 
     mvwaddch(workingWindow,11,15,thePlayer.getMapRep());
     wrefresh(workingWindow);
@@ -243,7 +258,8 @@ void printWindow(char symbolArray[][500],std::vector<character> gameObjects,std:
     return;
 }
 
-void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std::vector<enemy> &enemyList,std::vector<Location> possibleLocations, player &thePlayer)
+void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std::vector<enemy> &enemyList,std::vector<Location> possibleLocations, player &thePlayer,
+                vector <Consumable> consumableVector, vector <Armor> armorVector, vector <Weapon> weaponVector)
 {
     //Save Player's current position
     int playerX = thePlayer.getXCoordinate();
@@ -277,7 +293,10 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
+
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,1,consumableVector,armorVector,weaponVector);
+            positions(symbolArray,consumableVector,armorVector,weaponVector,possibleLocations);
+            matchItemWithPosition(symbolArray,possibleLocations,consumableVector,armorVector,weaponVector);
         }
     }
     //Move Down
@@ -305,7 +324,10 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
+
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,3,consumableVector,armorVector,weaponVector);
+            matchItemWithPosition(symbolArray,possibleLocations,consumableVector,armorVector,weaponVector);
+            positions(symbolArray,consumableVector,armorVector,weaponVector,possibleLocations);
         }
     }
     //Move Left
@@ -332,7 +354,11 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
+
+
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,2,consumableVector,armorVector,weaponVector);
+            matchItemWithPosition(symbolArray,possibleLocations,consumableVector,armorVector,weaponVector);
+            positions(symbolArray,consumableVector,armorVector,weaponVector,possibleLocations);
         }
     }
     //Move Right
@@ -361,7 +387,10 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
         {
             //Level Transistion
             int randomLevel = (rand() % 3) + 2;
-            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,randomLevel);
+
+            readLevel(symbolArray,gameObjects,enemyList,possibleLocations,thePlayer,4,consumableVector,armorVector,weaponVector);
+            matchItemWithPosition(symbolArray,possibleLocations,consumableVector,armorVector,weaponVector);
+            positions(symbolArray,consumableVector,armorVector,weaponVector,possibleLocations);
         }
     }
     else if (ch == 'R' || ch == 'r')
@@ -371,7 +400,7 @@ void playerTurn(char symbolArray[][500], std::vector<character> &gameObjects,std
     return;
 }
 
-void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
+void printStatusWindow(player &thePlayer, WINDOW * statusWindow,Equipped playerEquipped)
 {
     wclear(statusWindow);
     //Prints player name on first line
@@ -389,12 +418,14 @@ void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
 
     //Third line features health number
     currentString = "Health: ";
+    characterPointer = &currentString.at(0);
     currentInteger = thePlayer.getHealth();
     mvwprintw(statusWindow,2,3,characterPointer);
 
     //Prints total health value
     mvwprintw(statusWindow,2,11,"%d",currentInteger);
     currentString = "/";
+    characterPointer = &currentString.at(0);
     currentInteger = thePlayer.getMaxHealth();
     mvwprintw(statusWindow,2,14,characterPointer);
     mvwprintw(statusWindow,2,16,"%d",currentInteger);
@@ -402,32 +433,39 @@ void printStatusWindow(player &thePlayer, WINDOW * statusWindow)
     //Prints Armor value
     currentString = "Armor: ";
     currentInteger = thePlayer.getArmor();
+    characterPointer = &currentString.at(0);
     mvwprintw(statusWindow,3,3,characterPointer);
     mvwprintw(statusWindow,3,11,"%d",currentInteger);
 
     //Prints Damage
     currentString = "Damage: ";
+    characterPointer = &currentString.at(0);
     currentInteger = thePlayer.getBaseDamage();
-    mvwprintw(statusWindow,4,3,characterPointer);
-    mvwprintw(statusWindow,4,11,"%d",currentInteger);
+    mvwprintw(statusWindow,4,28,characterPointer);
+    mvwprintw(statusWindow,4,31,"%d",currentInteger);
 
     //Prints X coordinate
     currentString = "X:";
     currentInteger = thePlayer.getXCoordinate();
+    characterPointer = &currentString.at(0);
     mvwprintw(statusWindow,0,28,characterPointer);
     mvwprintw(statusWindow,0,31,"%d",currentInteger);
 
     //Prints Y coordinate
     currentString = "Y:";
+    characterPointer = &currentString.at(0);
     currentInteger = thePlayer.getYCoordinate();
     mvwprintw(statusWindow,1,28,characterPointer);
     mvwprintw(statusWindow,1,31,"%d",currentInteger);
 
     //Prints current Experience
     currentString = "EXP: ";
+    characterPointer = &currentString.at(0);
     currentInteger = thePlayer.getExperience();
     mvwprintw(statusWindow,2,28,characterPointer);
     mvwprintw(statusWindow,2,32,"%d",currentInteger);
+
+    playerEquipped.printEquipped(statusWindow);
 
     wrefresh(statusWindow);
     return;

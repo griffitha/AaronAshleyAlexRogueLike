@@ -365,6 +365,9 @@ Armor::~Armor()
     setType("");
 }
 
+Helmet::Helmet()
+{
+}
 
 //constructor--Helmet
 Helmet::Helmet(string type,int strength)
@@ -377,6 +380,10 @@ Helmet::~Helmet()
 {
     setStrength(0);
     setType(" ");
+}
+
+Breastplate::Breastplate()
+{
 }
 
 //constructor--Breastplate
@@ -393,6 +400,10 @@ Breastplate::~Breastplate()
     setType(" ");
 }
 
+Gloves::Gloves()
+{
+}
+
 //constructor--Gloves
 Gloves::Gloves(string type,int strength)
 {
@@ -407,6 +418,10 @@ Gloves::~Gloves()
     setType(" ");
 }
 
+Shoes::Shoes()
+{
+}
+
 //constructor--Shoes
 Shoes::Shoes(string type,int strength)
 {
@@ -419,6 +434,10 @@ Shoes::~Shoes()
 {
     setStrength(0);
     setType(" ");
+}
+
+Shield::Shield()
+{
 }
 
 //constructor--Shield
@@ -846,13 +865,372 @@ int Inventory::getSizeOfInventory()
     return sizeOfInventory;
 }
 
+
 //deconstructor-inventory
 Inventory::~Inventory()
 {
 
 }
 
+Equipped::Equipped()
+{
+    helmetOn = false;
+    breastplateOn = false;
+    glovesOn = false;
+    shoesOn = false;
+    shieldOn = false;
+    weaponOn = false;
+}
 
+void Equipped::setHelmetEquipped(Armor newHelmet)
+{
+    equippedHelmet = newHelmet;
+    helmetOn = true;
+}
+
+Armor Equipped::getHelmetEquipped()
+{
+    return equippedHelmet;
+}
+
+void Equipped::setBreastplateEquipped(Armor newBreastplate)
+{
+    equippedBreastplate = newBreastplate;
+    breastplateOn = true;
+}
+
+Armor Equipped::getBreastPlateEquipped()
+{
+    return equippedBreastplate;
+}
+
+void Equipped::setGlovesEquipped(Armor newGloves)
+{
+    equippedGloves = newGloves;
+    glovesOn = true;
+}
+
+Armor Equipped::getGlovesEquipped()
+{
+    return equippedGloves;
+}
+
+void Equipped::setShoesEquipped(Armor newShoes)
+{
+    equippedShoes = newShoes;
+    shoesOn = true;
+}
+
+Armor Equipped::getShoesEquipped()
+{
+    return equippedShoes;
+}
+
+void Equipped::setShieldEquipped(Armor newShield)
+{
+    equippedShield = newShield;
+    shieldOn = true;
+}
+
+Armor Equipped::getShieldEquipped()
+{
+    return equippedShield;
+}
+
+void Equipped::setWeaponEquipped(Weapon newWeapon)
+{
+    this -> equippedWeapon = newWeapon;
+    weaponOn = true;
+    if(newWeapon.getTwoHanded() == true)
+    {
+        shieldOn = false;
+    }
+}
+
+Weapon Equipped::getWeaponEquipped()
+{
+    return equippedWeapon;
+}
+
+int Equipped::getNumEquipped()
+{
+    return numEquipped;
+}
+void Equipped::setHelmetOn(bool helmetOn)
+{
+    this -> helmetOn = helmetOn;
+}
+
+void Equipped::setBreastplateOn(bool breastplateOne)
+{
+    this -> breastplateOn = breastplateOn;
+}
+
+void Equipped::setGlovesOn(bool glovesOne)
+{
+    this -> glovesOn = glovesOn;
+}
+
+void Equipped::setShoesOn(bool shoesOn)
+{
+    this -> shoesOn = shoesOn;
+}
+
+void Equipped::setShieldOn(bool shieldOn)
+{
+    this -> shieldOn = shieldOn;
+}
+
+void Equipped::setWeaponOn(bool weaponOn)
+{
+    this -> weaponOn = weaponOn;
+}
+
+bool Equipped::getHelmetOn()
+{
+    return helmetOn;
+}
+
+bool Equipped::getBreastplateOn()
+{
+    return breastplateOn;
+}
+
+bool Equipped::getGlovesOn()
+{
+    return glovesOn;
+}
+
+bool Equipped::getShoesOn()
+{
+    return shoesOn;
+}
+
+bool Equipped::getShieldOn()
+{
+    return shieldOn;
+}
+
+bool Equipped::getWeaponOn()
+{
+    return weaponOn;
+}
+
+void Equipped::printEquippedHelmet(WINDOW * statusWindow)
+{
+    if(helmetOn == true)
+    {
+        string currentString = "Helmet: " + equippedHelmet.getName();
+        char * characterPtr = &currentString.at(0);
+        mvwprintw(statusWindow,4,3,characterPtr);
+        trueCounter++;
+    }
+    else
+        falseCounter++;
+}
+
+void Equipped::printEquippedBreastplate(WINDOW * statusWindow)
+{
+    string currentString = "";
+    char * characterPtr;
+
+    if(breastplateOn == true)
+    {
+        if(trueCounter == 1 && falseCounter == 0)
+        {
+            currentString = "Breastplate: " + equippedBreastplate.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,5,3,characterPtr);
+        }
+        if(trueCounter == 0 && falseCounter == 1)
+        {
+            currentString = "Breastplate: " + equippedBreastplate.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,4,3,characterPtr);
+        }
+        trueCounter++;
+    }
+    else
+        falseCounter++;
+
+    return;
+}
+
+void Equipped::printEquippedGloves(WINDOW * statusWindow)
+{
+    string currentString = "";
+    char * characterPtr;
+    if(glovesOn == true)
+    {
+        if(trueCounter == 2 && falseCounter == 0)
+        {
+            currentString = "Gloves: " + equippedGloves.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,6,3,characterPtr);
+        }
+        else if(trueCounter == 1 && falseCounter == 1)
+        {
+            currentString = "Gloves: " + equippedGloves.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,5,3,characterPtr);
+        }
+        else if(trueCounter == 0 && falseCounter == 2)
+        {
+            currentString = "Gloves: " + equippedGloves.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,4,3,characterPtr);
+        }
+        trueCounter++;
+    }
+    else
+        falseCounter++;
+
+    return;
+}
+
+void Equipped::printEquippedShoes(WINDOW * statusWindow)
+{
+    string currentString = "";
+    char * characterPtr;
+
+    if(shoesOn == true)
+    {
+        if(trueCounter == 3 && falseCounter == 0)
+        {
+            currentString = "Shoes: " + equippedShoes.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,7,3,characterPtr);
+        }
+        else if(trueCounter == 2 && falseCounter == 1)
+        {
+            currentString = "Shoes: " + equippedShoes.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,6,3,characterPtr);
+        }
+        else if(trueCounter == 1 && falseCounter == 2)
+        {
+            currentString = "Shoes: " + equippedShoes.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,5,3,characterPtr);
+        }
+        else if(trueCounter == 0 && falseCounter == 3)
+        {
+            currentString = "Shoes: " + equippedShoes.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,4,3,characterPtr);
+        }
+        trueCounter++;
+    }
+    else
+        falseCounter++;
+
+    return;
+}
+
+void Equipped::printEquippedShield(WINDOW * statusWindow)
+{
+    string currentString;
+    char * characterPtr;
+
+    if(shieldOn == true)
+    {
+        if(trueCounter == 4 && falseCounter == 0)
+        {
+            currentString = "Shield: " + equippedShield.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,8,3,characterPtr);
+        }
+        else if(trueCounter == 3 && falseCounter == 1)
+        {
+            currentString = "Shield: " + equippedShield.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,7,3,characterPtr);
+        }
+        else if(trueCounter == 2 && falseCounter == 2)
+        {
+            currentString = "Shield: " + equippedShield.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,6,3,characterPtr);
+        }
+        else if(trueCounter == 1 && falseCounter == 3)
+        {
+            currentString = "Shield: " + equippedShield.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,5,3,characterPtr);
+        }
+        else if(trueCounter == 0 && falseCounter == 4)
+        {
+            currentString = "Shield: " + equippedShield.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,4,3,characterPtr);
+        }
+        trueCounter++;
+    }
+    else
+        falseCounter++;
+
+    return;
+}
+void Equipped::printEquippedWeapon(WINDOW * statusWindow)
+{
+    string currentString = "";
+    char * characterPtr;
+
+    if(weaponOn == true)
+    {
+        if(trueCounter == 5 && falseCounter == 0)
+        {
+            currentString = "Weapon: " + equippedWeapon.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,9,3,characterPtr);
+        }
+        else if(trueCounter == 4 && falseCounter == 1)
+        {
+            currentString = "Weapon: " + equippedWeapon.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,8,3,characterPtr);
+        }
+        else if(trueCounter == 3 && falseCounter == 2)
+        {
+            currentString = "Weapon: " + equippedWeapon.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,7,3,characterPtr);
+        }
+        else if(trueCounter == 2 && falseCounter == 3)
+        {
+            currentString = "Weapon: " + equippedWeapon.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,6,3,characterPtr);
+        }
+        else if(trueCounter == 1 && falseCounter == 4)
+        {
+            currentString = "Weapon: " + equippedWeapon.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,5,3,characterPtr);
+        }
+        else if(trueCounter == 0 && falseCounter == 5)
+        {
+            currentString = "Weapon: " + equippedWeapon.getName();
+            characterPtr = &currentString.at(0);
+            mvwprintw(statusWindow,4,3,characterPtr);
+        }
+        trueCounter++;
+    }
+    else
+        falseCounter++;
+
+    return;
+}
+
+void Equipped::printEquipped(WINDOW * statusWindow)
+{
+    printEquippedHelmet(statusWindow);
+    printEquippedBreastplate(statusWindow);
+    printEquippedGloves(statusWindow);
+    printEquippedShoes(statusWindow);
+    printEquippedShield(statusWindow);
+    printEquippedWeapon(statusWindow);
+}
 
 //creates health potions and pushes onto healthPotionVector
 void initializeHealthPotionVector(vector <Consumable> &healthPotionVector)
@@ -957,54 +1335,68 @@ void initializeMagicPotionVector(vector <Consumable> &magicPotionVector)
     return;
 }
 
-
 //creatss armor and pushes onto armorVector
 void initializeArmorVector(vector <Armor> &leatherArmorVector, vector <Armor> &metalArmorVector, vector <Armor> &crystalArmorVector)
 {
     Helmet leatherHelmet("leather", 2);
     leatherHelmet.setName("Leather Helmet");
+    leatherHelmet.setType("Helmet");
 
     Breastplate leatherBreastplate("leather", 2);
     leatherBreastplate.setName("Leather Breastplate");
+    leatherBreastplate.setType("Breastplate");
 
     Gloves leatherGloves("leather",2);
     leatherGloves.setName("Leather Gloves");
+    leatherGloves.setType("Gloves");
 
     Shoes leatherShoes("leather",2);
     leatherShoes.setName("Leather Shoes");
+    leatherShoes.setType("Shoes");
 
     Shield leatherShield("leather",2);
     leatherShield.setName("Leather Shield");
+    leatherShield.setType("Shield");
 
     Helmet metalHelmet("metal", 3);
     metalHelmet.setName("Metal Helmet");
+    metalHelmet.setType("Helmet");
 
     Breastplate metalBreastplate("metal",3);
     metalBreastplate.setName("Metal Breastplate");
+    metalBreastplate.setType("Breastplate");
 
     Gloves metalGloves("metal",3);
     metalGloves.setName("Metal Gloves");
+    metalGloves.setType("Gloves");
 
     Shoes metalShoes("metal", 3);
     metalShoes.setName("Metal Shoes");
+    metalShoes.setType("Shoes");
 
     Shield metalShield("metal", 3);
     metalShield.setName("Metal Shield");
+    metalShield.setType("Shield");
 
     Helmet crystalHelmet("crystal",5);
     crystalHelmet.setName("Crystal Helmet");
+    crystalHelmet.setType("Helmet");
 
     Breastplate crystalBreastplate("crystal",5);
     crystalBreastplate.setName("Crystal Breastplate");
+    crystalBreastplate.setType("Breastplate");
 
     Gloves crystalGloves("crystal",5);
     crystalGloves.setName("Crystal Gloves");
+    crystalGloves.setType("Gloves");
 
     Shoes crystalShoes("crystal",5);
     crystalShoes.setName("Crystal Shoes");
+    crystalShoes.setType("Shoes");
 
     Shield crystalShield("crystal",5);
     crystalShield.setName("Crystal Shield");
+    crystalShield.setType("Shield");
 
     leatherArmorVector.push_back(leatherHelmet);
     leatherArmorVector.push_back(leatherBreastplate);
@@ -1040,7 +1432,6 @@ void pushBackWeaponOntoVector(Weapon itemToPush, vector <Weapon> &weaponVector)
 
     return;
 }
-
 
 //creates weapons and pushes onto weaponsVector
 void initializeDaggerVector(vector <Weapon> &daggerVector)
@@ -2188,11 +2579,12 @@ Weapon chooseWeapon(vector <Weapon> weaponVector)
 //Picks a random number of items to place in a room once the room is entered
 int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions)
 {
+    ofstream oFile("test.txt");
+
     int spaceCounter = 0;
     int itemsToCreate = 0;
-    int numOfSpacesPerItem = 15;
-
-    for(int x = 0; x < 500; x++)
+    int numOfSpacesPerItem = 10;
+   /* for(int x = 0; x < 500; x++)
     {
         for(int y = 0; y < 500; y++)
         {
@@ -2214,10 +2606,16 @@ int numOfItems(char symbolArray[500][500],vector <Location> &possiblePositions)
                 }
             }
         }
-    }
+    }*/
+
+    //oFile << "PossiblePositions.size()" << possiblePositions.size() << endl;
+    //oFile << "numOfSpacesPerItem" << numOfSpacesPerItem << endl;
+
 
     //1 item for every 15 spaces
-    itemsToCreate = spaceCounter/numOfSpacesPerItem;
+    itemsToCreate = possiblePositions.size() / 50;
+
+    //oFile << "Items to create: " << itemsToCreate << endl;
 
     return itemsToCreate;
 }
@@ -2309,6 +2707,8 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             consumableVector.push_back(Consumable3);
             consumableVector.push_back(Consumable4);
             consumableVector.push_back(Consumable5);
+
+            return;
         }
         else//magic
         {
@@ -2332,6 +2732,8 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             consumableVector.push_back(Consumable3);
             consumableVector.push_back(Consumable4);
             consumableVector.push_back(Consumable5);
+
+            return;
         }
 
     }//end of 5 pack(1-3)
@@ -2357,6 +2759,8 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             consumableVector.push_back(Consumable2);
             consumableVector.push_back(Consumable3);
             consumableVector.push_back(Consumable4);
+
+            return;
         }
         else//magic
         {
@@ -2376,6 +2780,8 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             consumableVector.push_back(Consumable2);
             consumableVector.push_back(Consumable3);
             consumableVector.push_back(Consumable4);
+
+            return;
         }//end of magic(4-8)
 
     }//end of 4 pack(4-8)
@@ -2397,6 +2803,7 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             consumableVector.push_back(Consumable1);
             consumableVector.push_back(Consumable2);
             consumableVector.push_back(Consumable3);
+            return;
         }
         else//magic
         {
@@ -2412,6 +2819,8 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             consumableVector.push_back(Consumable1);
             consumableVector.push_back(Consumable2);
             consumableVector.push_back(Consumable3);
+
+            return;
         }//end of magic(9-15)
 
     }//end of 3 pack(9-15)
@@ -2429,6 +2838,8 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
 
             consumableVector.push_back(Consumable1);
             consumableVector.push_back(Consumable2);
+
+            return;
         }
         else//magic
         {
@@ -2440,6 +2851,8 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
 
             consumableVector.push_back(Consumable1);
             consumableVector.push_back(Consumable2);
+
+            return;
 
         }//end of magic(16-15)
 
@@ -2454,6 +2867,7 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             newConsumable = chooseConsumable(healthPotionVector);
 
             consumableVector.push_back(newConsumable);
+            return;
         }//end of health(26-40)
         else//magic
         {
@@ -2461,6 +2875,7 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             newConsumable = chooseConsumable(magicPotionVector);
 
             consumableVector.push_back(newConsumable);
+            return;
         }//end of magic(26-40)
     }//end of 1 potion(26-40)
     else if(roll >= minArmor && roll <= maxArmor)//armor
@@ -2508,18 +2923,21 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             newArmor = chooseArmor(leatherArmorVector);//0-first leather item in armorVector; 4 = last leather item
 
             armorVector.push_back(newArmor);
+            return;
         }
         else if (roll >= minMetal && roll <= maxMetal)
         {
             newArmor = chooseArmor(metalArmorVector);
 
             armorVector.push_back(newArmor);
+            return;
         }
         else if (roll >= minCrystal && roll <= maxCrystal)
         {
             newArmor = chooseArmor(crystalArmorVector);
 
             armorVector.push_back(newArmor);
+            return;
         }
     }//end of armor(41-70)
     else if(roll >= minWeapons && roll <= maxWeapons)//weapons
@@ -2673,24 +3091,31 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
             newWeapon = chooseWeapon(daggerVector);
 
             weaponVector.push_back(newWeapon);
+
+            return;
         }
         else if(roll >= minClub && roll <= maxClub)
         {
             newWeapon = chooseWeapon(clubVector);
 
             weaponVector.push_back(newWeapon);
+
+            return;
         }
         else if(roll >= minHeavyMace && roll <= maxHeavyMace)
         {
             newWeapon = chooseWeapon(heavyMaceVector);
 
             weaponVector.push_back(newWeapon);
+            return;
         }
         else if(roll >= minSpear && roll <= maxSpear)
         {
             newWeapon = chooseWeapon(spearVector);
 
             weaponVector.push_back(newWeapon);
+
+            return;
         }
         else if(roll >= minArrows && roll <= maxArrows)
         {
@@ -2739,30 +3164,40 @@ void itemChoice(character player, vector <Consumable> &consumableVector,vector <
                 arrows.setName("19 Arrows");
 
             weaponVector.push_back(arrows);
+
+            return;
         }
         else if(roll >= minLCrossbow && roll <= maxLCrossbow)
         {
             newWeapon = chooseWeapon(lightCrossBowVector);
 
             weaponVector.push_back(newWeapon);
+
+            return;
         }
         else if(roll >= minLongBow && roll <= maxLongBow)
         {
             newWeapon = chooseWeapon(longBowVector);
 
             weaponVector.push_back(newWeapon);
+
+            return;
         }
         else if(roll >= minBattleaxe && roll <= maxBattleaxe)
         {
             newWeapon = chooseWeapon(battleaxeVector);
 
             weaponVector.push_back(newWeapon);
+
+            return;
         }
         else if(roll >= minHCrossbow && roll <= maxHCrossbow)
         {
             newWeapon = chooseWeapon(heavyCrossBowVector);
 
             weaponVector.push_back(newWeapon);
+
+            return;
         }
 
     }//end of weapons(71-100)
@@ -2787,7 +3222,6 @@ void removePosition(vector <Location> &possiblePositions,int XtoClear, int YtoCl
 void positions(char symbolArray[500][500], vector <Consumable> consumableVector,vector <Armor> armorVector,
                vector <Weapon> weaponVector,vector <Location> &possiblePositions)
 {
-
     int numOfLocationsNeeded = consumableVector.size() + armorVector.size() + weaponVector.size();
     int chooseVector = 0;
     int position = 0;
@@ -2819,7 +3253,6 @@ void positions(char symbolArray[500][500], vector <Consumable> consumableVector,
             symbolArray[itemX][itemY] = 'w';
         }
     }
-
     return;
 }
 
@@ -2897,7 +3330,6 @@ Consumable findConsumable(vector<Consumable> consumabeVector,int Xposition, int 
     }
 }
 
-
 //find armor with xPosition and yPosition
 Armor findArmor(vector <Armor> armorVector,int xPosition, int yPosition)
 {
@@ -2925,7 +3357,7 @@ Weapon findWeapon(vector <Weapon> weaponVector, int xPosition, int yPosition)
 //checks if player is standind on item
 void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
                   vector <Armor> armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
-                  Inventory &playerInventory,vector <Location> possiblePositions)
+                  Inventory &playerInventory,vector <Location> possiblePositions,Equipped playerEquipped)
 {
     wclear(workingWindow);
 
@@ -2964,12 +3396,9 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
         currentString = "Would you like to use item,";
         characterPointer = &currentString.at(0);
         mvwprintw(workingWindow,4,3,characterPointer);
-        currentString = " place item in your inventory or";
+        currentString = " place item in your inventory?(Y/U)";
         characterPointer = &currentString.at(0);
         mvwprintw(workingWindow,5,3,characterPointer);
-        currentString = "move along?(Y/U/M)";
-        characterPointer = &currentString.at(0);
-        mvwprintw(workingWindow,6,3,characterPointer);
 
         int ch = getch();
         int position = 0;
@@ -2989,13 +3418,36 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
             if(itemToUse.getMagicAffect() == "Strengthen Armor")
             {
                 wclear(workingWindow);
-                currentString = "Which piece of armor would you like";
+
+                currentString = "Would you like to strengthen a piece";
                 characterPointer = &currentString.at(0);
                 mvwprintw(workingWindow,1,1,characterPointer);
-                currentString = " to strengthen?";
+                currentString = "of armor in your inventory or a piece";
                 characterPointer = &currentString.at(0);
                 mvwprintw(workingWindow,2,1,characterPointer);
-                playerInventory.printArmorOnCertainLine(workingWindow,3);
+                currentString = "currently equipped?(I/E)";
+                characterPointer = &currentString.at(0);
+                mvwprintw(workingWindow,3,1,characterPointer);
+
+                if(ch == 'E' || ch == 'e')
+                {
+                    currentString = "Which piece of armor would you like";
+                    characterPointer = &currentString.at(0);
+                    mvwprintw(workingWindow,1,1,characterPointer);
+                    currentString = " to strengthen?";
+                    characterPointer = &currentString.at(0);
+                    mvwprintw(workingWindow,2,1,characterPointer);
+                }
+                if(ch == 'I' || ch == 'i')
+                {
+                    currentString = "Which piece of armor would you like";
+                    characterPointer = &currentString.at(0);
+                    mvwprintw(workingWindow,1,1,characterPointer);
+                    currentString = " to strengthen?";
+                    characterPointer = &currentString.at(0);
+                    mvwprintw(workingWindow,2,1,characterPointer);
+
+                }
 
                 if(ch == '1')
                     position = 0;
@@ -3015,28 +3467,6 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
                     position = 7;
                 else if(ch == '9')
                     position = 8;
-                else if(ch == '10')
-                    position = 9;
-                else if(ch == '11')
-                    position = 10;
-                else if(ch == '12')
-                    position = 11;
-                else if(ch == '13')
-                    position = 12;
-                else if(ch == '14')
-                    position = 13;
-                else if(ch == '15')
-                    position = 14;
-                else if(ch == '16')
-                    position = 15;
-                else if(ch == '17')
-                    position = 16;
-                else if(ch == '18')
-                    position = 17;
-                else if(ch == '19')
-                    position = 18;
-                else if(ch == '20')
-                    position = 19;
 
                 int newStrength = playerInventory.getArmorPiece(position).getStrength();
                 newStrength = newStrength + itemToUse.getMagicValue();
@@ -3085,28 +3515,6 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
                     position = 7;
                 else if(ch == '9')
                     position = 8;
-                else if(ch == '10')
-                    position = 9;
-                else if(ch == '11')
-                    position = 10;
-                else if(ch == '12')
-                    position = 11;
-                else if(ch == '13')
-                    position = 12;
-                else if(ch == '14')
-                    position = 13;
-                else if(ch == '15')
-                    position = 14;
-                else if(ch == '16')
-                    position = 15;
-                else if(ch == '17')
-                    position = 16;
-                else if(ch == '18')
-                    position = 17;
-                else if(ch == '19')
-                    position = 18;
-                else if(ch == '20')
-                    position = 19;
 
                 int newMaxDamage = playerInventory.getWeapon(position).getMaxDamage() + itemToUse.getMagicValue();
 
@@ -3175,7 +3583,7 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
         currentString = "Would you like to place item in your";
         characterPointer = &currentString.at(0);
         mvwprintw(workingWindow,4,3,characterPointer);
-        currentString = "inventory?(Enter for yes)";
+        currentString = "inventory or equip it?(Y/E)";
         characterPointer = &currentString.at(0);
         mvwprintw(workingWindow,5,3,characterPointer);
 
@@ -3190,6 +3598,29 @@ void checkForItem(character player,char symbolArray[500][500],vector <Consumable
             wclear(workingWindow);
             playerInventory.printInventoryArrays(workingWindow);
             return;
+        }
+        if(ch == 'e')
+        {
+            if(itemToUse.getCategory() == "Helmet")
+            {
+                playerEquipped.setHelmetEquipped(itemToUse);
+            }
+            else if(itemToUse.getCategory() == "Breastplate")
+            {
+                playerEquipped.setBreastplateEquipped(itemToUse);
+            }
+            else if(itemToUse.getCategory() == "Gloves")
+            {
+                playerEquipped.setGlovesEquipped(itemToUse);
+            }
+            else if(itemToUse.getCategory() == "Shoes")
+            {
+                playerEquipped.setShoesEquipped(itemToUse);
+            }
+            else if(itemToUse.getCategory() == "Shield")
+            {
+                playerEquipped.setShieldEquipped(itemToUse);
+            }
         }
     }
     else if(symbolArray[currentX][currentY] == 'w')

@@ -123,6 +123,7 @@ private:
 class Helmet: public Armor
 {
 public:
+    Helmet();
     Helmet(string type,int strength);
     ~Helmet();
 private:
@@ -131,6 +132,7 @@ private:
 class Breastplate: public Armor
 {
 public:
+    Breastplate();
     Breastplate(string type,int strength);
     ~Breastplate();
 private:
@@ -139,6 +141,7 @@ private:
 class Gloves: public Armor
 {
 public:
+    Gloves();
     Gloves(string type,int strength);
     ~Gloves();
 private:
@@ -147,6 +150,7 @@ private:
 class Shoes: public Armor
 {
 public:
+    Shoes();
     Shoes(string type,int strength);
     ~Shoes();
 private:
@@ -155,6 +159,7 @@ private:
 class Shield: public Armor
 {
 public:
+    Shield();
     Shield(string type,int strength);
     ~Shield();
 private:
@@ -199,6 +204,60 @@ private:
     bool inventoryFull;
     int lineCounter;
     int counter;
+};
+
+class Equipped
+{
+public:
+    Equipped();
+    void setHelmetEquipped(Armor newHelmet);
+    Armor getHelmetEquipped();
+    void setBreastplateEquipped(Armor newBreastplate);
+    Armor getBreastPlateEquipped();
+    void setGlovesEquipped(Armor newGloves);
+    Armor getGlovesEquipped();
+    void setShoesEquipped(Armor newShoes);
+    Armor getShoesEquipped();
+    void setShieldEquipped(Armor newShield);
+    Armor getShieldEquipped();
+    void setWeaponEquipped(Weapon newWeapon);
+    Weapon getWeaponEquipped();
+    void printEquipped(WINDOW * statusWindow);
+    void printEquippedHelmet(WINDOW * statusWindow);
+    void printEquippedBreastplate(WINDOW * statusWindow);
+    void printEquippedGloves(WINDOW * statusWindow);
+    void printEquippedShoes(WINDOW * statusWindow);
+    void printEquippedShield(WINDOW * statusWindow);
+    void printEquippedWeapon(WINDOW * statusWindow);
+    int getNumEquipped();
+    void setHelmetOn(bool helmetOn);
+    void setBreastplateOn(bool breastplateOne);
+    void setGlovesOn(bool glovesOne);
+    void setShoesOn(bool shoesOn);
+    void setShieldOn(bool shieldOn);
+    void setWeaponOn(bool weaponOn);
+    bool getHelmetOn();
+    bool getBreastplateOn();
+    bool getGlovesOn();
+    bool getShoesOn();
+    bool getShieldOn();
+    bool getWeaponOn();
+private:
+    Armor equippedHelmet;
+    Armor equippedBreastplate;
+    Armor equippedGloves;
+    Armor equippedShoes;
+    Armor equippedShield;
+    Weapon equippedWeapon;
+    int numEquipped;
+    int trueCounter;
+    int falseCounter;
+    bool helmetOn;
+    bool breastplateOn;
+    bool glovesOn;
+    bool shoesOn;
+    bool shieldOn;
+    bool weaponOn;
 };
 
 
@@ -278,7 +337,7 @@ Consumable findConsumable(vector<Consumable> consumabeVector,int Xposition, int 
 //checks if item is in current position
 void checkForItem(character player,char symbolArray[500][500],vector <Consumable> consumableVector,
                   vector <Armor> armorVector,vector <Weapon> weaponVector, WINDOW * workingWindow,
-                  Inventory &playerInventory,vector <Location> possiblePositions);
+                  Inventory &playerInventory,vector <Location> possiblePositions,Equipped playerEquipped);
 
 //prints consumable stats
 void printConsumableWindow(Consumable consumableToUse, WINDOW * messageWindow,
